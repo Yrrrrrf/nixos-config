@@ -170,7 +170,7 @@ in
     '';
 
     "yazi/yazi.toml".text = ''
-      [manager]
+      [mgr]
       show_hidden = true
       [opener]
       edit = [ { run = 'hx "$@"', block = true } ]
@@ -183,7 +183,7 @@ in
 
   };
 
-  # --- Custom User Scripts ---
+  # --- Custom scripts ---
   home.file = {
     # This deploys the consolidated Asus helper script to ~/.local/bin.
     ".local/bin/asus-helper" = {
@@ -191,6 +191,5 @@ in
       source = ../scripts/asus-helper.sh;
     };
 
-    # Here we can add some ...
   };
 }
