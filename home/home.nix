@@ -104,6 +104,8 @@ in
 
     ;
 
+  services.gnome-keyring.enable = true;
+
   # --- Program Configurations ---
   programs.zsh = {
     enable = true;

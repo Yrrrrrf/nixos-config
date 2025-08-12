@@ -1,6 +1,7 @@
 
 # ❄️ My NixOS Configuration
 
+
 Welcome to my personal NixOS configuration! This repository contains the complete, declarative setup for my daily driver, built with [NixOS](https://nixos.org/), [Hyprland](https://hyprland.org/), and [Home Manager](https://github.com/nix-community/home-manager). The entire system, from the bootloader and kernel to my shell aliases and application themes, is managed by Nix.
 
 The core philosophy is **modularity** and **reproducibility**. This setup is designed to be easily understood, maintained, and deployed on new machines with minimal effort.
