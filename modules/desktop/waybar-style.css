@@ -1,0 +1,140 @@
+/* /etc/nixos/modules/home/desktop/waybar-style.css */
+/* Based on the "floating islands" style with Catppuccin Mocha colors */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 16px;
+    min-height: 0;
+}
+
+/* The whole bar */
+window#waybar {
+    background: transparent;
+    color: #cdd6f4; /* Catppuccin Text */
+}
+
+/* Each module group */
+.modules-left, .modules-center, .modules-right {
+    background-color: #1E1E2E; /* Catppuccin Base */
+    border: 1px solid #45475A; /* Catppuccin Surface1 */
+    border-radius: 12px;
+    margin: 4px 0;
+}
+
+/* Each module */
+#custom-profile,
+#custom-logo,
+#clock,
+#workspaces,
+#hyprland-window,
+#pulseaudio,
+#cpu,
+#network,
+#bluetooth,
+#battery,
+#custom-power {
+    padding: 2px 12px;
+}
+
+/* --- Profile Picture Style --- */
+#custom-profile {
+    background-image: url("/home/yrrrrrf/Pictures/Images/fire.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%; /* This makes the widget circular */
+    margin-left: 6px;   /* Add some space */
+    margin-right: 6px;
+    padding: 0;         /* Override default padding */
+    min-width: 30px;    /* Set a fixed size */
+    min-height: 30px;
+}
+#custom-profile:hover {
+    background-color: #1E1E2E; /* Prevent color change on hover */
+}
+
+/* --- Individual Module Styles --- */
+#custom-logo {
+    color: #89b4fa; /* Catppuccin Blue */
+    font-size: 20px;
+}
+
+#clock {
+    color: #cba6f7; /* Catppuccin Mauve */
+}
+
+#hyprland-window {
+    font-weight: bold;
+    color: #f5e0dc; /* Catppuccin Rosewater */
+    padding: 2px 15px;
+    margin: 0 10px;
+    border-radius: 10px;
+    border: 1px solid #45475A;
+    font-weight: bold;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    color: #6c7086; /* Catppuccin Surface2 */
+    background-color: transparent;
+}
+
+#workspaces button:hover {
+    background-color: #313244; /* Catppuccin Surface0 */
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#workspaces button.active {
+    color: #a6e3a1; /* Catppuccin Green */
+}
+
+#pulseaudio {
+    color: #f9e2af; /* Catppuccin Yellow */
+}
+
+#pulseaudio.muted, #pulseaudio-mic.muted {
+    color: #f38ba8; /* Catppuccin Red */
+}
+
+#cpu {
+    color: #fab387; /* Catppuccin Peach */
+}
+
+#network {
+    color: #94e2d5; /* Catppuccin Teal */
+}
+
+#network.disconnected {
+    color: #f38ba8; /* Catppuccin Red */
+}
+
+#bluetooth {
+    color: #89b4fa; /* Catppuccin Blue */
+}
+
+#bluetooth.disabled, #bluetooth.off {
+    color: #6c7086; /* Catppuccin Surface2 */
+}
+
+#battery {
+    color: #a6e3a1; /* Catppuccin Green */
+}
+
+#battery.charging, #battery.plugged {
+    color: #a6e3a1;
+}
+
+#battery.warning {
+    color: #f9e2af; /* Catppuccin Yellow */
+}
+
+#battery.critical {
+    color: #f38ba8; /* Catppuccin Red */
+}
+
+#custom-power {
+    color: #f38ba8; /* Catppuccin Red */
+    margin-right: 4px;
+}
