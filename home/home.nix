@@ -126,6 +126,7 @@ in
       # window manager shortcuts
       uwsm-init = "uwsm start select";
       hypr-init = "Hyprland -c /etc/nixos/modules/hyprland/hyprland.conf";
+      #hypr-init = "dbus-run-session Hyprland -c /etc/nixos/modules/hyprland/hyprland.conf";
     };
 
     initContent =
@@ -147,7 +148,7 @@ in
     userEmail = user.email;
 
     extraConfig = {
-      credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+      # credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
       init.defaultBranch = "main";
     };
     

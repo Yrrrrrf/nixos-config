@@ -25,7 +25,6 @@
     # For audio and system utilities (needed by Pygame mixer)
     alsa-lib # Provides audio backend libraries
 
-
     SDL2
     SDL2_ttf
     SDL2_net
@@ -35,6 +34,9 @@
     SDL2_image
 
     glib     # Provides gthread, among other things
+
+    # teams
+    libreoffice-qt6-fresh
   ];
 
   # --- Core System & Monitoring Tools ---
@@ -62,6 +64,7 @@
     hyprshot    # A modern screenshot tool designed for Hyprland.
     cliphist    # Clipboard history manager.
     wl-clipboard  # Provides wl-copy and wl-paste for Wayland clipboard integration.
+    cheese      # camera utils!
   ];
 
   # --- Modern Command-Line Replacements ---
@@ -103,7 +106,6 @@
     
     lazygit     # A terminal UI for git commands.
     lazydocker  # A terminal UI for docker & podman.
-
 
   ];
 
