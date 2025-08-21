@@ -9,6 +9,10 @@
 let
   user = import ./user.nix;
 
+  unstable = import <unstable> {
+    config.allowUnfree = true;
+  };
+
   # Pin external dependencies to ensure reproducible builds across machines and time.
   # Using fetchTarball is good; migrating to Flakes is the next evolution.
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
@@ -46,7 +50,49 @@ in
   nixpkgs.config.allowUnfree = true;
 
   services.podman.enable = true;
-  
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      ollama = unstable.ollama;
+    })
+  ];
+
+  # 1. Allow proprietary NVIDIA drivers to be installed.
+  # We use a predicate to only allow specific packages for security.
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkg.pname or "") [
+    "nvidia-x11"
+    "nvidia-settings"
+    # Add the CUDA packages required by Ollama
+    "cuda_cudart"
+    "libcublas"
+  ];
+
+  # 2. Enable OpenGL and the NVIDIA graphics driver.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
+
+  # 3. Configure the NVIDIA driver.
+  hardware.nvidia = {
+    # Use the open-source kernel module, recommended for RTX 20-series and newer.
+    open = true;
+
+    # Enable Nvidia settings and power management.
+    nvidiaSettings = true;
+    powerManagement.enable = true;
+  };
+
+  # 4. Enable the Ollama service and turn on CUDA acceleration.
+
+  nix.settings = {
+    extra-substituters = [ "https://cuda-maintainers.cachix.org" ];
+    extra-trusted-public-keys = [ "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9jyUG0VpZa7CNfq55E=" ];
+  };
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
   # Define the system user account. This is a prerequisite for Home Manager.
   users.users.${user.username} = {
     isNormalUser = true;
