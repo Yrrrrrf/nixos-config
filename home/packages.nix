@@ -34,9 +34,6 @@
     SDL2_image
 
     glib     # Provides gthread, among other things
-
-    # teams
-    libreoffice-qt6-fresh
   ];
 
   # --- Core System & Monitoring Tools ---
@@ -126,5 +123,8 @@
     firefox     # A free and open-source web browser.
     brave       # A privacy-focused web browser.
     thunderbird # Full-featured e-mail client.
+
+    mendeley
+    libreoffice-qt6-fresh
   ];
 }
