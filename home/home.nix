@@ -154,6 +154,25 @@ in
     
   };
 
+  programs.wezterm = {
+    enable = true;
+    # This embeds the Lua configuration directly into our Nix file.
+    extraConfig = ''
+      -- Pull in the wezterm API
+      local wezterm = require 'wezterm'
+      local config = {}
+
+      -- Use the MONO variant of the Nerd Font for perfect alignment
+      config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+
+      -- Here you can add any other Wezterm settings you like in the future.
+      -- For example, to set the color scheme:
+      -- config.color_scheme = 'Catppuccin Mocha'
+
+      return config
+    '';
+  };
+
   # --- Declarative .desktop files for Native Wayland ---
   xdg.desktopEntries = {
     "obsidian" = {
@@ -192,6 +211,16 @@ in
     ".local/bin/asus-helper" = {
       executable = true;
       source = ../scripts/asus-helper.sh;
+    };
+
+    ".local/bin/keyboard-helper" = {
+      executable = true;
+      source = ../scripts/keyboard-helper.sh;
+    };
+
+    ".local/bin/mic-helper" = {
+      executable = true;
+      source = ../scripts/mic-helper.sh;
     };
 
   };

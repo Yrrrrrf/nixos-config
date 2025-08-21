@@ -1,140 +1,103 @@
 /* /etc/nixos/modules/home/desktop/waybar-style.css */
-/* Based on the "floating islands" style with Catppuccin Mocha colors */
+/* FINAL CORRECTED VERSION: Island for Left/Center, Pills for Right, Independent Mute States */
 
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font";
+    font-family: "JetBrainsMono Nerd Font Propo";
     font-size: 16px;
     min-height: 0;
 }
 
-/* The whole bar */
 window#waybar {
     background: transparent;
-    color: #cdd6f4; /* Catppuccin Text */
+    color: #cdd6f4;
 }
 
-/* Each module group */
-.modules-left, .modules-center, .modules-right {
-    background-color: #1E1E2E; /* Catppuccin Base */
-    border: 1px solid #45475A; /* Catppuccin Surface1 */
+/* === Floating island style for Left and Center groups === */
+.modules-left,
+.modules-center {
+    background-color: #313244;
+    border: 1px solid #45475A;
     border-radius: 12px;
     margin: 4px 0;
 }
 
-/* Each module */
-#custom-profile,
-#custom-logo,
-#clock,
-#workspaces,
-#hyprland-window,
+/* The right group is a transparent container for the individual pills */
+.modules-right {
+    background-color: transparent;
+}
+
+/* === Rule for all right-side pill modules === */
 #pulseaudio,
+#custom-mic,
 #cpu,
 #network,
 #bluetooth,
 #battery,
-#custom-power {
-    padding: 2px 12px;
+#custom-asus-profile,
+#custom-keyboard-layout {
+    background-color: #313244;
+    padding: 4px 14px;
+    margin: 0 4px;
+    border-radius: 10px;
+    border: 1px solid #45475A;
 }
 
-/* --- Profile Picture Style --- */
+/* === Center Module: Distinct style === */
+#hyprland-window {
+    border: 1px solid #cdd6f4;
+    border-radius: 10px;
+    padding: 2px 15px;
+    margin: 0 10px;
+    font-weight: bold;
+    color: #cdd6f4;
+}
+
+/* --- Left Side Modules --- */
 #custom-profile {
     background-image: url("/home/yrrrrrf/Pictures/Images/fire.png");
     background-size: cover;
     background-position: center;
-    border-radius: 50%; /* This makes the widget circular */
-    margin-left: 6px;   /* Add some space */
-    margin-right: 6px;
-    padding: 0;         /* Override default padding */
-    min-width: 30px;    /* Set a fixed size */
+    border-radius: 50%;
+    margin: 0 6px;
+    padding: 0;
+    min-width: 30px;
     min-height: 30px;
 }
-#custom-profile:hover {
-    background-color: #1E1E2E; /* Prevent color change on hover */
+#clock { padding: 2px 12px; }
+#workspaces button { padding: 0 5px; color: #6c7086; background-color: transparent; }
+#workspaces button:hover { background-color: #1E1E2E; }
+#workspaces button.active { color: #a6e3a1; }
+
+/* --- Color Theming for Right Side Modules --- */
+#pulseaudio,
+#custom-mic { color: #f9e2af; }
+
+/* === This rule ONLY affects the speaker module === */
+#pulseaudio.muted {
+    color: #f38ba8;
 }
 
-/* --- Individual Module Styles --- */
-#custom-logo {
-    color: #89b4fa; /* Catppuccin Blue */
-    font-size: 20px;
+/* === This rule ONLY affects the mic module === */
+#custom-mic.muted {
+    color: #f38ba8;
 }
 
-#clock {
-    color: #cba6f7; /* Catppuccin Mauve */
-}
+#cpu { color: #fab387; }
+#network { color: #94e2d5; }
+#network.disconnected { color: #f38ba8; }
+#bluetooth { color: #89b4fa; }
+#battery { color: #a6e3a1; }
+#battery.warning { color: #f9e2af; }
+#battery.critical { color: #f38ba8; }
 
-#hyprland-window {
-    font-weight: bold;
-    color: #f5e0dc; /* Catppuccin Rosewater */
-    padding: 2px 15px;
-    margin: 0 10px;
+/* --- Special style for the Power button --- */
+#custom-power {
+    color: #1e1e2e;
+    background-color: #f38ba8;
     border-radius: 10px;
     border: 1px solid #45475A;
-    font-weight: bold;
-}
-
-#workspaces button {
-    padding: 0 5px;
-    color: #6c7086; /* Catppuccin Surface2 */
-    background-color: transparent;
-}
-
-#workspaces button:hover {
-    background-color: #313244; /* Catppuccin Surface0 */
-    box-shadow: inherit;
-    text-shadow: inherit;
-}
-
-#workspaces button.active {
-    color: #a6e3a1; /* Catppuccin Green */
-}
-
-#pulseaudio {
-    color: #f9e2af; /* Catppuccin Yellow */
-}
-
-#pulseaudio.muted, #pulseaudio-mic.muted {
-    color: #f38ba8; /* Catppuccin Red */
-}
-
-#cpu {
-    color: #fab387; /* Catppuccin Peach */
-}
-
-#network {
-    color: #94e2d5; /* Catppuccin Teal */
-}
-
-#network.disconnected {
-    color: #f38ba8; /* Catppuccin Red */
-}
-
-#bluetooth {
-    color: #89b4fa; /* Catppuccin Blue */
-}
-
-#bluetooth.disabled, #bluetooth.off {
-    color: #6c7086; /* Catppuccin Surface2 */
-}
-
-#battery {
-    color: #a6e3a1; /* Catppuccin Green */
-}
-
-#battery.charging, #battery.plugged {
-    color: #a6e3a1;
-}
-
-#battery.warning {
-    color: #f9e2af; /* Catppuccin Yellow */
-}
-
-#battery.critical {
-    color: #f38ba8; /* Catppuccin Red */
-}
-
-#custom-power {
-    color: #f38ba8; /* Catppuccin Red */
-    margin-right: 4px;
+    padding: 4px 14px;
+    margin-left: 8px;
 }
