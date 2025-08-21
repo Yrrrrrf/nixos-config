@@ -97,13 +97,7 @@
     bun         # A fast, all-in-one JavaScript toolkit (runtime, bundler, test runner).
     deno        # A modern and secure runtime for JavaScript and TypeScript.
 
-    podman      # A daemonless container engine for OCI containers (Docker alternative).
-    docker
-    docker-compose
-    
-    lazygit     # A terminal UI for git commands.
-    lazydocker  # A terminal UI for docker & podman.
-
+    lazygit     # A terminal UI for git commands
   ];
 
   # --- Development IDEs & GUI Tools ---
@@ -124,7 +118,7 @@
     brave       # A privacy-focused web browser.
     thunderbird # Full-featured e-mail client.
 
-    mendeley
+    mendeley    # Reference editor...
     libreoffice-qt6-fresh
   ];
 }

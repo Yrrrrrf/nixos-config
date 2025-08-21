@@ -35,6 +35,7 @@ in
     ./modules/system/core.nix      # Bootloader, timezone, locale, system packages.
     ./modules/system/fonts.nix     # System-wide font configuration.
     ./modules/system/services.nix  # System daemons like Pipewire, PostgreSQL, etc.
+    ./modules/system/podman.nix    # podman & containers...
   ];
 
   # --- Global System Settings ---
@@ -44,11 +45,13 @@ in
   # Allow the installation of proprietary packages.
   nixpkgs.config.allowUnfree = true;
 
+  services.podman.enable = true;
+  
   # Define the system user account. This is a prerequisite for Home Manager.
   users.users.${user.username} = {
     isNormalUser = true;
     description = user.username;
-    extraGroups = [ "wheel" "networkmanager" "asus" "input" ];
+    extraGroups = [ "wheel" "networkmanager" "asus" "input" "docker" ];
     shell = pkgs.zsh;
     # This is often needed when Zsh is configured by Home Manager.
     ignoreShellProgramCheck = true;
