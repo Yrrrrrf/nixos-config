@@ -34,6 +34,12 @@
         "custom/profile" = { format = " "; tooltip = true; "tooltip-format" = "yrrrrrf"; };
         clock = { format = "{:%H:%M}"; tooltip-format = "<big>{:%D}</big>\n<tt><small>{calendar}</small></tt>"; };
         "hyprland/workspaces" = { format = "{id}"; "format-icons" = { active = ""; default = ""; }; "on-click" = "activate"; };
+        # "hyprland/workspaces" = {
+        #   # Display the workspace name (一, 二, etc.)
+        #   format = "{name}";
+        #   "on-click" = "activate";
+        # };
+
         "hyprland/window" = { format = "{title}"; "max-length" = 50; };
         
         # --- Right Side Modules ---
@@ -46,12 +52,26 @@
         "custom/power" = { format = ""; "on-click" = "${pkgs.rofi-wayland}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu"; tooltip = false; };
 
         # === The standard pulseaudio module, now ONLY for speakers ===
+        # pulseaudio = {
+        #   format = "{volume}% {icon}";
+        #   "format-muted" = "";
+        #   "format-icons" = { default = [ "" "" ]; };
+        #   "on-click" = "pavucontrol";
+        # };
+
+        # === The standard pulseaudio module, now with classic speaker icons ===
         pulseaudio = {
           format = "{volume}% {icon}";
-          "format-muted" = "";
-          "format-icons" = { default = [ "" "" ]; };
+          "format-muted" = "{volume}% 󰖁"; # The new "speaker with X" icon
           "on-click" = "pavucontrol";
+          "format-icons" = {
+            headphone = "";
+            # Classic low and high volume icons
+            default = [ "" "󰕾" ""];
+          };
         };
+
+
 
         # === The completely independent custom mic module ===
         "custom/mic" = {
