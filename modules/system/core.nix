@@ -26,6 +26,8 @@
     enable = true;
     libraries = with pkgs; [
       stdenv.cc.cc.lib
+
+      linuxPackages.nvidia_x11
     ];
   };
 
