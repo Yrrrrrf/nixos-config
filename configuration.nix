@@ -82,7 +82,6 @@ in
   };
 
   # 4. Enable the Ollama service and turn on CUDA acceleration.
-
   nix.settings = {
     extra-substituters = [ "https://cuda-maintainers.cachix.org" ];
     extra-trusted-public-keys = [ "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9jyUG0VpZa7CNfq55E=" ];
