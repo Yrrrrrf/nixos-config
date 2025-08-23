@@ -29,14 +29,21 @@ get_profile_for_waybar() {
     printf '{"text":"%s", "tooltip":"Profile: %s", "class":"%s"}\n' "$ICON" "$PROFILE" "$CLASS"
 }
 
-# Changes to the next profile and sends a notification.
+# Changes to the next profile and sends a single, updating notification.
 change_profile_and_notify() {
+    # 1. Change to the next performance profile.
     asusctl profile -n
 
+    # 2. Get the name of the new active profile.
     local PROFILE_NAME
     PROFILE_NAME=$(asusctl profile -p | grep "Active profile is" | cut -d' ' -f4)
 
-    notify-send -i "system-run" "Performance Profile Changed" "Now active: <b>${PROFILE_NAME}</b>"
+    # 3. Send the notification with a stack tag.
+    #    This ensures that this new notification will replace any
+    #    previous notification that had the same "performance_profile" tag.
+    notify-send -i "system-performance" \
+                -h string:x-dunst-stack-tag:performance_profile \
+                "Performance Profile: ${PROFILE_NAME}"
 }
 
 

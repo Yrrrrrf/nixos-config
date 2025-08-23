@@ -47,7 +47,13 @@
         network = { "format-wifi" = " {essid}"; "format-ethernet" = "󰈀 Connected"; "format-disconnected" = "󰖪 Disconnected"; "tooltip-format-wifi" = "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}"; "on-click" = "wezterm -e nmtui"; };
         bluetooth = { format = " {status}"; "format-off" = ""; "format-disabled" = " Disabled"; "format-connected" = " {device_alias}"; };
         battery = { states = { warning = 30; critical = 15; }; format = "{capacity}% {icon}"; "format-charging" = "{capacity}% "; "format-plugged" = "{capacity}% 🔌"; "format-icons" = [ "" "" "" "" "" ]; };
-        "custom/asus-profile" = { format = "{}"; tooltip = true; return-type = "json"; interval = 5; exec = "asus-helper --get"; on-click = "asus-helper --change"; };
+        "custom/asus-profile" = {
+          format = "{}";
+          tooltip = true;
+          return-type = "json";
+          interval = 5;
+          exec = "kbd-performance --get";
+          on-click = "kbd-performance --change"; };
         "custom/keyboard-layout" = {
           format = "{}";
           tooltip = true;
