@@ -49,7 +49,7 @@ in
   # Allow the installation of proprietary packages.
   nixpkgs.config.allowUnfree = true;
 
-  # services.podman.enable = true;
+  services.podman.enable = true;
 
   nixpkgs.overlays = [
     (final: prev: {
