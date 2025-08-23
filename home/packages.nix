@@ -120,5 +120,7 @@
 
     mendeley    # Reference editor...
     libreoffice-qt6-fresh
+
+    # ciscoPacketTracer8
   ];
 }

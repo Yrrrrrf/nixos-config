@@ -48,16 +48,15 @@
         bluetooth = { format = " {status}"; "format-off" = ""; "format-disabled" = " Disabled"; "format-connected" = " {device_alias}"; };
         battery = { states = { warning = 30; critical = 15; }; format = "{capacity}% {icon}"; "format-charging" = "{capacity}% "; "format-plugged" = "{capacity}% 🔌"; "format-icons" = [ "" "" "" "" "" ]; };
         "custom/asus-profile" = { format = "{}"; tooltip = true; return-type = "json"; interval = 5; exec = "asus-helper --get"; on-click = "asus-helper --change"; };
-        "custom/keyboard-layout" = { format = "{}"; tooltip = true; return-type = "json"; interval = 1; exec = "keyboard-helper --get"; on-click = "keyboard-helper --change"; };
+        "custom/keyboard-layout" = {
+          format = "{}";
+          tooltip = true;
+          return-type = "json";
+          interval = 1;
+          exec = "kbd-layout --get";
+          on-click = "kbd-layout --change";
+        };
         "custom/power" = { format = ""; "on-click" = "${pkgs.rofi-wayland}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu"; tooltip = false; };
-
-        # === The standard pulseaudio module, now ONLY for speakers ===
-        # pulseaudio = {
-        #   format = "{volume}% {icon}";
-        #   "format-muted" = "";
-        #   "format-icons" = { default = [ "" "" ]; };
-        #   "on-click" = "pavucontrol";
-        # };
 
         # === The standard pulseaudio module, now with classic speaker icons ===
         pulseaudio = {
@@ -71,15 +70,13 @@
           };
         };
 
-
-
         # === The completely independent custom mic module ===
         "custom/mic" = {
           format = "{}";
           interval = 1;
           return-type = "json";
-          exec = "mic-helper --get-status";
-          on-click = "mic-helper --toggle";
+          exec = "kbd-mic --get-status";
+          on-click = "kbd-mic --toggle";
         };
       };
     };

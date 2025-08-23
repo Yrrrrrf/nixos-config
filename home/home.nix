@@ -207,21 +207,28 @@ in
 
   # --- Custom scripts ---
   home.file = {
-    # This deploys the consolidated Asus helper script to ~/.local/bin.
-    ".local/bin/asus-helper" = {
+    # Deploy keyboard shortcut helper scripts
+    ".local/bin/kbd-performance" = {
       executable = true;
-      source = ../scripts/asus-helper.sh;
+      source = ../scripts/kbd-performance.sh;
     };
 
-    ".local/bin/keyboard-helper" = {
+    ".local/bin/kbd-layout" = {
       executable = true;
-      source = ../scripts/keyboard-helper.sh;
+      source = ../scripts/kbd-layout.sh;
     };
 
-    ".local/bin/mic-helper" = {
+    ".local/bin/kbd-mic" = {
       executable = true;
-      source = ../scripts/mic-helper.sh;
+      source = ../scripts/kbd-mic.sh;
     };
 
+    ".local/bin/kbd-backlight" = {
+      executable = true;
+      source = ../scripts/kbd-backlight.sh;
+    };
+
+    # here add some new scripts...
   };
+
 }
