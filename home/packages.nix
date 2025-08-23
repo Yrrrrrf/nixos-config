@@ -71,7 +71,6 @@
     bat         # A 'cat' clone with syntax highlighting and Git integration.
     fd          # A simple, fast, and user-friendly alternative to 'find'.
     ripgrep     # A line-oriented search tool that recursively searches for a regex pattern.
-    pgcli       # A command-line interface for PostgreSQL with autocompletion and syntax highlighting.
   ];
 
   # --- Build Tools & Dependencies ---
@@ -81,10 +80,7 @@
     stdenv.cc
     openssl
     systemd
-    autoPatchelfHook # A hook to automatically patch ELF binaries.
-
-    postgresql       # The PostgreSQL database itself.
-    postgresql.pg_config # A utility to find information about the installed PostgreSQL version.
+    # autoPatchelfHook # A hook to automatically patch ELF binaries.
   ];
 
   # --- Development Toolchains & Runtimes ---

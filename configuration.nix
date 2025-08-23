@@ -49,7 +49,7 @@ in
   # Allow the installation of proprietary packages.
   nixpkgs.config.allowUnfree = true;
 
-  services.podman.enable = true;
+  # services.podman.enable = true;
 
   nixpkgs.overlays = [
     (final: prev: {
@@ -85,11 +85,6 @@ in
   nix.settings = {
     extra-substituters = [ "https://cuda-maintainers.cachix.org" ];
     extra-trusted-public-keys = [ "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9jyUG0VpZa7CNfq55E=" ];
-  };
-
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
   };
 
   # Define the system user account. This is a prerequisite for Home Manager.

@@ -185,12 +185,6 @@ in
 
   # --- Declarative Configuration Files ---
   xdg.configFile = {
-    "pgcli/config".text = ''
-      [main]
-      multi_line = True
-      less_catty = True
-    '';
-
     "yazi/yazi.toml".text = ''
       [mgr]
       show_hidden = true
