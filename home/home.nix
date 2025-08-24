@@ -11,17 +11,20 @@ let
 
   allPkgs = import ./packages.nix { inherit pkgs; };
 
-  # vscode-insiders = import ./vscode-insiders.nix { inherit pkgs lib; };
   vscode-insiders = (pkgs.vscode.override { isInsiders = true; }).overrideAttrs (oldAttrs: rec {
-    # We use fetchTarball as shown in the wiki. It requires a different hash format.
     src = (builtins.fetchTarball {
       url = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64";
-      # We use a placeholder again. The build will fail and give us the correct hash.
-      # This hash format (nix-base32) is different from the one we got before.
       sha256 = "12jqmxah7bsg6hfa30dbdgprjqv20yhsbac97wqs58sl2hj88n3m";
     });
     version = "latest"; # The version is dynamic, so we just label it latest.
   });
+
+  #myPacketTracer = pkgs.ciscoPacketTracer8.overrideAttrs (oldAttrs: {
+  #  src = pkgs.fetchurl {
+  #    url = "file:///etc/nixos/assets/Packet_Tracer822_amd64_signed.deb";
+  #    sha256 = "1a4g1qyy08m67gq1swz2n15f0q10y0x031k5z2j0k1j0c1n1c1m1";
+  #  };
+  #});
 
   # --- Define a list of packages to build a persistent dev environment ---
   # These packages have their libraries (.so) and build files (.pc) made available.
@@ -100,7 +103,10 @@ in
     allPkgs.guiApps ++
     allPkgs.buildTools ++
 
-    [ vscode-insiders ]
+    [
+      vscode-insiders
+      #myPacketTracer
+    ]
 
     ;
 
@@ -183,10 +189,6 @@ in
     };
   };
 
-  # xdg.mimeApps.defaultApplications = {
-  #   "inode/directory" = [ "Spacedrive.desktop" ];
-  # };
-
   # --- Declarative Configuration Files ---
   xdg.configFile = {
     "yazi/yazi.toml".text = ''
@@ -205,7 +207,6 @@ in
 
   # --- Custom scripts ---
   home.file = {
-    # Deploy keyboard shortcut helper scripts
     ".local/bin/kbd-performance" = {
       executable = true;
       source = ../scripts/kbd-performance.sh;
@@ -225,14 +226,6 @@ in
       executable = true;
       source = ../scripts/kbd-backlight.sh;
     };
-
-    # here add some new scripts...
-
-    # add the spacedrive launch script!
-    # ".local/bin/launch-spacedrive" = {
-    #   executable = true;
-    #   source = ../scripts/launch-spacedrive.sh;
-    # };
 
   };
 
