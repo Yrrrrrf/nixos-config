@@ -18,8 +18,9 @@ mkdir -p "$OUTPUT_DIR"
 
 case "$1" in
   --region)
-    # Use hyprshot to capture a region, save it, and copy it to the clipboard.
-    if hyprshot -m region -o "$OUTPUT_DIR" --clipboard-only; then
+    # Capture a region. By default, hyprshot saves to the specified directory
+    # AND copies to the clipboard. The conflicting --clipboard-only flag is removed.
+    if hyprshot -m region -o "$OUTPUT_DIR"; then
       send_notification "Screenshot Captured" "Region copied and saved."
     else
       send_notification "Screenshot Cancelled" "Capture was cancelled."
@@ -27,11 +28,12 @@ case "$1" in
     ;;
 
   --screen)
-    # Use hyprshot to capture the current screen, save it, and copy it.
-    if hyprshot -m output -o "$OUTPUT_DIR" --clipboard-only; then
+    # Capture the current monitor without requiring a click by using the --current flag.
+    # It saves the file to the directory and copies it to the clipboard.
+    if hyprshot -m output --current -o "$OUTPUT_DIR"; then
       send_notification "Screenshot Captured" "Screen copied and saved."
-    else
-      send_notification "Screenshot Cancelled" "Capture was cancelled."
+    # else
+    #   send_notification "Screenshot Cancelled" "Capture was cancelled."
     fi
     ;;
 
