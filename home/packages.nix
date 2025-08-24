@@ -55,7 +55,10 @@
     hyprlock    # The screen locker for the Hyprland session.
     hypridle    # The idle daemon to trigger events (like locking) on inactivity.
     yazi        # A modern, fast terminal-based file manager.
-    xfce.thunar # A traditional, graphical file manager for when a GUI is preferred.
+
+    # xfce.thunar # A traditional, graphical file manager
+    # spacedrive  # Neo GUI file manager w/ network enhancements
+    
     dunst       # Notification daemon for displaying alerts.
     libnotify   # Provides the 'notify-send' command used in scripts.
     hyprshot    # A modern screenshot tool designed for Hyprland.

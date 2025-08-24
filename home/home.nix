@@ -183,6 +183,10 @@ in
     };
   };
 
+  # xdg.mimeApps.defaultApplications = {
+  #   "inode/directory" = [ "Spacedrive.desktop" ];
+  # };
+
   # --- Declarative Configuration Files ---
   xdg.configFile = {
     "yazi/yazi.toml".text = ''
@@ -223,6 +227,13 @@ in
     };
 
     # here add some new scripts...
+
+    # add the spacedrive launch script!
+    # ".local/bin/launch-spacedrive" = {
+    #   executable = true;
+    #   source = ../scripts/launch-spacedrive.sh;
+    # };
+
   };
 
 }
