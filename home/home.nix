@@ -86,6 +86,8 @@ in
     UV_PYTHON_DOWNLOADS = "never";
     LD_LIBRARY_PATH = lib.makeLibraryPath devInputs;
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" devInputs;
+
+    QT_QPA_PLATFORM = "wayland";
   };
 
   home.sessionPath = [
@@ -202,6 +204,11 @@ in
         { mime = "inode/x-empty", use = "edit" },
       ]
     '';
+
+    #"flameshot/flameshot.ini".text = ''
+    #  [General]
+    #  disabledNotifications=grimWarning
+    #'';
 
   };
 

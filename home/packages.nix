@@ -60,8 +60,9 @@
     libnotify   # Provides the 'notify-send' command used in scripts.
 
 
-    # hyprshot    # A modern screenshot tool designed for Hyprland.
-    flameshot	  # Photo Editor.	Annotates, edits, and saves the final image.
+    hyprshot    # A modern screenshot tool designed for Hyprland.
+    # flameshot	  # Photo Editor.	Annotates, edits, and saves the final image.
+    #(flameshot.override { enableWlrSupport = true; })
     # grim	      # Cameraman. Asks the compositor for a picture of pixels.
     # slurp       #	Frame Selector.	Securely asks the compositor to let you select a region.
 

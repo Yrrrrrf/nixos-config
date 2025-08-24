@@ -1,32 +1,35 @@
 #!/usr/bin/env bash
 #
-# A helper script for taking screenshots with Flameshot on Hyprland.
-# This script uses Flameshot's native GUI and clipboard functionality.
+# A helper script for taking fast screenshots with hyprshot on Hyprland.
+# It saves the image, copies it to the clipboard, and sends a notification.
 
 # --- FUNCTION: Send a notification ---
 # We use a stack tag to replace the previous notification.
 send_notification() {
-  notify-send -i "flameshot" \
+  notify-send -i "camera-photo" \
               -h string:x-dunst-stack-tag:screenshot_notification \
               "$1" "$2"
 }
 
 # --- Main Logic ---
+# The output directory for all screenshots.
+OUTPUT_DIR="$HOME/Pictures/Screenshots"
+mkdir -p "$OUTPUT_DIR"
+
 case "$1" in
   --region)
-    # Use 'flameshot gui -c' to capture a region and copy it to the clipboard.
-    # The 'cliphist' daemon will automatically store it from the clipboard.
-    if flameshot gui -c; then
-      send_notification "Screenshot Copied" "Region added to clipboard and history."
+    # Use hyprshot to capture a region, save it, and copy it to the clipboard.
+    if hyprshot -m region -o "$OUTPUT_DIR" --clipboard-only; then
+      send_notification "Screenshot Captured" "Region copied and saved."
     else
       send_notification "Screenshot Cancelled" "Capture was cancelled."
     fi
     ;;
 
   --screen)
-    # Use 'flameshot full -c' to capture the entire desktop and copy it.
-    if flameshot full -c; then
-      send_notification "Screenshot Copied" "Full screen added to clipboard and history."
+    # Use hyprshot to capture the current screen, save it, and copy it.
+    if hyprshot -m output -o "$OUTPUT_DIR" --clipboard-only; then
+      send_notification "Screenshot Captured" "Screen copied and saved."
     else
       send_notification "Screenshot Cancelled" "Capture was cancelled."
     fi
