@@ -207,6 +207,7 @@ in
 
   # --- Custom scripts ---
   home.file = {
+    # Keyboard Shortcut scripts
     ".local/bin/kbd-performance" = {
       executable = true;
       source = ../scripts/kbd-performance.sh;
@@ -227,6 +228,13 @@ in
       source = ../scripts/kbd-backlight.sh;
     };
 
+    # Screenshot scripts
+    ".local/bin/screenshot" = {
+      executable = true;
+      source = ../scripts/screenshot.sh;
+    };
+
   };
 
 }
+
