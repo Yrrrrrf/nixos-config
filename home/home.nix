@@ -84,9 +84,9 @@ in
   };
 
   # Use this to add some additional scripts if necessary to the session path!
-  # home.sessionPath = [
-    # "${config.home.homeDirectory}/.local/bin"
-  # ];
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+  ];
 
   # --- User-specific Packages ---
   home.packages =
