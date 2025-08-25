@@ -83,9 +83,10 @@ in
     QT_QPA_PLATFORM = "wayland";
   };
 
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.local/bin"
-  ];
+  # Use this to add some additional scripts if necessary to the session path!
+  # home.sessionPath = [
+    # "${config.home.homeDirectory}/.local/bin"
+  # ];
 
   # --- User-specific Packages ---
   home.packages =
@@ -98,14 +99,10 @@ in
     allPkgs.guiApps ++
     allPkgs.buildTools ++
 
-    [
-      vscode-insiders
-      #myPacketTracer
-    ]
-
+    [ vscode-insiders ]
     ;
 
-  services.gnome-keyring.enable = true;
+  # services.gnome-keyring.enable = true;
 
   # --- Program Configurations ---
   programs.zsh = {
@@ -232,7 +229,10 @@ in
     };
 
     # Symbol link scripts!
-
+    #".local/bin/gemini" = {
+    #  source = config.home.homeDirectory + "/.bun/bin/gemini";
+    #  executable = true;
+    #};
   
     # Some other script here...
   };

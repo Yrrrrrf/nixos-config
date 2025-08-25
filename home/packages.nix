@@ -126,5 +126,7 @@
     mendeley    # Reference manager and academic social network
     libreoffice-qt6-fresh
     ciscoPacketTracer8
+    discord     # discord hahaha
+    
   ];
 }
