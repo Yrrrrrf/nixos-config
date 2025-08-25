@@ -19,13 +19,6 @@ let
     version = "latest"; # The version is dynamic, so we just label it latest.
   });
 
-  #myPacketTracer = pkgs.ciscoPacketTracer8.overrideAttrs (oldAttrs: {
-  #  src = pkgs.fetchurl {
-  #    url = "file:///etc/nixos/assets/Packet_Tracer822_amd64_signed.deb";
-  #    sha256 = "1a4g1qyy08m67gq1swz2n15f0q10y0x031k5z2j0k1j0c1n1c1m1";
-  #  };
-  #});
-
   # --- Define a list of packages to build a persistent dev environment ---
   # These packages have their libraries (.so) and build files (.pc) made available.
   devInputs = with pkgs; [
@@ -219,17 +212,14 @@ in
       executable = true;
       source = ../scripts/kbd-performance.sh;
     };
-
     ".local/bin/kbd-layout" = {
       executable = true;
       source = ../scripts/kbd-layout.sh;
     };
-
     ".local/bin/kbd-mic" = {
       executable = true;
       source = ../scripts/kbd-mic.sh;
     };
-
     ".local/bin/kbd-backlight" = {
       executable = true;
       source = ../scripts/kbd-backlight.sh;
@@ -241,6 +231,10 @@ in
       source = ../scripts/screenshot.sh;
     };
 
+    # Symbol link scripts!
+
+  
+    # Some other script here...
   };
 
 }

@@ -32,8 +32,6 @@ case "$1" in
     # It saves the file to the directory and copies it to the clipboard.
     if hyprshot -m output --current -o "$OUTPUT_DIR"; then
       send_notification "Screenshot Captured" "Screen copied and saved."
-    # else
-    #   send_notification "Screenshot Cancelled" "Capture was cancelled."
     fi
     ;;
 

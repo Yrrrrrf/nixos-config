@@ -120,11 +120,11 @@
     firefox     # A free and open-source web browser.
     brave       # A privacy-focused web browser.
     thunderbird # Full-featured e-mail client.
-
-    mendeley    # Reference editor...
+    gimp3       # GNU Image Manipulation Program
+    inkscape    # Vector graphics editor
+    obs-studio  # Software for video recording and live streaming
+    mendeley    # Reference manager and academic social network
     libreoffice-qt6-fresh
-
     ciscoPacketTracer8
-    
   ];
 }
