@@ -58,7 +58,6 @@ The configuration is organized into a clear directory structure to separate conc
 │       ├── controls.png
 │       └── desktop.png
 ├── scripts
-│   ├── asus-helper.sh
 │   ├── fn.sh
 │   ├── load-env.sh
 │   └── to-txt.sh

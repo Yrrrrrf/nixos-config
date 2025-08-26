@@ -38,6 +38,11 @@
     git       # Version control system, essential for development.
     vim       # A highly configurable text editor.
     asusctl   # Utility for managing ASUS laptop features (e.g., fan profiles, keyboard backlight).
+
     exfatprogs # Provides tools for the exFAT filesystem, useful for external drives.
+
+    # --- Temporary debugging tools here ---
+    #mesa-demos # Provides the 'eglinfo' command
+    #nvtop      # The GPU process monitor
   ];
 }

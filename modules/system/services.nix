@@ -6,6 +6,13 @@
 { config, pkgs, ... }:
 
 {
+  services = {
+    asusd = {
+      enable = true;
+      enableUserService = true;
+    };
+  };
+  
 
   # --- Graphical Session & Desktop Services ---
   # These are system-level components required for Hyprland and other

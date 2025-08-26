@@ -6,6 +6,8 @@
     package = pkgs.waybar;
     settings = {
       mainBar = {
+        output = "eDP-1";
+        
         layer = "top";
         position = "top";
         height = 40;

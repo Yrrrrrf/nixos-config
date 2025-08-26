@@ -12,7 +12,7 @@ let
   # Pin external dependencies to ensure reproducible builds across machines and time.
   # Using fetchTarball is good; migrating to Flakes is the next evolution.
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
-  nixos-hardware = builtins.fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
+  # nixos-hardware = builtins.fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
 in
 {
   # --- Module Imports ---
@@ -22,7 +22,7 @@ in
 
     # External modules that provide additional functionality.
     (import "${home-manager}/nixos") # Integrates Home Manager into NixOS.
-    (import "${nixos-hardware}/asus/zephyrus/ga402x/nvidia") # Laptop-specific hardware support.
+    # (import "${nixos-hardware}/asus/zephyrus/ga402x/nvidia") # Laptop-specific hardware support.
 
     # ---> Our New Modular Structure <---
     # These paths point to the modules we will create in the next steps.
@@ -98,7 +98,13 @@ in
   users.users.${user.username} = {
     isNormalUser = true;
     description = user.username;
-    extraGroups = [ "wheel" "networkmanager" "asus" "input" "docker" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "input"
+      # "video"
+      # "render"
+     ];
     shell = pkgs.zsh;
     # This is often needed when Zsh is configured by Home Manager.
     ignoreShellProgramCheck = true;
@@ -111,10 +117,11 @@ in
     useUserPackages = true;
     useGlobalPkgs = true;
     backupFileExtension = "backup";
-    # This points to the main entry point for your user's configuration.
     users.${user.username} = import ./home/home.nix;
   };
 
+  nix.gc.automatic = true;
+  nix.gc.dates = "weekly";
 
   # --- System Version ---
   # This is crucial for ensuring smooth upgrades. Do not change this value

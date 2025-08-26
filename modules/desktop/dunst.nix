@@ -25,6 +25,8 @@
       # --- Global Settings ---
       # These settings apply to all notifications unless overridden by an urgency level.
       global = {
+        monitor = 0;  # primary monitor
+        
         # --- Appearance ---
         font = "JetBrainsMono Nerd Font 10";
         format = "<b>%s</b>\\n%b"; # Summary in bold, then body
