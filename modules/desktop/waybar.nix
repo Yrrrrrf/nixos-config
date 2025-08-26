@@ -43,8 +43,18 @@
         "hyprland/window" = { format = "{title}"; "max-length" = 50; };
         
         # --- Right Side Modules ---
-        cpu = { format = " {usage}%"; "tooltip-format" = "CPU: {usage}%"; "on-click" = "wezterm -e btop"; };
-        network = { "format-wifi" = " {essid}"; "format-ethernet" = "󰈀 Connected"; "format-disconnected" = "󰖪 Disconnected"; "tooltip-format-wifi" = "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}"; "on-click" = "wezterm -e nmtui"; };
+        cpu = {
+          format = " {usage}%";
+          "tooltip-format" = "CPU: {usage}%";
+          "on-click" = "wezterm -e btop";
+        };
+        network = {
+          "format-wifi" = " {essid}";
+          "format-ethernet" = "󰈀 Connected";
+          "format-disconnected" = "󰖪 Disconnected";
+          "tooltip-format-wifi" = "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}";
+          "on-click" = "wezterm -e nmtui";
+        };
         bluetooth = { format = " {status}"; "format-off" = ""; "format-disabled" = " Disabled"; "format-connected" = " {device_alias}"; };
         battery = { states = { warning = 30; critical = 15; }; format = "{capacity}% {icon}"; "format-charging" = "{capacity}% "; "format-plugged" = "{capacity}% 🔌"; "format-icons" = [ "" "" "" "" "" ]; };
         "custom/asus-profile" = {
@@ -62,12 +72,16 @@
           exec = "kbd-layout --get";
           on-click = "kbd-layout --change";
         };
-        "custom/power" = { format = ""; "on-click" = "${pkgs.rofi-wayland}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu"; tooltip = false; };
+        "custom/power" = {
+          format = "";
+          "on-click" = "${pkgs.rofi-wayland}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu";
+          tooltip = false;
+        };
 
         # === The standard pulseaudio module, now with classic speaker icons ===
         pulseaudio = {
-          format = "{volume}% {icon}";
-          "format-muted" = "{volume}% 󰖁"; # The new "speaker with X" icon
+          format = "{icon} {volume}%";
+          "format-muted" = "󰖁 {volume}%"; # The new "speaker with X" icon
           "on-click" = "pavucontrol";
           "format-icons" = {
             headphone = "";

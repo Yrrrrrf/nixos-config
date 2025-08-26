@@ -165,7 +165,7 @@ in
 
       -- Here you can add any other Wezterm settings you like in the future.
       -- For example, to set the color scheme:
-      -- config.color_scheme = 'Catppuccin Mocha'
+      config.window_background_opacity = 0.95
 
       return config
     '';
