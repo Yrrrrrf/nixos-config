@@ -12,7 +12,7 @@ let
   # Pin external dependencies to ensure reproducible builds across machines and time.
   # Using fetchTarball is good; migrating to Flakes is the next evolution.
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
-  # nixos-hardware = builtins.fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
+  nixos-hardware = builtins.fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
 in
 {
   # --- Module Imports ---
@@ -22,8 +22,9 @@ in
 
     # External modules that provide additional functionality.
     (import "${home-manager}/nixos") # Integrates Home Manager into NixOS.
-    # (import "${nixos-hardware}/asus/zephyrus/ga402x/nvidia") # Laptop-specific hardware support.
-
+    (import "${nixos-hardware}/asus/zephyrus/ga402x/nvidia") # Laptop-specific hardware support.
+    (import "${nixos-hardware}/asus/zephyrus/ga402x/amdgpu")
+    
     # ---> Our New Modular Structure <---
     # These paths point to the modules we will create in the next steps.
     ./modules/system/core.nix      # Bootloader, timezone, locale, system packages.
@@ -81,6 +82,13 @@ in
   # 3. Configure the NVIDIA driver.
   hardware.nvidia = {
     # Use the open-source kernel module, recommended for RTX 20-series and newer.
+    #prime = {
+    #  offload.enable = true;
+    #  # Get the bus using: `lspci | grep -i vg`
+    #  amdgpuBusId = "PCI:65:0:0";
+    #  nvidiaBusId = "PCI:1:0:0";
+    #};
+ 
     open = true;
 
     # Enable Nvidia settings and power management.
@@ -120,8 +128,8 @@ in
     users.${user.username} = import ./home/home.nix;
   };
 
-  nix.gc.automatic = true;
-  nix.gc.dates = "weekly";
+  #nix.gc.automatic = true;
+  #nix.gc.dates = "weekly";
 
   # --- System Version ---
   # This is crucial for ensuring smooth upgrades. Do not change this value

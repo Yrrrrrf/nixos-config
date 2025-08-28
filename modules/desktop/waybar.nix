@@ -42,7 +42,10 @@
         #   "on-click" = "activate";
         # };
 
-        "hyprland/window" = { format = "{title}"; "max-length" = 50; };
+        "hyprland/window" = {
+          format = "{title}";
+          "max-length" = 50;
+        };
         
         # --- Right Side Modules ---
         cpu = {
@@ -57,8 +60,22 @@
           "tooltip-format-wifi" = "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}";
           "on-click" = "wezterm -e nmtui";
         };
-        bluetooth = { format = " {status}"; "format-off" = ""; "format-disabled" = " Disabled"; "format-connected" = " {device_alias}"; };
-        battery = { states = { warning = 30; critical = 15; }; format = "{capacity}% {icon}"; "format-charging" = "{capacity}% "; "format-plugged" = "{capacity}% 🔌"; "format-icons" = [ "" "" "" "" "" ]; };
+        bluetooth = {
+          format = " {status}";
+          "format-off" = "";
+          "format-disabled" = " Disabled";
+          "format-connected" = " {device_alias}";
+        };
+        battery = {
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+          format = "{icon} {capacity}%";
+          "format-charging" = " {capacity}%";
+          "format-plugged" = "🔌 {capacity}%";
+          "format-icons" = [ "" "" "" "" "" ];
+        };
         "custom/asus-profile" = {
           format = "{}";
           tooltip = true;
