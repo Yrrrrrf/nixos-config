@@ -179,6 +179,19 @@ in
       terminal = false;
       type = "Application";
     };
+
+    "cisco-pt8.desktop" = {
+      name = "Cisco Packet Tracer (Wayland)";
+      # This is the important part: we prepend the environment variable to the Exec command
+      exec = "env QT_QPA_PLATFORM=xcb packettracer8 %f";
+      # We can copy the icon and categories from the original .desktop file
+      icon = "cisco-pt8";
+      comment = "Networking simulation and visualization tool.";
+      categories = [ "Application" "Education" "Network" "Emulator" ];
+      terminal = false;
+      type = "Application";
+    };
+
   };
 
   # --- Declarative Configuration Files ---
@@ -195,7 +208,7 @@ in
       ]
     '';
 
-    #"flameshot/flameshot.ini".text = ''
+     #"flameshot/flameshot.ini".text = ''
     #  [General]
     #  disabledNotifications=grimWarning
     #'';

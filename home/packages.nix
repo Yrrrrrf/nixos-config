@@ -33,6 +33,10 @@
     SDL2_sound
     SDL2_image
 
+    #qt6.qtbase
+    #qt6.qtwayland
+    #xorg.libxcb
+
     glib     # Provides gthread, among other things
   ];
 
