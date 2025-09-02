@@ -33,10 +33,6 @@
     SDL2_sound
     SDL2_image
 
-    #qt6.qtbase
-    #qt6.qtwayland
-    #xorg.libxcb
-
     glib     # Provides gthread, among other things
   ];
 
@@ -63,12 +59,7 @@
     dunst       # Notification daemon for displaying alerts.
     libnotify   # Provides the 'notify-send' command used in scripts.
 
-
     hyprshot    # A modern screenshot tool designed for Hyprland.
-    # flameshot	  # Photo Editor.	Annotates, edits, and saves the final image.
-    #(flameshot.override { enableWlrSupport = true; })
-    # grim	      # Cameraman. Asks the compositor for a picture of pixels.
-    # slurp       #	Frame Selector.	Securely asks the compositor to let you select a region.
 
     cliphist    # Clipboard history manager.
     wl-clipboard  # Provides wl-copy and wl-paste for Wayland clipboard integration.

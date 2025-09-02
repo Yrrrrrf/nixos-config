@@ -208,11 +208,6 @@ in
       ]
     '';
 
-     #"flameshot/flameshot.ini".text = ''
-    #  [General]
-    #  disabledNotifications=grimWarning
-    #'';
-
   };
 
   # --- Custom scripts ---
@@ -241,12 +236,7 @@ in
       source = ../scripts/screenshot.sh;
     };
 
-    # Symbol link scripts!
-    #".local/bin/gemini" = {
-    #  source = config.home.homeDirectory + "/.bun/bin/gemini";
-    #  executable = true;
-    #};
-  
+    # Symbol link scripts!  
     # Some other script here...
   };
 
