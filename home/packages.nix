@@ -73,6 +73,7 @@
     bat         # A 'cat' clone with syntax highlighting and Git integration.
     fd          # A simple, fast, and user-friendly alternative to 'find'.
     ripgrep     # A line-oriented search tool that recursively searches for a regex pattern.
+    killport    # A command-line tool to easily kill processes running on a specified port.
   ];
 
   # --- Build Tools & Dependencies ---
@@ -91,6 +92,7 @@
     uv          # An extremely fast Python package installer and resolver.
     gcc         # The GNU Compiler Collection, essential for C/C++ development.
     rustup      # The official tool to install and manage Rust toolchains.
+    go
     nodejs      # JavaScript runtime for server-side development.
     bun         # A fast, all-in-one JavaScript toolkit (runtime, bundler, test runner).
     deno        # A modern and secure runtime for JavaScript and TypeScript.
@@ -103,6 +105,8 @@
   devIDEs = with pkgs; [
     jetbrains.goland # A powerful and ergonomic IDE for Go development.
     jetbrains.datagrip # A multi-database IDE for developers and DBAs.
+    jetbrains.idea-ultimate  # Paid-for Java, Kotlin, Groovy and Scala IDE from jetbrains
+    tomcat
     gitkraken        # A graphical Git client to visualize and manage repositories.
   ];
 

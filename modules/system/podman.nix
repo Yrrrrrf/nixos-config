@@ -30,6 +30,7 @@
     environment.systemPackages = with pkgs; [
       podman-compose
       podman-tui
+      kubernetes  # also add kubernetes to deploy!
     ];
   };
 }

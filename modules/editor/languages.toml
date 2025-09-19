@@ -214,3 +214,42 @@ auto-format = false
 
 [language-server.gopls]
 command = "gopls"
+
+# --- Assembly ---
+[[language]]
+name = "asm"
+scope = "source.asm"
+file-types = ["asm", "s"]
+comment-token = ";"
+language-servers = [ "asm-lsp" ]
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+[language-server.asm-lsp]
+command = "asm-lsp"
+
+# --- Kotlin ---
+[[language]]
+name = "kotlin"
+scope = "source.kotlin"
+file-types = ["kt", "kts"] # .kt for source files, .kts for scripts
+comment-token = "//"
+language-servers = [ "kotlin-language-server" ]
+auto-format = false # Keeping this consistent with your other configs
+indent = { tab-width = 4, unit = "    " }
+
+[language-server.kotlin-language-server]
+command = "kotlin-language-server"
+
+# --- Hyprland Configuration ---
+[[language]]
+name = "hyprlang"
+scope = "source.hyprlang"
+file-types = ["conf"]
+comment-token = "#"
+language-servers = [ "hyprlang-language-server" ]
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+[language-server.hyprlang-language-server]
+command = "hyprls"

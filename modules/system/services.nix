@@ -13,7 +13,6 @@
     };
   };
   
-
   # --- Graphical Session & Desktop Services ---
   # These are system-level components required for Hyprland and other
   # Wayland compositors to function correctly.
@@ -46,20 +45,19 @@
     acceleration = "cuda";
   };
 
-  services.open-webui.enable = false;
+  # services.open-webui.enable = true;
 
   # Enables and configures the PostgreSQL database service.
-  #services.postgresql = {
-  #  enable = false;
-  #  package = pkgs.postgresql_17;
-  #  ensureDatabases = [ "some-db" ];
-  #  # Allows all local users to connect to all databases without a password.
-  #  # WARNING: This is convenient for development but insecure for production.
-  #  authentication = pkgs.lib.mkOverride 10 ''
-  #    #type database DBuser auth-method
-  #    local all      all    trust
-  #  '';
-  #};
+  services.postgresql = {
+    enable = false;
+    # enable = true;
+    package = pkgs.postgresql_17;
+    ensureDatabases = [ "mydatabase" ];
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+    '';
+  };
 
   # Pipewire is a modern, low-latency audio and video server.
   services.pipewire = {

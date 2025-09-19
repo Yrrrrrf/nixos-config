@@ -50,6 +50,10 @@
     sqls  # SQL LSP
     bash-language-server
 
+    asm-lsp  # Assembly LSP
+    kotlin-language-server
+    hyprls
+  
     # Formatters
     nixpkgs-fmt # Formatter for Nix files
     # (ruff.with-extensions (exts: [ exts.format ])) # Python formatter
