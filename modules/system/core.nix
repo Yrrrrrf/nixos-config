@@ -24,11 +24,33 @@
   # allowing them to find necessary libraries.
   programs.nix-ld = {
     enable = true;
+#    libraries = with pkgs; [
+#      stdenv.cc.cc.lib
+#
+#      linuxPackages.nvidia_x11
+#    ];
     libraries = with pkgs; [
+      # --- Core System & C Libraries ---
       stdenv.cc.cc.lib
+      glibc
 
-      linuxPackages.nvidia_x11
+      # --- Graphics Stack ---
+      # This is the most critical part for GUI applications.
+      libglvnd
+      linuxPackages.nvidia_x11 # The specific NVIDIA driver libraries
+
+      # --- Wayland & X11 Libraries ---
+      wayland
+      libxkbcommon
+      xorg.libX11
+      xorg.libxcb
+
+      # --- Other common GUI dependencies ---
+      fontconfig
+      freetype
+      icu # Internationalization components for Unicode
     ];
+
   };
 
   # --- System-wide Packages ---

@@ -110,8 +110,8 @@ in
       "wheel"
       "networkmanager"
       "input"
-      # "video"
-      # "render"
+      
+    
      ];
     shell = pkgs.zsh;
     # This is often needed when Zsh is configured by Home Manager.

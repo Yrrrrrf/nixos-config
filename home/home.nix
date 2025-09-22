@@ -11,6 +11,8 @@ let
 
   allPkgs = import ./packages.nix { inherit pkgs; };
 
+  nixosQt6WaylandPluginsPath = "${pkgs.qt6.qtbase}/lib/qt6/plugins/platforms:${pkgs.qt6.qtwayland}/lib/qt6/plugins/platforms";
+
   vscode-insiders = (pkgs.vscode.override { isInsiders = true; }).overrideAttrs (oldAttrs: rec {
     src = (builtins.fetchTarball {
       url = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64";
@@ -18,6 +20,10 @@ let
     });
     version = "latest"; # The version is dynamic, so we just label it latest.
   });
+
+  # --- Define a list of packages to build a persistent dev environment ---
+  # These packages have their libraries (.so) and build files (.pc) made available.
+# in /etc/nixos/home/home.nix
 
   # --- Define a list of packages to build a persistent dev environment ---
   # These packages have their libraries (.so) and build files (.pc) made available.
@@ -30,7 +36,9 @@ let
     alsa-lib        # Audio libraries (required by SDL_mixer)
     glib            # Core application building blocks (threads, data structures)
     libglvnd        # The GL Vendor-Neutral Dispatch library for OpenGL
-    libxkbcommon    # Keyboard handling library for Wayland
+    
+    # CRITICAL FOR QT: Provides libxkbcommon, essential for keyboard input
+    libxkbcommon    
 
     # SDL2 Suite for multimedia and game development
     SDL2
@@ -42,6 +50,10 @@ let
     # Core Wayland and X11 libraries
     wayland         # Wayland compositor protocol libraries
     xorg.libX11       # Base X11 client library (for XWayland)
+    
+    # CRITICAL FOR QT: Even in Wayland, Qt often links against libxcb.
+    xorg.libxcb
+    
     xorg.libXcursor   # X cursor management library
     xorg.libXi        # X Input extension library
     xorg.libXinerama  # Xinerama multi-monitor extension library
@@ -50,8 +62,10 @@ let
     # Font and Image libraries
     fontconfig      # Library for configuring and customizing font access
     freetype        # A software font engine
+
     qt6.qtbase      # Qt6 core libraries
     qt6.qtwayland   # Qt6 Wayland integration
+
     libjpeg
     libpng
     giflib
@@ -81,6 +95,12 @@ in
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" devInputs;
 
     QT_QPA_PLATFORM = "wayland";
+    QT_QPA_PLATFORM_PLUGIN_PATH = nixosQt6WaylandPluginsPath;
+
+    __EGL_VENDOR_LIBRARY_JSON_FILE = "${pkgs.linuxPackages.nvidia_x11}/share/glvnd/egl_vendor.d/10_nvidia.json";
+
+    # For GLX (X11/XWayland)
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
   # Use this to add some additional scripts if necessary to the session path!
@@ -241,4 +261,5 @@ in
   };
 
 }
+
 
