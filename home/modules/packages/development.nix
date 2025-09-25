@@ -28,6 +28,13 @@
     rust = with pkgs; [ rustup ];
     go = with pkgs; [ go ];
     web = with pkgs; [ nodejs bun deno ];
-    # You can easily add a 'kotlin' or 'java' section here later
   };
+
+  # These are the essential packages needed at RUNTIME for CUDA applications
+  cudaPkgs = with pkgs; [
+    cudaPackages.cudatoolkit
+    cudaPackages.cudnn
+    linuxPackages.nvidia_x11
+  ];
+
 }

@@ -24,6 +24,7 @@ in
     ../../system/fonts.nix
     ../../system/services.nix
     ../../system/podman.nix
+    ../../system/nvidia.nix
   ];
 
   # --- Global System Settings ---
@@ -31,8 +32,8 @@ in
   nixpkgs.config.allowUnfree = true;
 
   # --- Hardware Configuration (example for nvidia, keep your own) ---
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  # hardware.graphics.enable = true;
+  # services.xserver.videoDrivers = ["nvidia"];
   # (Your other specific hardware settings...)
 
 
@@ -62,10 +63,6 @@ in
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
   };
-
-  # --- THE HOME-MANAGER BLOCK THAT WAS HERE IS NOW REMOVED ---
-  # The 'flake.nix' is now the single source of truth for the default profile,
-  # eliminating the configuration merge that caused your issue.
 
   system.stateVersion = "25.05";
 }
