@@ -61,7 +61,7 @@ window#waybar {
 
 /* Special style for the profile image (not a pill) */
 #custom-profile {
-  background-image: url("/home/yrrrrrf/docs/Pictures/Images/fire.png");
+  background-image: url("/home/yrrrrrf/Pictures/Images/fire.png");
   background-size: cover;
   background-position: center;
   border-radius: 50%;

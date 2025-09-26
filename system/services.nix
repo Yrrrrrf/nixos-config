@@ -11,6 +11,9 @@
       enable = true;
       enableUserService = true;
     };
+
+    podman.enable = true;
+
   };
   
   # --- Graphical Session & Desktop Services ---

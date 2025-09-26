@@ -13,6 +13,7 @@
   # A list of general-purpose and fun command-line tools
   tools = with pkgs; [
     git
+    gh
     helix
     btop
     unimatrix
