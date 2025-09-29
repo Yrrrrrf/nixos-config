@@ -10,6 +10,12 @@
     lazygit
   ];
 
+  typingTools = with pkgs; [
+    ttyper
+    wev
+  ];
+
+
   # A list of general-purpose and fun command-line tools
   tools = with pkgs; [
     git

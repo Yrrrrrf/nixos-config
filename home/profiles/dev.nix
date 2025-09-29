@@ -33,6 +33,8 @@ in
     cliPkgs.replacements ++
     cliPkgs.tools ++
 
+    cliPkgs.typingTools ++
+
     desktopPkgs.gui ++
     desktopPkgs.utils ++
 
