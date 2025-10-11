@@ -18,6 +18,7 @@
 
   # A list of general-purpose and fun command-line tools
   tools = with pkgs; [
+    openssl
     git
     gh
     helix

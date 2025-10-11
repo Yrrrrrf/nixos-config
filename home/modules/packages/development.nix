@@ -8,7 +8,7 @@
     pkg-config
     stdenv.cc
     gcc
-    openssl
+    openssl.dev
     systemd
   ];
 
@@ -19,11 +19,12 @@
     jetbrains.datagrip
     jetbrains.idea-ultimate
     gitkraken
+    unityhub
   ];
 
   # Language-Specific Toolchains (nested for clarity)
   lang = {
-    kotlin = with pkgs; [ gradle tomcat ];
+    kotlin = with pkgs; [ gradle gradle tomcat ];
     python = with pkgs; [ uv ];
     rust = with pkgs; [ rustup ];
     go = with pkgs; [ go ];

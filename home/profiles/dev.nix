@@ -16,7 +16,7 @@ in
 
   # --- Session Variables ---
   home.sessionVariables = {
-    LD_LIBRARY_PATH = lib.makeLibraryPath (commonLibs.buildLibs ++ devPkgs.cudaPkgs );
+    LD_LIBRARY_PATH = lib.makeLibraryPath (commonLibs.buildLibs ++ devPkgs.cudaPkgs);
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" (commonLibs.buildLibs);
 
     # --- ADD THESE CRITICAL GPU "SIGNPOST" VARIABLES ---
