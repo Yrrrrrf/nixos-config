@@ -10,12 +10,6 @@ in
 {
   imports = [ ./default.nix ]; # <-- Import the shared config
 
-  # --- Session Variables ---
-  #  home.sessionVariables = {
-  #    LD_LIBRARY_PATH = lib.makeLibraryPath commonLibs.buildLibs;
-  #    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" commonLibs.buildLibs;
-  #  };
-
   # --- Final Package List ---
   home.packages =
     cliPkgs.replacements ++

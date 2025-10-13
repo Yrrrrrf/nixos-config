@@ -31,7 +31,6 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  # --- Hardware Configuration (example for nvidia, keep your own) ---
   # hardware.graphics.enable = true;
   # services.xserver.videoDrivers = ["nvidia"];
   # (Your other specific hardware settings...)

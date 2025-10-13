@@ -52,26 +52,6 @@
           };
         };
 
-#      unstable-packages-overlay = final: prev:
-#        let
-#          # 1. This is the flake equivalent of your old `import <unstable>`.
-#          #    It creates a special instance of the unstable package set.
-#          unstable = import nixpkgs-unstable {
-#            inherit system;
-#            config = {
-#              allowUnfree = true;
-#              # 2. We carry over the insecure package permission from your old config.
-#              permittedInsecurePackages = [
-#                "libxml2-2.13.8"
-#              ];
-#            };
-#          };
-#        in
-#      {
-#        uv = nixpkgs-unstable.legacyPackages.${system}.uv;
-#        deno = nixpkgs-unstable.legacyPackages.${system}.deno;
-#      };
-
     in {
       # --- NixOS System Configurations ---
       nixosConfigurations = {
@@ -101,7 +81,8 @@
               home-manager.extraSpecialArgs = { inherit inputs username; };
 
               # Import the desired Home Manager user profile
-              home-manager.users.${username} = import ./home/profiles/default.nix;
+              # home-manager.users.${username} = import ./home/profiles/default.nix;
+              home-manager.users.${username} = import ./home/profiles/dev.nix;
             }
           ];
         };

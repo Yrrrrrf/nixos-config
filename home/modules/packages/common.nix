@@ -22,9 +22,17 @@ let
     qt6.qtbase qt6.qtwayland libjpeg libpng giflib
   ];
 
+  vulkanLibs = with pkgs; [
+    xorg.libXi
+    vulkan-tools
+    vulkan-headers
+    vulkan-loader
+    vulkan-validation-layers
+  ];
+
 in
 {
   # We now return the lists under named attributes.
   # The profile will decide what to do with them.
-  inherit guiLibs buildLibs;
+  inherit guiLibs buildLibs vulkanLibs;
 }
