@@ -13,6 +13,7 @@
 
       -- Use the MONO variant of the Nerd Font for perfect alignment
       config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+      -- config.font = wezterm.font("FiraCode Nerd Font")
 
       -- Here you can add any other Wezterm settings you like in the future.
       -- For example, to set the color scheme:
