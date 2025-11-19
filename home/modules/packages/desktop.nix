@@ -12,5 +12,6 @@
     wezterm swww hyprlock hypridle yazi xfce.thunar dunst libnotify
     hyprshot cliphist wl-clipboard cheese
     brightnessctl
+    yt-dlp
   ];
 }

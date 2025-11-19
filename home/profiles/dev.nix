@@ -22,7 +22,10 @@ in
       devPkgs.cudaPkgs
 
     );
-    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" (commonLibs.buildLibs);
+    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" (
+      commonLibs.buildLibs ++
+      devPkgs.buildTools 
+    );
 
     # --- ADD THESE CRITICAL GPU "SIGNPOST" VARIABLES ---
     # Tells applications where to find the NVIDIA OpenGL/Vulkan implementation.
@@ -53,6 +56,7 @@ in
     devPkgs.lang.rust ++
     devPkgs.lang.go ++
     devPkgs.lang.web ++
+    devPkgs.lang.iot ++
 
     [ pkgs.linuxPackages.nvidia_x11 ] ++
 

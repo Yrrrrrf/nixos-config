@@ -15,20 +15,25 @@
   # Large Graphical IDEs
   ides = with pkgs; [
     vscode
-    jetbrains.goland
-    jetbrains.datagrip
-    jetbrains.idea-ultimate
+    jetbrains-toolbox
+    # jetbrains.goland
+    # jetbrains.datagrip
+    # jetbrains.idea-ultimate
     gitkraken
     unityhub
+
+    # ladybird  # this one is not an IDE itself!
+    # It is an Open Source Web Browser! (test)
   ];
 
   # Language-Specific Toolchains (nested for clarity)
   lang = {
-    kotlin = with pkgs; [ gradle gradle tomcat ];
+    kotlin = with pkgs; [ gradle tomcat openjdk24 ];
     python = with pkgs; [ uv ];
     rust = with pkgs; [ rustup ];
     go = with pkgs; [ go ];
     web = with pkgs; [ nodejs bun deno ];
+    iot = with pkgs; [ platformio ];
   };
 
   # These are the essential packages needed at RUNTIME for CUDA applications

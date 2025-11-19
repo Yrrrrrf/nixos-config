@@ -253,3 +253,12 @@ indent = { tab-width = 4, unit = "    " }
 
 [language-server.hyprlang-language-server]
 command = "hyprls"
+
+# --- Typst Configuration ---
+[[language]]
+name = "typst"
+language-servers = ["tinymist"]
+
+[language-server.tinymist]
+command = "tinymist"
+file-types = ["typ"]

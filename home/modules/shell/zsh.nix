@@ -20,8 +20,7 @@
       # ld = "lazydocker";
 
       # window manager shortcuts
-      uwsm-init = "uwsm start select";
-      # hypr-init = "Hyprland"; # Let the service handle the config path
+      # uwsm-init = "uwsm start select";
     };
 
     initContent =

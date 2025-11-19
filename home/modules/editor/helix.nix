@@ -50,6 +50,8 @@
     sqls  # SQL LSP
     bash-language-server
 
+    tinymist  # Typst files
+
     asm-lsp  # Assembly LSP
     kotlin-language-server
     hyprls
