@@ -1,2 +1,20 @@
+# all that start with a dot except .gitignore
+.*
+!.gitignore
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# lock files
+**/**.lock
+
 # assets/*
-assets/antigravity.deb 
+# assets/antigravity.deb 
+
+*.deb
+assets/*.deb

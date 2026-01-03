@@ -28,7 +28,7 @@
 
   # Language-Specific Toolchains (nested for clarity)
   lang = {
-    kotlin = with pkgs; [ gradle tomcat openjdk24 ];
+    kotlin = with pkgs; [ gradle tomcat openjdk21 ];
     python = with pkgs; [ uv ];
     rust = with pkgs; [ rustup ];
     go = with pkgs; [ go ];

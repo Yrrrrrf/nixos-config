@@ -31,6 +31,10 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+      "ciscoPacketTracer8-8.2.2"
+  ];
+
   # hardware.graphics.enable = true;
   # services.xserver.videoDrivers = ["nvidia"];
   # (Your other specific hardware settings...)

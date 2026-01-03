@@ -35,7 +35,10 @@
             inherit system;
             config = {
               allowUnfree = true;
-              permittedInsecurePackages = [ "libxml2-2.13.8" ];
+              permittedInsecurePackages = [
+                "libxml2-2.13.8"
+                "ciscoPacketTracer8-8.2.2"
+                 ];
             };
           };
         in
