@@ -58,8 +58,8 @@ in
     devPkgs.lang.web ++
     devPkgs.lang.iot ++
 
-    [ pkgs.linuxPackages.nvidia_x11 ] ++
+    [ pkgs.linuxPackages.nvidia_x11 ]
 
-    [ pkgs.ciscoPacketTracer8 ]
+    # [ pkgs.ciscoPacketTracer8 ]
     ;
 }

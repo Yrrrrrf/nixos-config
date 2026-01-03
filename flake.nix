@@ -5,14 +5,14 @@
   # --- Flake Inputs ---
   # All external dependencies are pinned here for full reproducibility.
   inputs = {
-    # Our base system will be the stable NixOS 25.05 release.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    # Our base system will be the stable NixOS 25.11 release.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # We also bring in the unstable channel specifically for newer packages.
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home Manager should follow our primary (stable) nixpkgs to avoid conflicts.
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -35,10 +35,10 @@
             inherit system;
             config = {
               allowUnfree = true;
-              permittedInsecurePackages = [
-                "libxml2-2.13.8"
-                "ciscoPacketTracer8-8.2.2"
-                 ];
+              # permittedInsecurePackages = [
+                # "libxml2-2.13.8"
+                # "ciscoPacketTracer8-8.2.2"
+                 # ];
             };
           };
         in
@@ -50,9 +50,9 @@
 
           # THIS IS THE ORIGINAL METHOD. NO overrideAttrs, NO sha256.
           # We are simply passing the local file path to the expected argument.
-          ciscoPacketTracer8 = unstable.ciscoPacketTracer8.override {
-            packetTracerSource = ./assets/Packet_Tracer822_amd64_signed.deb;
-          };
+          # ciscoPacketTracer8 = unstable.ciscoPacketTracer8.override {
+            # packetTracerSource = ./assets/Packet_Tracer822_amd64_signed.deb;
+          # };
         };
 
     in {

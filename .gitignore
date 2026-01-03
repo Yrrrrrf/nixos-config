@@ -2,19 +2,14 @@
 .*
 !.gitignore
 
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
 
 # lock files
 **/**.lock
 
+# generated files
+
 # assets/*
 # assets/antigravity.deb 
 
-*.deb
-assets/*.deb
+# *.debjjj
+# assets/*.deb

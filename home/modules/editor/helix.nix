@@ -40,7 +40,7 @@
   home.packages = with pkgs; [
     # LSPs
     pyright
-    rocmPackages.llvm.clang-tools
+    # rocmPackages.llvm.clang-tools
     gopls
     typescript-language-server
     vscode-langservers-extracted # Provides LSPs for css, html, json

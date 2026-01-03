@@ -11,7 +11,7 @@ in
   # --- Basic Home Manager Settings ---
   home.username = user.username;
   home.homeDirectory = user.homeDirectory;
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
   home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
   # --- Program Configurations that use User Data ---

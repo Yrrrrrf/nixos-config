@@ -91,9 +91,14 @@
           exec = "kbd-layout --get";
           on-click = "kbd-layout --change";
         };
+        # "custom/power" = {
+          # format = "";
+          # "on-click" = "${pkgs.rofi}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu";
+          # tooltip = false;
+        # };
         "custom/power" = {
           format = "";
-          "on-click" = "${pkgs.rofi}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu";
+          "on-click" = "walker --modules power"; # Instant, native power menu
           tooltip = false;
         };
 

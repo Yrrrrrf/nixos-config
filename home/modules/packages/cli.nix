@@ -27,5 +27,7 @@
     neofetch
     tree
     p7zip
+    bluetui
+    impala
   ];
 }

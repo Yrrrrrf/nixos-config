@@ -31,9 +31,9 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.config.permittedInsecurePackages = [
-      "ciscoPacketTracer8-8.2.2"
-  ];
+  # nixpkgs.config.permittedInsecurePackages = [
+      # "ciscoPacketTracer8-8.2.2"
+  # ];
 
   # hardware.graphics.enable = true;
   # services.xserver.videoDrivers = ["nvidia"];
@@ -67,5 +67,5 @@ in
     ignoreShellProgramCheck = true;
   };
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
