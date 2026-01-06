@@ -9,8 +9,18 @@
 
   # The desktop utilities can be a separate list.
   utils = with pkgs; [
-    wezterm swww hyprlock hypridle yazi xfce.thunar dunst libnotify
-    hyprshot cliphist wl-clipboard cheese
+    wezterm
+    swww
+    hyprlock
+    hypridle
+    yazi
+    xfce.thunar
+    dunst
+    libnotify
+    hyprshot
+    cliphist
+    wl-clipboard
+    cheese
     brightnessctl
     yt-dlp
   ];

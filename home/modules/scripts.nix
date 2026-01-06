@@ -17,6 +17,10 @@
       executable = true;
       source = ../scripts/kbd-mic.sh;
     };
+    ".local/bin/volume" = {
+      executable = true;
+      source = ../scripts/kbd-volume.sh;
+    };
     ".local/bin/kbd-backlight" = {
       executable = true;
       source = ../scripts/kbd-backlight.sh;

@@ -17,9 +17,11 @@ in
   # --- Program Configurations that use User Data ---
   programs.git = {
     enable = true;
-    userName = user.fullName;
-    userEmail = user.email;
-    extraConfig.init.defaultBranch = "main";
+    settings = {
+      user.name = user.fullName;
+      user.email = user.email;
+      init.defaultBranch = "main";
+    };
   };
 
   # --- FEATURE MODULE IMPORTS ---

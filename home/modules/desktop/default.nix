@@ -14,6 +14,7 @@
     ./rofi.nix
     ./waybar.nix
     ./wezterm.nix
+    ./swayosd.nix
   ];
 
   # The package lists have been correctly removed from here.
