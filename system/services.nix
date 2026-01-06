@@ -13,7 +13,20 @@
     };
 
     podman.enable = true;
+    blueman.enable = true;
+  };
 
+
+
+hardware.bluetooth = {
+    enable = true; # Turns on the BlueZ daemon
+    powerOnBoot = true; # Powers up the adapter when you boot
+    settings = {
+      General = {
+        # 'Experimental' enables features like seeing battery levels of your devices
+        Experimental = true;
+      };
+    };
   };
   
   # --- Graphical Session & Desktop Services ---
