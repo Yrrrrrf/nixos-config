@@ -11,6 +11,7 @@
     openssl.dev
     systemd
     android-tools
+    n8n
   ];
 
   # Large Graphical IDEs

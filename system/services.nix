@@ -16,9 +16,7 @@
     blueman.enable = true;
   };
 
-
-
-hardware.bluetooth = {
+  hardware.bluetooth = {
     enable = true; # Turns on the BlueZ daemon
     powerOnBoot = true; # Powers up the adapter when you boot
     settings = {
@@ -60,7 +58,7 @@ hardware.bluetooth = {
     acceleration = "cuda";
   };
 
-  # services.open-webui.enable = true;
+  services.open-webui.enable = true;
 
   # Pipewire is a modern, low-latency audio and video server.
   services.pipewire.enable = true;
