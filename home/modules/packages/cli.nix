@@ -8,6 +8,7 @@
     fzf
     killport
     lazygit
+    lazydocker
   ];
 
   typingTools = with pkgs; [

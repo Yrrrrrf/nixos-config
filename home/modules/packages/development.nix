@@ -10,18 +10,16 @@
     gcc
     openssl.dev
     systemd
+    android-tools
   ];
 
   # Large Graphical IDEs
   ides = with pkgs; [
     vscode
     jetbrains-toolbox
-    # jetbrains.goland
-    # jetbrains.datagrip
-    # jetbrains.idea-ultimate
     gitkraken
     unityhub
-
+    antigravity
     # ladybird  # this one is not an IDE itself!
     # It is an Open Source Web Browser! (test)
   ];

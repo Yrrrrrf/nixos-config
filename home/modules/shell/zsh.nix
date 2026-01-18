@@ -17,7 +17,7 @@
       y = "yazi";
 
       lg = "lazygit";
-      # ld = "lazydocker";
+      lp = "lazydocker";
 
       # window manager shortcuts
       # uwsm-init = "uwsm start select";

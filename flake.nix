@@ -47,7 +47,7 @@
           uv = unstable.uv;
           deno = unstable.deno;
           bun = unstable.bun;
-
+          
           # THIS IS THE ORIGINAL METHOD. NO overrideAttrs, NO sha256.
           # We are simply passing the local file path to the expected argument.
           # ciscoPacketTracer8 = unstable.ciscoPacketTracer8.override {
