@@ -13,7 +13,6 @@
     android-tools
     n8n
     typst
-    opencode
   ];
 
   # Large Graphical IDEs
