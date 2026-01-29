@@ -13,6 +13,7 @@
     android-tools
     n8n
     typst
+    supabase-cli
   ];
 
   # Large Graphical IDEs
