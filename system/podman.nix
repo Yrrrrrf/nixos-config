@@ -10,21 +10,19 @@
   config = lib.mkIf config.services.podman.enable {
     # This block will only be active if `services.podman.enable = true;` is set.
 
-    virtualisation = {
-      podman = {
+    virtualisation.podman = {
+      enable = true;
+      # Creates a `docker` alias for podman.
+      dockerCompat = true;
+      # Creates the docker socket
+      dockerSocket.enable = true;
+      autoPrune = {
         enable = true;
-        # Creates a `docker` alias for podman.
-        dockerCompat = true;
-        # Allows containers to resolve each other by name.
-        defaultNetwork.settings.dns_enabled = true;
-
-        # Automatically clean up unused images weekly.
-        autoPrune = {
-          enable = true;
-          dates = "weekly";
-        };
+        dates = "weekly";
       };
     };
+
+    users.users.yrrrrrf.extraGroups = [ "podman" ];
 
     # Install podman-compose system-wide for managing container stacks.
     environment.systemPackages = with pkgs; [
