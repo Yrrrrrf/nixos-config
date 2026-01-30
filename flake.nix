@@ -48,6 +48,7 @@
           deno = unstable.deno;
           bun = unstable.bun;
 
+          supabase-cli = unstable.supabase-cli;
           n8n = unstable.n8n;
           antigravity = unstable.antigravity;
           # THIS IS THE ORIGINAL METHOD. NO overrideAttrs, NO sha256.
