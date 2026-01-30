@@ -14,6 +14,7 @@
     n8n
     typst
     supabase-cli
+    jq
   ];
 
   # Large Graphical IDEs
