@@ -10,6 +10,7 @@
   glib, nss, nspr, dbus, atk, cups, libdrm,
   xorg, libxkbcommon, expat, wayland, alsa-lib,
   mesa, gtk3, pango, cairo, libGL,
+  webkitgtk_4_1, libsoup_3, libsecret,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,6 +27,7 @@ stdenv.mkDerivation rec {
     xorg.libX11 xorg.libXcomposite xorg.libXdamage
     xorg.libXext xorg.libXfixes xorg.libXrandr xorg.libxcb
     libxkbcommon expat wayland alsa-lib mesa gtk3 pango cairo libGL
+    webkitgtk_4_1 libsoup_3 libsecret xorg.libxkbfile
   ];
 
   dontBuild     = true;
@@ -38,7 +40,10 @@ stdenv.mkDerivation rec {
     cp -r . $out/lib/antigravity
 
     makeWrapper $out/lib/antigravity/antigravity $out/bin/antigravity \
-      --set ANTIGRAVITY_NO_SANDBOX 1
+      --set ANTIGRAVITY_NO_SANDBOX 1 \
+      --add-flags "--ozone-platform=wayland" \
+      --add-flags "--enable-features=WaylandWindowDecorations" \
+      --add-flags "--disable-file-dialog-portal"
 
     mkdir -p $out/share/applications $out/share/pixmaps
 
