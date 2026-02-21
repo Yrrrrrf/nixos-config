@@ -11,10 +11,11 @@
     openssl.dev
     systemd
     android-tools
-    n8n
+    # n8n
     typst
     supabase-cli
     jq
+    just
   ];
 
   # Large Graphical IDEs

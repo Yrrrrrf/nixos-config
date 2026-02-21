@@ -33,6 +33,7 @@ in
 
   # nixpkgs.config.permittedInsecurePackages = [
       # "ciscoPacketTracer8-8.2.2"
+    # "ciscoPacketTracer9-9.0.0"
   # ];
 
   # hardware.graphics.enable = true;

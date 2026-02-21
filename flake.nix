@@ -35,10 +35,10 @@
             inherit system;
             config = {
               allowUnfree = true;
-              # permittedInsecurePackages = [
-                # "libxml2-2.13.8"
-                # "ciscoPacketTracer8-8.2.2"
-                 # ];
+                permittedInsecurePackages = [
+                  "libxml2-2.13.9"
+                  "ciscoPacketTracer9-9.0.0"
+                ];
             };
           };
         in
@@ -49,13 +49,15 @@
           bun = unstable.bun;
 
           supabase-cli = unstable.supabase-cli;
-          n8n = unstable.n8n;
-          antigravity = unstable.antigravity;
-          # THIS IS THE ORIGINAL METHOD. NO overrideAttrs, NO sha256.
-          # We are simply passing the local file path to the expected argument.
-          # ciscoPacketTracer8 = unstable.ciscoPacketTracer8.override {
-            # packetTracerSource = ./assets/Packet_Tracer822_amd64_signed.deb;
-          # };
+          # n8n = unstable.n8n;
+          # antigravity = unstable.antigravity;
+
+          ciscoPacketTracer9 = unstable.ciscoPacketTracer9.overrideAttrs (oldAttrs: {
+            src = ./resources/assets/CiscoPacketTracer_900_Ubuntu_64bit.deb;
+          });
+
+          antigravity = prev.callPackage ./resources/antigravity.nix {};          
+
         };
 
     in {

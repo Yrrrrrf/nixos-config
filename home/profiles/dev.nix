@@ -60,6 +60,7 @@ in
 
     [ pkgs.linuxPackages.nvidia_x11 ]
 
-    # [ pkgs.ciscoPacketTracer8 ]
+    ++ [ pkgs.ciscoPacketTracer9 ]
+    
     ;
 }
