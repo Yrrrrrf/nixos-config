@@ -10,7 +10,7 @@
     gcc
     openssl.dev
     systemd
-    android-tools
+    # android-tools
     # n8n
     typst
     supabase-cli

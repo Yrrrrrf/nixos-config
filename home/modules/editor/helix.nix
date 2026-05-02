@@ -47,6 +47,7 @@
     svelte-language-server
     taplo # TOML LSP
     nil   # Nix LSP
+    nixfmt
     sqls  # SQL LSP
     bash-language-server
 

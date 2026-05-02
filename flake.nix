@@ -37,7 +37,7 @@
               allowUnfree = true;
                 permittedInsecurePackages = [
                   "libxml2-2.13.9"
-                  "ciscoPacketTracer9-9.0.0"
+                  # "ciscoPacketTracer9-9.0.0"
                 ];
             };
           };
@@ -45,18 +45,16 @@
         {
           # Your other unstable packages
           uv = unstable.uv;
-          deno = unstable.deno;
+          # deno = unstable.deno;
           bun = unstable.bun;
 
           supabase-cli = unstable.supabase-cli;
           # n8n = unstable.n8n;
-          # antigravity = unstable.antigravity;
+          antigravity = unstable.antigravity;
 
-          ciscoPacketTracer9 = unstable.ciscoPacketTracer9.overrideAttrs (oldAttrs: {
-            src = ./resources/assets/CiscoPacketTracer_900_Ubuntu_64bit.deb;
-          });
-
-          antigravity = prev.callPackage ./resources/antigravity.nix {};          
+          # ciscoPacketTracer9 = unstable.ciscoPacketTracer9.overrideAttrs (oldAttrs: {
+            # src = ./resources/assets/CiscoPacketTracer_900_Ubuntu_64bit.deb;
+          # });       
 
         };
 

@@ -85,15 +85,15 @@ generations:
 fmt:
     fd -e nix . {{ dir }} -x nixfmt {} \;
 
-
-
-# Show the largest files in git history
+[doc("Show the largest files in git history")]
+[group("git")]
 git-bloat:
     @git rev-list --objects --all \
       | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
       | rg '^blob' | sort -k3 -n -r | head -20
 
-# Repo size
+[doc("Repo size")]
+[group("git")]
 git-size:
     @du -sh .git
     @echo "Working tree:"
