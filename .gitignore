@@ -2,14 +2,11 @@
 .*
 !.gitignore
 
-
 # lock files
-**/**.lock
-
-# generated files
+*.lock
 
 # assets/*
 # *.deb
 # assets/*.deb
 
-# docs
+docs
