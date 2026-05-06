@@ -60,7 +60,7 @@ build:
 [doc("Rebuild and switch (requires unlocked OR sudo can read either way)")]
 [group("NixOS")]
 switch:
-    sudo nixos-rebuild switch --flake {{ dir }}#{{ host }}
+    sudo nixos-rebuild switch --flake .#{{ host }}
 
 [doc("Update flake inputs")]
 [group("NixOS")]

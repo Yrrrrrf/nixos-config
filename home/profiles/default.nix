@@ -36,6 +36,17 @@ in
 
   # --- Declarative .desktop files ---
   xdg.desktopEntries = {
+    "brave-browser" = {
+      name = "Brave Web Browser";
+      genericName = "Web Browser";
+      # Adding the Overscroll and Wayland flags here:
+      exec = "brave --enable-features=TouchpadOverscrollHistoryNavigation --ozone-platform-hint=auto %U";
+      terminal = false;
+      type = "Application";
+      icon = "brave-browser";
+      categories = [ "Network" "WebBrowser" ];
+    };
+
     "obsidian" = {
       name = "Obsidian";
       exec = "obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland %U";
