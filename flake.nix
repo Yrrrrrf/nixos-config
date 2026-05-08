@@ -45,7 +45,7 @@
         {
           # Your other unstable packages
           uv = unstable.uv;
-          # deno = unstable.deno;
+          deno = unstable.deno;
           bun = unstable.bun;
 
           supabase-cli = unstable.supabase-cli;

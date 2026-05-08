@@ -9,6 +9,7 @@
     killport
     lazygit
     lazydocker
+    sd
   ];
 
   typingTools = with pkgs; [
