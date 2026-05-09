@@ -12,17 +12,21 @@
   # which can significantly speed up builds.
   nix.settings = {
     extra-substituters = [ "https://cuda-maintainers.cachix.org" ];
-    extra-trusted-public-keys = [ "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9jyUG0VpZa7CNfq55E=" ];
+    extra-trusted-public-keys = [
+      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9jyUG0VpZa7CNfq55E="
+    ];
   };
 
   # --- Unfree Package Permissions ---
   # Allow the installation of the proprietary NVIDIA driver and CUDA components.
   # This is more secure than a global `allowUnfree = true`.
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkg.pname or "") [
-    "nvidia-x11"
-    "nvidia-settings"
-    "cudatoolkit"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkg.pname or "") [
+      "nvidia-x11"
+      "nvidia-settings"
+      "cudatoolkit"
+    ];
 
   # --- Graphics & NVIDIA Driver Configuration ---
   # Explicit assertion — upstream nixos-hardware ga402x-nvidia sets this
@@ -35,7 +39,8 @@
   # unset (tested to hang the 4060 on suspend/resume).
   hardware.nvidia = {
     # Use the proprietary kernel module (not the open-source variant).
-    open = false;
+    open = true;
+    # open = false;
   };
 
   # --- Nix-LD for Non-Nix Binaries ---
@@ -47,4 +52,14 @@
     # Add the core NVIDIA driver libraries to the system-wide library path.
     linuxPackages.nvidia_x11
   ];
+
+  # --- Stable DRM Symlinks for PRIME Offload ---
+  # Create colon-free symlinks so AQ_DRM_DEVICES (which splits on ':')
+  # can reference cards without shattering on PCI addresses.
+  #   /dev/dri/igpu → AMD iGPU (card1, PCI 0000:65:00.0)
+  #   /dev/dri/dgpu → NVIDIA dGPU (card0, PCI 0000:01:00.0)
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", KERNEL=="card*", KERNELS=="0000:65:00.0", SYMLINK+="dri/igpu"
+    SUBSYSTEM=="drm", KERNEL=="card*", KERNELS=="0000:01:00.0", SYMLINK+="dri/dgpu"
+  '';
 }
