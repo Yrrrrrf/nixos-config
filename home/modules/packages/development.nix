@@ -32,11 +32,19 @@
 
   # Language-Specific Toolchains (nested for clarity)
   lang = {
-    kotlin = with pkgs; [ gradle tomcat openjdk21 ];
+    kotlin = with pkgs; [
+      gradle
+      tomcat
+      openjdk21
+    ];
     python = with pkgs; [ uv ];
     rust = with pkgs; [ rustup ];
     go = with pkgs; [ go ];
-    web = with pkgs; [ nodejs bun deno ];
+    web = with pkgs; [
+      nodejs
+      bun
+      deno
+    ];
     iot = with pkgs; [ platformio ];
   };
 

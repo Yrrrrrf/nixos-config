@@ -77,7 +77,7 @@
         padding: 5px;
         color: #cba6f7;
     }
-    
+
     window#input-volume image:disabled {
         color: #f38ba8;
     }

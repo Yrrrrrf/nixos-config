@@ -1,5 +1,6 @@
 # /etc/nixos/home/modules/packages/cli.nix
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   replacements = with pkgs; [
     ripgrep
     eza
@@ -16,7 +17,6 @@
     ttyper
     wev
   ];
-
 
   # A list of general-purpose and fun command-line tools
   tools = with pkgs; [

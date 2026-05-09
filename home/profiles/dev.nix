@@ -1,7 +1,12 @@
 # /etc/nixos/home/profiles/dev.nix
 # The "Full Dev" profile. Imports the default config and adds dev packages.
 
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cliPkgs = import ../modules/packages/cli.nix { inherit pkgs; };
@@ -16,41 +21,43 @@ in
 
   # --- Session Variables ---
   home.sessionVariables = {
-    LD_LIBRARY_PATH = lib.makeLibraryPath (
-      commonLibs.buildLibs ++
-      commonLibs.vulkanLibs
-    );
-    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" (
-      commonLibs.buildLibs ++
-      devPkgs.buildTools
-    );
+    AQ_DRM_DEVICES = "/dev/dri/igpu:/dev/dri/dgpu";
+    # first = compositor renders here (iGPU)
+    # second = available for PRIME offload (dGPU)
+    LD_LIBRARY_PATH = lib.makeLibraryPath (commonLibs.buildLibs ++ commonLibs.vulkanLibs);
+    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" (commonLibs.buildLibs ++ devPkgs.buildTools);
   };
 
   # --- Final Package List ---
   home.packages =
-    commonLibs.guiLibs ++
+    commonLibs.guiLibs
+    ++
 
-    cliPkgs.replacements ++
-    cliPkgs.tools ++
+      cliPkgs.replacements
+    ++ cliPkgs.tools
+    ++
 
-    cliPkgs.typingTools ++
+      cliPkgs.typingTools
+    ++
 
-    desktopPkgs.gui ++
-    desktopPkgs.utils ++
+      desktopPkgs.gui
+    ++ desktopPkgs.utils
+    ++
 
-    # Access the specific lists from your development.nix file
-    devPkgs.buildTools ++
-    devPkgs.ides ++
+      # Access the specific lists from your development.nix file
+      devPkgs.buildTools
+    ++ devPkgs.ides
+    ++
 
-    # Flatten the 'lang' attribute set into a single list
-    devPkgs.lang.kotlin ++
-    devPkgs.lang.python ++
-    devPkgs.lang.rust ++
-    devPkgs.lang.go ++
-    devPkgs.lang.web ++
-    devPkgs.lang.iot
+      # Flatten the 'lang' attribute set into a single list
+      devPkgs.lang.kotlin
+    ++ devPkgs.lang.python
+    ++ devPkgs.lang.rust
+    ++ devPkgs.lang.go
+    ++ devPkgs.lang.web
+    ++ devPkgs.lang.iot
 
-    # ++ [ pkgs.ciscoPacketTracer9 ]
-    
-    ;
+  # ++ [ pkgs.ciscoPacketTracer9 ]
+
+  ;
 }

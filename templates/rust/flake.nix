@@ -23,7 +23,13 @@
 
   # --- Flake Outputs ---
   # Defines what this flake provides: shells, packages, and the template itself.
-  outputs = { self, nixpkgs, rust-overlay, naersk }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      rust-overlay,
+      naersk,
+    }:
     let
       system = "x86_64-linux";
       overlays = [ rust-overlay.overlays.default ];
@@ -91,7 +97,7 @@
           buildInputs = [
             rustToolchain
             pkgs.pkg-config # Often needed for -sys crates
-            pkgs.openssl    # A very common dependency for web projects
+            pkgs.openssl # A very common dependency for web projects
 
             # --- UNCOMMENT THE DEPENDENCY SET YOU NEED ---
             # ++ bevyDeps

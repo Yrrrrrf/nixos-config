@@ -17,8 +17,8 @@
     settings = {
       # General settings for hypridle.
       general = {
-        lock_cmd = "pidof hyprlock || hyprlock";       # Command to run when locking. Checks if lock is running.
-        before_sleep_cmd = "loginctl lock-session";   # Lock the screen before sleeping.
+        lock_cmd = "pidof hyprlock || hyprlock"; # Command to run when locking. Checks if lock is running.
+        before_sleep_cmd = "loginctl lock-session"; # Lock the screen before sleeping.
         after_sleep_cmd = "hyprctl dispatch dpms on"; # Turn displays on after waking up.
       };
 
@@ -34,7 +34,7 @@
           # Listener for turning off the displays after 10 minutes of inactivity.
           timeout = 600; # 600 seconds = 10 minutes
           on-timeout = "hyprctl dispatch dpms off"; # Turn displays off.
-          on-resume = "hyprctl dispatch dpms on";  # Turn them back on when activity resumes.
+          on-resume = "hyprctl dispatch dpms on"; # Turn them back on when activity resumes.
         }
         {
           # Listener for suspending the system after 30 minutes of inactivity.

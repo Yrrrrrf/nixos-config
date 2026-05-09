@@ -20,7 +20,15 @@
 
   # --- Flake Outputs ---
   # The 'outputs' function takes all 'inputs' as arguments.
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, ... } @ inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      nixos-hardware,
+      ...
+    }@inputs:
 
     let
       # Define shared variables for all outputs.
@@ -28,17 +36,18 @@
       username = "yrrrrrf";
       lib = nixpkgs.lib;
 
-      unstable-packages-overlay = final: prev:
+      unstable-packages-overlay =
+        final: prev:
         let
           # Import the unstable package set
           unstable = import nixpkgs-unstable {
             inherit system;
             config = {
               allowUnfree = true;
-                permittedInsecurePackages = [
-                  "libxml2-2.13.9"
-                  # "ciscoPacketTracer9-9.0.0"
-                ];
+              permittedInsecurePackages = [
+                "libxml2-2.13.9"
+                # "ciscoPacketTracer9-9.0.0"
+              ];
             };
           };
         in
@@ -53,19 +62,20 @@
           antigravity = unstable.antigravity;
 
           # ciscoPacketTracer9 = unstable.ciscoPacketTracer9.overrideAttrs (oldAttrs: {
-            # src = ./resources/assets/CiscoPacketTracer_900_Ubuntu_64bit.deb;
-          # });       
+          # src = ./resources/assets/CiscoPacketTracer_900_Ubuntu_64bit.deb;
+          # });
 
         };
 
-    in {
+    in
+    {
       # --- NixOS System Configurations ---
       nixosConfigurations = {
-        
+
         # The hostname of your machine.
         "g14" = lib.nixosSystem {
           inherit system;
-          
+
           # 'specialArgs' makes 'inputs' and 'username' available to all our modules.
           specialArgs = { inherit inputs username; };
 

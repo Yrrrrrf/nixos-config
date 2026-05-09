@@ -19,14 +19,13 @@
   time.timeZone = "America/Mexico_City";
   i18n.defaultLocale = "en_US.UTF-8";
 
-
   # --- System-wide Packages ---
   # These packages are installed into the global system profile, making them
   # available to all users on the system. This is best for system-level tools.
   environment.systemPackages = with pkgs; [
-    git       # Version control system, essential for development.
+    git # Version control system, essential for development.
     #vim       # A highly configurable text editor.
-    asusctl   # Utility for managing ASUS laptop features (e.g., fan profiles, keyboard backlight).
+    asusctl # Utility for managing ASUS laptop features (e.g., fan profiles, keyboard backlight).
 
     #exfatprogs # Provides tools for the exFAT filesystem, useful for external drives.
 

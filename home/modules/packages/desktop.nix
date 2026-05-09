@@ -1,10 +1,21 @@
 # /etc/nixos/home/modules/packages/desktop.nix
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # This file now just returns an attribute set.
   # The 'gui' attribute holds our list of packages.
   gui = with pkgs; [
-    spotify obsidian steam firefox brave thunderbird gimp3 inkscape
-    obs-studio mendeley libreoffice-qt6-fresh discord
+    spotify
+    obsidian
+    steam
+    firefox
+    brave
+    thunderbird
+    gimp3
+    inkscape
+    obs-studio
+    mendeley
+    libreoffice-qt6-fresh
+    discord
   ];
 
   # The desktop utilities can be a separate list.

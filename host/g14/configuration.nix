@@ -3,7 +3,13 @@
 # This is the main entry point for the NixOS system configuration.
 # Its primary role is to import all the necessary modules that define the system.
 
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   # This user data is needed for the specialisations below.
@@ -27,9 +33,11 @@ in
   ];
 
   # --- Global System Settings ---
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.allowUnfree = true;
-
 
   # --- NixOS Specialisations ---
   # This is now the ONLY place where Home Manager profiles are referenced in this file.
@@ -53,7 +61,11 @@ in
   users.users.${user.username} = {
     isNormalUser = true;
     description = user.username;
-    extraGroups = [ "wheel" "networkmanager" "input" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "input"
+    ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
   };

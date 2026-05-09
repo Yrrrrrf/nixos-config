@@ -1,7 +1,12 @@
 # /etc/nixos/modules/system/podman.nix
 # A shareable module for Podman configuration, inspired by the video.
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # This creates a new option `services.podman.enable`
@@ -28,7 +33,7 @@
     environment.systemPackages = with pkgs; [
       podman-compose
       podman-tui
-      kubernetes  # also add kubernetes to deploy!
+      kubernetes # also add kubernetes to deploy!
       traefik
     ];
   };

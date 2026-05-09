@@ -46,17 +46,17 @@
     vscode-langservers-extracted # Provides LSPs for css, html, json
     svelte-language-server
     taplo # TOML LSP
-    nil   # Nix LSP
+    nil # Nix LSP
     nixfmt
-    sqls  # SQL LSP
+    sqls # SQL LSP
     bash-language-server
 
-    tinymist  # Typst files
+    tinymist # Typst files
 
-    asm-lsp  # Assembly LSP
+    asm-lsp # Assembly LSP
     kotlin-language-server
     hyprls
-  
+
     # Formatters
     nixpkgs-fmt # Formatter for Nix files
     # (ruff.with-extensions (exts: [ exts.format ])) # Python formatter

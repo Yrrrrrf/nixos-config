@@ -26,18 +26,18 @@
       };
     };
   };
-  
+
   # --- Graphical Session & Desktop Services ---
   # These are system-level components required for Hyprland and other
   programs.hyprland = {
-    enable = true;        # Enables the core Hyprland compositor package.
+    enable = true; # Enables the core Hyprland compositor package.
     xwayland.enable = true; # Enables XWayland for running X11 applications.
-    withUWSM = true;      # Includes the Universal Wayland Session Manager.
+    withUWSM = true; # Includes the Universal Wayland Session Manager.
   };
 
   # Enables the PAM (Pluggable Authentication Modules) service for hyprlock,
   # allowing it to authenticate the user with the system's password.
-  security.pam.services.hyprlock = {};
+  security.pam.services.hyprlock = { };
 
   # The XDG Desktop Portal is a standard for sandboxed applications (like Flatpaks)
   # to request resources from the host system (e.g., file pickers, screen sharing).

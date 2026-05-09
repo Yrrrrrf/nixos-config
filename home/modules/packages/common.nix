@@ -8,18 +8,52 @@
 let
   # Libraries needed for running most GUI applications
   guiLibs = with pkgs; [
-    wayland libxkbcommon xorg.libX11 xorg.libXcursor xorg.libXrandr
-    xorg.libXi xorg.libXinerama libglvnd libGL alsa-lib glib
-    SDL2 SDL2_ttf SDL2_image SDL2_mixer SDL2_gfx
+    wayland
+    libxkbcommon
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXrandr
+    xorg.libXi
+    xorg.libXinerama
+    libglvnd
+    libGL
+    alsa-lib
+    glib
+    SDL2
+    SDL2_ttf
+    SDL2_image
+    SDL2_mixer
+    SDL2_gfx
   ];
 
   # A broader set of libraries for compiling software
   buildLibs = with pkgs; [
-    systemd.dev pkg-config alsa-lib.dev glib libglvnd libxkbcommon
-    SDL2 SDL2_gfx SDL2_image SDL2_mixer SDL2_ttf
-    wayland wayland.dev xorg.libX11 xorg.libxcb xorg.libXcursor xorg.libXi
-    xorg.libXinerama xorg.libXrandr fontconfig freetype
-    qt6.qtbase qt6.qtwayland libjpeg libpng giflib
+    systemd.dev
+    pkg-config
+    alsa-lib.dev
+    glib
+    libglvnd
+    libxkbcommon
+    SDL2
+    SDL2_gfx
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    wayland
+    wayland.dev
+    xorg.libX11
+    xorg.libxcb
+    xorg.libXcursor
+    xorg.libXi
+    xorg.libXinerama
+    xorg.libXrandr
+    fontconfig
+    freetype
+    qt6.qtbase
+    qt6.qtwayland
+    libjpeg
+    libpng
+    giflib
   ];
 
   vulkanLibs = with pkgs; [

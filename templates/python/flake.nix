@@ -16,7 +16,8 @@
 
   # --- Flake Outputs ---
   # Defines what this flake provides: shells, packages, and the template itself.
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -24,7 +25,7 @@
       # ===================================================================
       # --- Centralized Dependency Sets ---
       #
-      # All common dependency sets are defined here. Simply uncomment 
+      # All common dependency sets are defined here. Simply uncomment
       # the set you need in the devShells below.
       # ===================================================================
 
@@ -57,7 +58,7 @@
         # To use: `nix develop`
         default = pkgs.mkShell {
           buildInputs = [
-            pkgs.uv  # Fast Python package manager - uv handles Python itself
+            pkgs.uv # Fast Python package manager - uv handles Python itself
 
             # --- UNCOMMENT THE DEPENDENCY SET YOU NEED ---
             # ++ pygameDeps

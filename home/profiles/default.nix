@@ -2,7 +2,12 @@
 # This file contains the BASE configuration shared by ALL user profiles.
 # It should not contain any package lists or profile-specific settings.
 
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   user = import ../users/yrrrrrf.nix;
@@ -44,7 +49,10 @@ in
       terminal = false;
       type = "Application";
       icon = "brave-browser";
-      categories = [ "Network" "WebBrowser" ];
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
     };
 
     "obsidian" = {
