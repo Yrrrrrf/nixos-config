@@ -4,7 +4,7 @@
 # It handles driver installation, kernel modules, unfree package permissions,
 # and system-wide library access.
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # --- CUDA Maintainers Cachix ---
@@ -24,20 +24,18 @@
     "cudatoolkit"
   ];
 
-  # --- NVIDIA Driver Configuration ---
-  # This is the main block for configuring the NVIDIA hardware.
+  # --- Graphics & NVIDIA Driver Configuration ---
+  # Explicit assertion — upstream nixos-hardware ga402x-nvidia sets this
+  # transitively via common/gpu/nvidia/prime.nix, but we assert it locally
+  # for documentation and grep-ability.
+  hardware.graphics.enable = true;
+
+  # NVIDIA driver settings. Upstream handles modesetting, package selection
+  # (Ada Lovelace → stable branch), and deliberately leaves powerManagement
+  # unset (tested to hang the 4060 on suspend/resume).
   hardware.nvidia = {
-    # This automatically handles modesetting for Wayland.
-    modesetting.enable = true;
-
-    # Use the open-source kernel module, which is generally recommended.
+    # Use the proprietary kernel module (not the open-source variant).
     open = false;
-
-    # Enable power management for better battery life on laptops.
-    powerManagement.enable = true;
-
-    # This is the core package that provides the drivers.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # --- Nix-LD for Non-Nix Binaries ---

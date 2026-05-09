@@ -98,3 +98,7 @@ git-size:
     @du -sh .git
     @echo "Working tree:"
     @du -sh --exclude=.git .
+
+[working-directory("/home/yrrrrrf/docs/lab/ai")]
+check-gpu:
+    uv run scripts/check_gpu.py

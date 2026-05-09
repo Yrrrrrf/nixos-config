@@ -13,6 +13,7 @@
     # android-tools
     # n8n
     typst
+    typstyle
     supabase-cli
     jq
     just

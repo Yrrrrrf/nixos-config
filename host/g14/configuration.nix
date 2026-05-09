@@ -17,7 +17,6 @@ in
 
     # Hardware support modules
     (inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia)
-    (inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-amdgpu)
 
     # Our modular system configuration
     ../../system/core.nix
@@ -30,15 +29,6 @@ in
   # --- Global System Settings ---
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
-
-  # nixpkgs.config.permittedInsecurePackages = [
-      # "ciscoPacketTracer8-8.2.2"
-    # "ciscoPacketTracer9-9.0.0"
-  # ];
-
-  # hardware.graphics.enable = true;
-  # services.xserver.videoDrivers = ["nvidia"];
-  # (Your other specific hardware settings...)
 
 
   # --- NixOS Specialisations ---
