@@ -53,13 +53,6 @@
   # removable media (like USB drives) without needing root privileges.
   services.udisks2.enable = true;
 
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-  };
-
-  services.open-webui.enable = true;
-
   # Pipewire is a modern, low-latency audio and video server.
   services.pipewire.enable = true;
 

@@ -7,26 +7,6 @@
 { pkgs, ... }:
 
 {
-  # --- CUDA Maintainers Cachix ---
-  # This adds a binary cache that often provides pre-built CUDA packages,
-  # which can significantly speed up builds.
-  nix.settings = {
-    extra-substituters = [ "https://cuda-maintainers.cachix.org" ];
-    extra-trusted-public-keys = [
-      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9jyUG0VpZa7CNfq55E="
-    ];
-  };
-
-  # --- Unfree Package Permissions ---
-  # Allow the installation of the proprietary NVIDIA driver and CUDA components.
-  # This is more secure than a global `allowUnfree = true`.
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (pkg.pname or "") [
-      "nvidia-x11"
-      "nvidia-settings"
-      "cudatoolkit"
-    ];
 
   # --- Graphics & NVIDIA Driver Configuration ---
   # Explicit assertion — upstream nixos-hardware ga402x-nvidia sets this

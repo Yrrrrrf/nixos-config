@@ -48,11 +48,4 @@
     iot = with pkgs; [ platformio ];
   };
 
-  # These are the essential packages needed at RUNTIME for CUDA applications
-  cudaPkgs = with pkgs; [
-    cudaPackages.cudatoolkit
-    cudaPackages.cudnn
-    linuxPackages.nvidia_x11
-  ];
-
 }

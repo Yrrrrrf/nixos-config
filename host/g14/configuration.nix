@@ -30,6 +30,7 @@ in
     ../../system/services.nix
     ../../system/podman.nix
     ../../system/nvidia.nix
+    ../../system/cuda.nix
   ];
 
   # --- Global System Settings ---
