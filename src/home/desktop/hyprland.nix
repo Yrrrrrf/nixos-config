@@ -5,7 +5,11 @@
     # This module declaratively manages the Hyprland window manager via Home Manager.
     # It enables the service and specifies the package to use, while offloading the
     # detailed, imperative configuration to an adjacent 'hyprland.conf' file.
-    {pkgs, ...}: {
+    {
+      pkgs,
+      lib,
+      ...
+    }: {
       # The 'wayland.windowManager.hyprland' options are provided by Home Manager's
       # built-in Hyprland module.
       wayland.windowManager.hyprland = {
@@ -13,7 +17,7 @@
         enable = true;
 
         # Explicitly specify the Hyprland package from nixpkgs.
-        package = pkgs.hyprland;
+        package = lib.mkDefault pkgs.hyprland;
 
         # This is the key to our modular setup. Instead of writing the entire
         # Hyprland configuration inside this Nix file (which is possible but cumbersome),

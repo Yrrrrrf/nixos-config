@@ -5,7 +5,6 @@ set shell := ["bash", "-cu"]
 
 user := env('USER')
 group := "users"
-host := `hostname`
 dir := justfile_directory()
 
 # Default: list recipes
@@ -76,7 +75,7 @@ clean:
 
 [doc("Check the configuration for errors")]
 [group("CI")]
-check:
+check: fmt
     nix flake check
     alejandra --check .
 

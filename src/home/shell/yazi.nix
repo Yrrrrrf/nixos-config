@@ -15,6 +15,10 @@
           { mime = "inode/x-empty", use = "edit" },
         ]
       '';
+      programs.yazi = {
+        enable = true;
+        enableZshIntegration = true;
+      };
       programs.zsh.shellAliases.y = "yazi";
     };
 }
