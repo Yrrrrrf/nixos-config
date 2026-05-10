@@ -3,95 +3,66 @@
   description = "yrrrrrf's stable NixOS configuration with select unstable packages";
 
   # --- Flake Inputs ---
-  # All external dependencies are pinned here for full reproducibility.
   inputs = {
-    # Our base system will be the stable NixOS 25.11 release.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-
-    # We also bring in the unstable channel specifically for newer packages.
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Home Manager should follow our primary (stable) nixpkgs to avoid conflicts.
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   # --- Flake Outputs ---
-  # The 'outputs' function takes all 'inputs' as arguments.
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    home-manager,
-    nixos-hardware,
-    ...
-  } @ inputs: let
-    # Define shared variables for all outputs.
-    system = "x86_64-linux";
-    username = "yrrrrrf";
-    lib = nixpkgs.lib;
+  outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = [ "x86_64-linux" ];
 
-    unstable-packages-overlay = final: prev: let
-      # Import the unstable package set
-      unstable = import nixpkgs-unstable {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [
-            "libxml2-2.13.9"
-            # "ciscoPacketTracer9-9.0.0"
+    imports = [
+      inputs.home-manager.flakeModules.home-manager
+      (inputs.import-tree ./src)
+    ];
+
+    # TEMPORARY BRIDGE
+    # This keeps the system building from the old paths until the refactor completes.
+    flake.nixosConfigurations."g14" = inputs.nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; username = "yrrrrrf"; };
+      modules = [
+        {
+          nixpkgs.overlays = [
+            (final: prev:
+              let
+                unstable = import inputs.nixpkgs-unstable {
+                  system = "x86_64-linux";
+                  config = {
+                    allowUnfree = true;
+                    permittedInsecurePackages = [ "libxml2-2.13.9" ];
+                  };
+                };
+                unstablePackages = import ./unstable.nix;
+              in
+                inputs.nixpkgs.lib.mapAttrs (name: override:
+                  if override == null then unstable.${name}
+                  else override unstable.${name}
+                ) unstablePackages
+            )
           ];
-        };
-      };
-    in {
-      # Your other unstable packages
-      uv = unstable.uv;
-      deno = unstable.deno;
-      bun = unstable.bun;
-
-      supabase-cli = unstable.supabase-cli;
-      # n8n = unstable.n8n;
-      antigravity = unstable.antigravity;
-
-      # ciscoPacketTracer9 = unstable.ciscoPacketTracer9.overrideAttrs (oldAttrs: {
-      # src = ./resources/assets/CiscoPacketTracer_900_Ubuntu_64bit.deb;
-      # });
-    };
-  in {
-    # --- NixOS System Configurations ---
-    nixosConfigurations = {
-      # The hostname of your machine.
-      "g14" = lib.nixosSystem {
-        inherit system;
-
-        # 'specialArgs' makes 'inputs' and 'username' available to all our modules.
-        specialArgs = {inherit inputs username;};
-
-        modules = [
-          # CRITICAL: The overlay must be applied first.
-          # This ensures that every other module sees the modified package set.
-          {nixpkgs.overlays = [unstable-packages-overlay];}
-
-          # The main entry point for this specific host
-          ./host/g14/configuration.nix
-
-          # Make Home Manager available to the system
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            # Pass the same specialArgs to Home Manager modules
-            home-manager.extraSpecialArgs = {inherit inputs username;};
-
-            # Import the desired Home Manager user profile
-            # home-manager.users.${username} = import ./home/profiles/default.nix;
-            home-manager.users.${username} = import ./home/profiles/dev.nix;
-          }
-        ];
-      };
+        }
+        ./host/g14/configuration.nix
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = { inherit inputs; username = "yrrrrrf"; };
+          # The temporary bridge preserves the previous profile
+          home-manager.users.yrrrrrf = import ./home/profiles/dev.nix;
+        }
+      ];
     };
   };
 }

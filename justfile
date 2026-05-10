@@ -55,30 +55,30 @@ reset: unlock fix-modes
 [doc("Build only — no activation")]
 [group("NixOS")]
 build:
-    nixos-rebuild build --flake {{ dir }}#{{ host }}
+    nh os build
 
-[doc("Rebuild and switch (requires unlocked OR sudo can read either way)")]
+[doc("Rebuild and switch")]
 [group("NixOS")]
 switch:
-    sudo nixos-rebuild switch --flake .#{{ host }}
+    nh os switch
 
-[doc("Update flake inputs")]
+[doc("Update flake inputs and switch")]
 [group("NixOS")]
 update:
-    nix flake update --flake {{ dir }}
+    nh os switch --update
 
 [doc("Garbage collect old generations (keeps last 7 days)")]
 [group("NixOS")]
-gc:
-    sudo nix-collect-garbage --delete-older-than 7d
-    nix-collect-garbage --delete-older-than 7d
-
-[doc("List system generations")]
-[group("NixOS")]
-generations:
-    sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+clean:
+    nh clean all
 
 # === CI ====================================================================
+
+[doc("Check the configuration for errors")]
+[group("CI")]
+check:
+    nix flake check
+    alejandra --check .
 
 [doc("Format all files")]
 [group("CI")]
