@@ -25,6 +25,11 @@ in {
     };
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
+
   # --- FEATURE MODULE IMPORTS ---
   # These are the core modules for the desktop experience.
   imports = [
