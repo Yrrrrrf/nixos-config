@@ -3,40 +3,57 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: let
-  cli = import ../modules/packages/cli.nix {inherit pkgs;};
-  desktop = import ../modules/packages/desktop.nix {inherit pkgs;};
-  libs = import ../modules/packages/libs.nix {inherit pkgs lib;};
-  dev = import ../modules/packages/dev/packages.nix {inherit pkgs;};
+  cli = inputs.self.lib.pkgsets.cli;
+  desktop = inputs.self.lib.pkgsets.desktop;
+  libs = inputs.self.lib.libsets;
+  dev = inputs.self.lib.pkgsets.dev;
 in {
   imports = [
     ./default.nix
-    ../modules/packages/default.nix
+    inputs.self.homeModules.dev-lang-asm
+    inputs.self.homeModules.dev-lang-c-based
+    inputs.self.homeModules.dev-lang-go
+    inputs.self.homeModules.dev-lang-hyprlang
+    inputs.self.homeModules.dev-lang-iot
+    inputs.self.homeModules.dev-lang-just
+    inputs.self.homeModules.dev-lang-kotlin
+    inputs.self.homeModules.dev-lang-markdown
+    inputs.self.homeModules.dev-lang-nix
+    inputs.self.homeModules.dev-lang-python
+    inputs.self.homeModules.dev-lang-rust
+    inputs.self.homeModules.dev-lang-shell
+    inputs.self.homeModules.dev-lang-sql
+    inputs.self.homeModules.dev-lang-toml
+    inputs.self.homeModules.dev-lang-typst
+    inputs.self.homeModules.dev-lang-web
+    inputs.self.homeModules.dev-lang-yaml
   ];
 
   home.sessionVariables = {
     AQ_DRM_DEVICES = "/dev/dri/igpu:/dev/dri/dgpu";
-    LD_LIBRARY_PATH = lib.makeLibraryPath libs.build;
-    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" (libs.build ++ dev.build);
+    LD_LIBRARY_PATH = lib.makeLibraryPath (libs.build pkgs);
+    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" ((libs.build pkgs) ++ (dev.build pkgs));
   };
 
   home.packages =
-    libs.gui
-    ++ cli.nav
-    ++ cli.view
-    ++ cli.text
-    ++ cli.git
-    ++ cli.system
-    ++ cli.net
-    ++ cli.archive
-    ++ cli.bench
-    ++ cli.shell
-    ++ cli.rust-dev
-    ++ cli.misc
-    ++ desktop.apps
-    ++ desktop.creative
-    ++ desktop.office
-    ++ desktop.tools
-    ++ dev.build ++ dev.ides;
+    (libs.gui pkgs)
+    ++ (cli.nav pkgs)
+    ++ (cli.view pkgs)
+    ++ (cli.text pkgs)
+    ++ (cli.git pkgs)
+    ++ (cli.system pkgs)
+    ++ (cli.net pkgs)
+    ++ (cli.archive pkgs)
+    ++ (cli.bench pkgs)
+    ++ (cli.shell pkgs)
+    ++ (cli.rust-dev pkgs)
+    ++ (cli.misc pkgs)
+    ++ (desktop.apps pkgs)
+    ++ (desktop.creative pkgs)
+    ++ (desktop.office pkgs)
+    ++ (desktop.tools pkgs)
+    ++ (dev.build pkgs) ++ (dev.ides pkgs);
 }

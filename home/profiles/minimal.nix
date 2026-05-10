@@ -4,19 +4,20 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
-  cli = import ../modules/packages/cli.nix {inherit pkgs;};
-  desktop = import ../modules/packages/desktop.nix {inherit pkgs;};
+  cli = inputs.self.lib.pkgsets.cli;
+  desktop = inputs.self.lib.pkgsets.desktop;
 in {
   imports = [./default.nix];
 
   home.packages =
-    cli.nav
-    ++ cli.view
-    ++ cli.text
-    ++ cli.git
-    ++ cli.system
-    ++ cli.shell
-    ++ desktop.apps;
+    (cli.nav pkgs)
+    ++ (cli.view pkgs)
+    ++ (cli.text pkgs)
+    ++ (cli.git pkgs)
+    ++ (cli.system pkgs)
+    ++ (cli.shell pkgs)
+    ++ (desktop.apps pkgs);
 }
