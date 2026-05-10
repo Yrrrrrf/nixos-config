@@ -7,10 +7,6 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
-      # classic aliases mapped to 3A tools (to be removed in 3B)
-      lg = "lazygit";
-      lp = "lazydocker";
-
       # window manager shortcuts
       # uwsm-init = "uwsm start select";
     };

@@ -32,6 +32,9 @@
       podman-tui
       kubernetes
       traefik
+      lazydocker
     ];
+
+    programs.zsh.shellAliases.lp = "lazydocker";
   };
 }

@@ -29,7 +29,7 @@ get_short_name() {
 # --- FUNCTION: Get current layout for Waybar ---
 get_layout_for_waybar() {
     local full_name
-    full_name=$(hyprctl devices -j | jq -r ".keyboards[] | select(.name == \"$KEYBOARD_NAME\") | .active_keymap")
+    full_name=$(hyprctl devices -j | jaq -r ".keyboards[] | select(.name == \"$KEYBOARD_NAME\") | .active_keymap")
 
     # Get the clean name using our new function
     local short_name
@@ -47,7 +47,7 @@ change_layout_and_notify() {
 
     # 2. Get the full name of the new layout.
     local new_full_name
-    new_full_name=$(hyprctl devices -j | jq -r ".keyboards[] | select(.name == \"$KEYBOARD_NAME\") | .active_keymap")
+    new_full_name=$(hyprctl devices -j | jaq -r ".keyboards[] | select(.name == \"$KEYBOARD_NAME\") | .active_keymap")
 
     # 3. Get the clean, short name (US/MX).
     local new_short_name
