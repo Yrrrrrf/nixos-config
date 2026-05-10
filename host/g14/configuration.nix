@@ -10,7 +10,7 @@
   ...
 }: let
   # This user data is needed for the specialisations below.
-  user = import ../../home/users/yrrrrrf.nix;
+  user = inputs.self.lib.users.yrrrrrf;
 in {
   # --- Module Imports ---
   imports = [
@@ -21,12 +21,13 @@ in {
     (inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia)
 
     # Our modular system configuration
-    ../../system/core.nix
-    ../../system/fonts.nix
-    ../../system/services.nix
-    ../../system/podman.nix
-    ../../system/nvidia.nix
-    ../../system/cuda.nix
+    inputs.self.nixosModules.core
+    inputs.self.nixosModules.fonts
+    inputs.self.nixosModules.services
+    inputs.self.nixosModules.podman
+    inputs.self.nixosModules.nvidia
+    inputs.self.nixosModules.cuda
+    inputs.self.nixosModules.nh
   ];
 
   # --- Global System Settings ---
