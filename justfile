@@ -84,7 +84,6 @@ generations:
 [group("CI")]
 fmt:
     alejandra .
-    # fd -e nix . {{ dir }} -x nixfmt {} \;
 
 [doc("Show the largest files in git history")]
 [group("git")]
