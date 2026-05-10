@@ -29,5 +29,6 @@
   home.packages = with pkgs; [
     (lib.hiPrio rust-analyzer)
     (lib.hiPrio rustfmt)
+    rustup
   ];
 }

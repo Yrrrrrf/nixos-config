@@ -126,5 +126,8 @@
     svelte-language-server
     biome
     nodePackages.prettier
+    nodejs
+    bun
+    deno
   ];
 }

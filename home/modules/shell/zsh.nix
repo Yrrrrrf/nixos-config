@@ -7,13 +7,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
-      # replace commands
-      ls = "eza --icons";
-      cat = "bat";
-      find = "fd";
-      grep = "rg";
-      y = "yazi";
-
+      # classic aliases mapped to 3A tools (to be removed in 3B)
       lg = "lazygit";
       lp = "lazydocker";
 

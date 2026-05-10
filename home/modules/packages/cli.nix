@@ -1,34 +1,13 @@
-# /etc/nixos/home/modules/packages/cli.nix
-{pkgs, ...}: {
-  replacements = with pkgs; [
-    ripgrep
-    eza
-    bat
-    fd
-    fzf
-    killport
-    lazygit
-    lazydocker
-    sd
-  ];
-
-  typingTools = with pkgs; [
-    ttyper
-    wev
-  ];
-
-  # A list of general-purpose and fun command-line tools
-  tools = with pkgs; [
-    openssl
-    git
-    gh
-    helix
-    btop
-    unimatrix
-    neofetch
-    tree
-    p7zip
-    bluetui
-    impala
-  ];
+{ pkgs, ... }: {
+  nav = with pkgs; [ eza fd broot ];
+  view = with pkgs; [ bat hexyl ];
+  text = with pkgs; [ ripgrep sd jaq choose ];
+  git = with pkgs; [ gh gitui delta git-cliff ];
+  system = with pkgs; [ bottom procs dust fastfetch ];
+  net = with pkgs; [ xh gping bandwhich killport ];
+  archive = with pkgs; [ ouch p7zip ];
+  bench = with pkgs; [ hyperfine tokei ];
+  shell = with pkgs; [ skim tealdeer ];
+  rust-dev = with pkgs; [ bacon mprocs ];
+  misc = with pkgs; [ ttyper wev unimatrix bluetui impala openssl ];
 }

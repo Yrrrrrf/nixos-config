@@ -49,5 +49,6 @@
   home.packages = with pkgs; [
     ty
     ruff
+    uv
   ];
 }

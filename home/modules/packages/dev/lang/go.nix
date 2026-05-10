@@ -18,5 +18,5 @@
   programs.helix.languages.language-server.gopls = {
     command = "gopls";
   };
-  home.packages = with pkgs; [gopls];
+  home.packages = with pkgs; [gopls go];
 }

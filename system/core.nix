@@ -24,7 +24,6 @@
   # These packages are installed into the global system profile, making them
   # available to all users on the system. This is best for system-level tools.
   environment.systemPackages = with pkgs; [
-    git # Version control system, essential for development.
     #vim       # A highly configurable text editor.
     asusctl # Utility for managing ASUS laptop features (e.g., fan profiles, keyboard backlight).
 

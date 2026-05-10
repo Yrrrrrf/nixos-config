@@ -20,5 +20,5 @@
   programs.helix.languages.language-server.kotlin-language-server = {
     command = "kotlin-language-server";
   };
-  home.packages = with pkgs; [kotlin-language-server ktlint];
+  home.packages = with pkgs; [kotlin-language-server ktlint gradle tomcat openjdk21];
 }

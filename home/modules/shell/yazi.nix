@@ -13,4 +13,5 @@
       { mime = "inode/x-empty", use = "edit" },
     ]
   '';
+  programs.zsh.shellAliases.y = "yazi";
 }

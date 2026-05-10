@@ -32,6 +32,7 @@ in {
     ../modules/shell/zsh.nix
     ../modules/editor/helix/default.nix
     ../modules/shell/yazi.nix
+    ../modules/shell/tools/default.nix
     ../modules/scripts.nix
   ];
 
