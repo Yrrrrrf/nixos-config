@@ -7,29 +7,29 @@
         # Keyboard Shortcut scripts
         ".local/bin/kbd-performance" = {
           executable = true;
-          source = ../../home/scripts/kbd-performance.sh; # Note the updated relative path
+          source = ../../scripts/kbd-performance.sh; # Note the updated relative path
         };
         ".local/bin/kbd-layout" = {
           executable = true;
-          source = ../../home/scripts/kbd-layout.sh;
+          source = ../../scripts/kbd-layout.sh;
         };
         ".local/bin/kbd-mic" = {
           executable = true;
-          source = ../../home/scripts/kbd-mic.sh;
+          source = ../../scripts/kbd-mic.sh;
         };
         ".local/bin/volume" = {
           executable = true;
-          source = ../../home/scripts/kbd-volume.sh;
+          source = ../../scripts/kbd-volume.sh;
         };
         ".local/bin/kbd-backlight" = {
           executable = true;
-          source = ../../home/scripts/kbd-backlight.sh;
+          source = ../../scripts/kbd-backlight.sh;
         };
 
         # Screenshot scripts
         ".local/bin/screenshot" = {
           executable = true;
-          source = ../../home/scripts/screenshot.sh;
+          source = ../../scripts/screenshot.sh;
         };
       };
     };

@@ -1,5 +1,5 @@
 {lib, ...}: {
-  options.flake.lib = lib.mkOption {
+  options.flake.lib.users = lib.mkOption {
     type = lib.types.lazyAttrsOf lib.types.raw;
     default = {};
   };

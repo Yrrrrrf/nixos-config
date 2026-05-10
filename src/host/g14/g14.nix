@@ -41,6 +41,8 @@
       inputs.self.nixosModules.nvidia
       inputs.self.nixosModules.cuda
       inputs.self.nixosModules.nh
+      inputs.self.nixosModules.specialisations-dev
+      inputs.self.nixosModules.specialisations-minimal
 
       inputs.home-manager.nixosModules.home-manager
       {
@@ -71,29 +73,8 @@
 
         system.stateVersion = "25.11";
 
-        specialisation = {
-          "dev" = {
-            configuration = {
-              system.nixos.tags = ["dev"];
-              home-manager.users.${user.username} = import ../../../home/profiles/dev.nix;
-            };
-          };
-
-          "minimal" = {
-            configuration = {
-              system.nixos.tags = ["minimal"];
-              home-manager.users.${user.username} = import ../../../home/profiles/minimal.nix;
-            };
-          };
-        };
-
         home-manager.users.${user.username} = inputs.self.homeModules.default;
       })
     ];
-  };
-
-  # Temporary dummy to satisfy the reference before Phase 6
-  flake.homeModules.default = {
-    home.stateVersion = "25.11";
   };
 }

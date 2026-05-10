@@ -21,7 +21,7 @@
         };
 
         initContent = let
-          scriptsDir = ../../../home/scripts;
+          scriptsDir = ../../../scripts;
         in ''
           source ${scriptsDir}/fn.sh
         '';
