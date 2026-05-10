@@ -14,10 +14,8 @@
           find = "fd";
           grep = "rg";
           lg = "lazygit";
-          # lg = "gitui";
-          top = "btm";
-          htop = "btm";
           fzf = "sk";
+          y = "yazi";
         };
 
         initContent = let

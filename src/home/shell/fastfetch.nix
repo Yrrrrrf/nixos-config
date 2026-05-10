@@ -4,7 +4,7 @@
       {
         "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
         "logo": {
-          "type": "nixos",
+          "source": "nixos",
           "padding": { "top": 2 }
         },
         "modules": [

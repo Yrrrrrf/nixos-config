@@ -71,6 +71,11 @@ update:
 clean:
     nh clean all
 
+[doc("List all generations")]
+[group("NixOS")]
+list-gen:
+    nixos-rebuild list-generations --flake .
+
 # === CI ====================================================================
 
 [doc("Check the configuration for errors")]

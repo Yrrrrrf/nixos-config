@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: {
-    networking.hostName = "G14";
+    networking.hostName = "g14";
 
     networking.networkmanager.enable = true;
 
