@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ./eza.nix
     ./bat.nix

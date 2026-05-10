@@ -1,3 +1,3 @@
-{ ... }: {
-  imports = [ ./dev/lang/default.nix ];
+{...}: {
+  imports = [./dev/lang/default.nix];
 }

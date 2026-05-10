@@ -30,7 +30,7 @@ in {
   imports = [
     ../modules/desktop/default.nix
     ../modules/shell/zsh.nix
-    ../modules/editor/helix/default.nix
+    ../modules/editor/helix.nix
     ../modules/shell/yazi.nix
     ../modules/shell/tools/default.nix
     ../modules/scripts.nix
