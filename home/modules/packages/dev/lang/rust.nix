@@ -20,7 +20,9 @@
         tab-width = 4;
         unit = "    ";
       };
-      formatter = {command = "rustfmt";};
+      formatter = {
+        command = "rustfmt";
+      };
     }
   ];
   programs.helix.languages.language-server.rust-analyzer = {

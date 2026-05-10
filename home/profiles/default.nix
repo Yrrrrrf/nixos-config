@@ -6,14 +6,16 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   user = import ../users/yrrrrrf.nix;
-in {
+in
+{
   # --- Basic Home Manager Settings ---
   home.username = user.username;
   home.homeDirectory = user.homeDirectory;
   home.stateVersion = "25.11";
-  home.sessionPath = ["${config.home.homeDirectory}/.local/bin"];
+  home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
   # --- Program Configurations that use User Data ---
   programs.git = {
@@ -37,7 +39,6 @@ in {
     ../modules/shell/zsh.nix
     ../modules/editor/helix.nix
     ../modules/shell/yazi.nix
-    ../modules/shell/tools.nix
     ../modules/scripts.nix
   ];
 
