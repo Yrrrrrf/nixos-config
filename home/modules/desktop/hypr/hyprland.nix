@@ -3,10 +3,7 @@
 # This module declaratively manages the Hyprland window manager via Home Manager.
 # It enables the service and specifies the package to use, while offloading the
 # detailed, imperative configuration to an adjacent 'hyprland.conf' file.
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # The 'wayland.windowManager.hyprland' options are provided by Home Manager's
   # built-in Hyprland module.
   wayland.windowManager.hyprland = {

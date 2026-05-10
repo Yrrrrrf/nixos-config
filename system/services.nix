@@ -2,10 +2,11 @@
 #
 # This module configures all system-level services (daemons). Centralizing
 # service definitions here makes it easy to see what is running on the system.
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   services = {
     asusd = {
       enable = true;
@@ -37,14 +38,14 @@
 
   # Enables the PAM (Pluggable Authentication Modules) service for hyprlock,
   # allowing it to authenticate the user with the system's password.
-  security.pam.services.hyprlock = { };
+  security.pam.services.hyprlock = {};
 
   # The XDG Desktop Portal is a standard for sandboxed applications (like Flatpaks)
   # to request resources from the host system (e.g., file pickers, screen sharing).
   xdg.portal = {
     enable = true;
     config.common.default = "*"; # Sets the default portal implementation.
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ]; # Specific backend for Hyprland.
+    extraPortals = [pkgs.xdg-desktop-portal-hyprland]; # Specific backend for Hyprland.
   };
 
   # --- Core System Services ---

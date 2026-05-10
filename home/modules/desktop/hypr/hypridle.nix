@@ -3,10 +3,7 @@
 # This file declaratively manages the configuration for the hypridle daemon,
 # which handles system events during user inactivity (like locking the screen,
 # suspending the system, or turning off displays).
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # This is the main Home Manager option for the hypridle service.
   services.hypridle = {
     enable = true;

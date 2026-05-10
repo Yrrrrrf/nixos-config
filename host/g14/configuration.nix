@@ -2,20 +2,16 @@
 #
 # This is the main entry point for the NixOS system configuration.
 # Its primary role is to import all the necessary modules that define the system.
-
 {
   config,
   lib,
   pkgs,
   inputs,
   ...
-}:
-
-let
+}: let
   # This user data is needed for the specialisations below.
   user = import ../../home/users/yrrrrrf.nix;
-in
-{
+in {
   # --- Module Imports ---
   imports = [
     ./hardware-configuration.nix
@@ -45,14 +41,14 @@ in
   specialisation = {
     "dev" = {
       configuration = {
-        system.nixos.tags = [ "dev" ];
+        system.nixos.tags = ["dev"];
         home-manager.users.${user.username} = import ../../home/profiles/dev.nix;
       };
     };
 
     "minimal" = {
       configuration = {
-        system.nixos.tags = [ "minimal" ];
+        system.nixos.tags = ["minimal"];
         home-manager.users.${user.username} = import ../../home/profiles/minimal.nix;
       };
     };

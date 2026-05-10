@@ -1,14 +1,11 @@
 # /etc/nixos/modules/system/podman.nix
 # A shareable module for Podman configuration, inspired by the video.
-
 {
   config,
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   # This creates a new option `services.podman.enable`
   options.services.podman.enable = lib.mkEnableOption "Enable Podman services";
 
@@ -27,7 +24,7 @@
       };
     };
 
-    users.users.yrrrrrf.extraGroups = [ "podman" ];
+    users.users.yrrrrrf.extraGroups = ["podman"];
 
     # Install podman-compose system-wide for managing container stacks.
     environment.systemPackages = with pkgs; [

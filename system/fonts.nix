@@ -2,10 +2,7 @@
 #
 # This module handles the declarative management of system-wide fonts.
 # Fonts installed here are available to all applications and users.
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # --- Font Configuration ---
   # The `fonts.packages` option is the standard NixOS way to install fonts.
   # We are including several "Nerd Fonts", which are patched with a large
@@ -26,6 +23,5 @@
 
     # terminal looking
     nerd-fonts.terminess-ttf
-
   ];
 }

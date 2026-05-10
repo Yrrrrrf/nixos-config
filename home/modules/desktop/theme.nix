@@ -2,7 +2,6 @@
 #
 # This file centralizes the Catppuccin Mocha color palette and style
 # definitions for the entire desktop configuration.
-
 {
   # ===================================================================
   # --- COLOR PALETTE (Catppuccin Mocha) ---

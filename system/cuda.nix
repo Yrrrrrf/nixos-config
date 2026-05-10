@@ -1,14 +1,11 @@
 # /etc/nixos/system/cuda.nix
 #
 # This module centralizes all CUDA workloads, applications, and required runtime libraries.
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # --- CUDA Maintainers Cachix ---
   # Provides pre-built CUDA packages to speed up builds.
   nix.settings = {
-    extra-substituters = [ "https://cuda-maintainers.cachix.org" ];
+    extra-substituters = ["https://cuda-maintainers.cachix.org"];
     extra-trusted-public-keys = [
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9jyUG0VpZa7CNfq55E="
     ];

@@ -1,51 +1,80 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.helix.languages.language = [
     {
       name = "typescript";
-      language-servers = [ "typescript-language-server" ];
+      language-servers = ["typescript-language-server"];
       scope = "source.ts";
       file-types = ["ts" "tsx"];
-      roots = [ "package.json" "tsconfig.json" ];
+      roots = ["package.json" "tsconfig.json"];
       comment-token = "//";
-      indent = { tab-width = 2; unit = "  "; };
-      formatter = { command = "biome"; args = ["format" "--stdin-file-path" "a.ts"]; };
+      indent = {
+        tab-width = 2;
+        unit = "  ";
+      };
+      formatter = {
+        command = "biome";
+        args = ["format" "--stdin-file-path" "a.ts"];
+      };
       auto-format = false;
     }
     {
       name = "javascript";
-      language-servers = [ "typescript-language-server" ];
+      language-servers = ["typescript-language-server"];
       scope = "source.js";
       file-types = ["js" "mjs" "jsx"];
-      roots = [ "package.json" "jsconfig.json" ];
+      roots = ["package.json" "jsconfig.json"];
       comment-token = "//";
-      indent = { tab-width = 2; unit = "  "; };
-      formatter = { command = "biome"; args = ["format" "--stdin-file-path" "a.js"]; };
+      indent = {
+        tab-width = 2;
+        unit = "  ";
+      };
+      formatter = {
+        command = "biome";
+        args = ["format" "--stdin-file-path" "a.js"];
+      };
       auto-format = false;
     }
     {
       name = "json";
       scope = "source.json";
       file-types = ["json" "jsonc"];
-      language-servers = [ "vscode-json-language-server" ];
-      indent = { tab-width = 2; unit = "  "; };
-      formatter = { command = "biome"; args = ["format" "--stdin-file-path" "a.json"]; };
+      language-servers = ["vscode-json-language-server"];
+      indent = {
+        tab-width = 2;
+        unit = "  ";
+      };
+      formatter = {
+        command = "biome";
+        args = ["format" "--stdin-file-path" "a.json"];
+      };
       auto-format = false;
     }
     {
       name = "html";
       scope = "text.html.basic";
-      language-servers = [ "vscode-html-language-server" ];
-      indent = { tab-width = 2; unit = "  "; };
-      formatter = { command = "prettier"; args = ["--parser" "html"]; };
+      language-servers = ["vscode-html-language-server"];
+      indent = {
+        tab-width = 2;
+        unit = "  ";
+      };
+      formatter = {
+        command = "prettier";
+        args = ["--parser" "html"];
+      };
       auto-format = false;
     }
     {
       name = "css";
       scope = "source.css";
-      language-servers = [ "vscode-css-language-server" ];
-      indent = { tab-width = 2; unit = "  "; };
-      formatter = { command = "biome"; args = ["format" "--stdin-file-path" "a.css"]; };
+      language-servers = ["vscode-css-language-server"];
+      indent = {
+        tab-width = 2;
+        unit = "  ";
+      };
+      formatter = {
+        command = "biome";
+        args = ["format" "--stdin-file-path" "a.css"];
+      };
       auto-format = false;
     }
     {
@@ -54,10 +83,19 @@
       injection-regex = "svelte";
       file-types = ["svelte"];
       comment-token = "//";
-      block-comment-tokens = { start = "/*"; end = "*/"; };
-      language-servers = [ "svelteserver" ];
-      indent = { tab-width = 2; unit = "  "; };
-      formatter = { command = "prettier"; args = ["--plugin" "prettier-plugin-svelte" "--parser" "svelte"]; };
+      block-comment-tokens = {
+        start = "/*";
+        end = "*/";
+      };
+      language-servers = ["svelteserver"];
+      indent = {
+        tab-width = 2;
+        unit = "  ";
+      };
+      formatter = {
+        command = "prettier";
+        args = ["--plugin" "prettier-plugin-svelte" "--parser" "svelte"];
+      };
       auto-format = false;
     }
   ];

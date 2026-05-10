@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.helix.languages.language = [
     {
       name = "bash";
@@ -16,12 +15,12 @@
         "zsh"
       ];
       comment-token = "#";
-      language-servers = [ "bash-language-server" ];
+      language-servers = ["bash-language-server"];
       indent = {
         tab-width = 2;
         unit = "  ";
       };
-      formatter = { command = "shfmt"; };
+      formatter = {command = "shfmt";};
       auto-format = false;
     }
     {
@@ -29,21 +28,21 @@
       scope = "source.lua";
       file-types = ["lua"];
       comment-token = "--";
-      language-servers = [ "lua-language-server" ];
+      language-servers = ["lua-language-server"];
       indent = {
         tab-width = 2;
         unit = "  ";
       };
-      formatter = { command = "stylua"; };
+      formatter = {command = "stylua";};
       auto-format = false;
     }
   ];
   programs.helix.languages.language-server.bash-language-server = {
     command = "bash-language-server";
-    args = [ "start" ];
+    args = ["start"];
   };
   programs.helix.languages.language-server.lua-language-server = {
     command = "lua-language-server";
   };
-  home.packages = with pkgs; [ bash-language-server shfmt lua-language-server stylua ];
+  home.packages = with pkgs; [bash-language-server shfmt lua-language-server stylua];
 }

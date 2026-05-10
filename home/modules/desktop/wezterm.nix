@@ -1,8 +1,6 @@
 # /etc/nixos/home/modules/desktop/wezterm.nix
 # Declarative configuration for the Wezterm terminal emulator.
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.wezterm = {
     enable = true;
     # This embeds the Lua configuration directly into our Nix file.

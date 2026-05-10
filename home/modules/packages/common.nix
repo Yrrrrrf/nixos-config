@@ -2,10 +2,11 @@
 #
 # This is now a pure "data" module. It exports attribute sets
 # containing lists of packages, but sets no options itself.
-
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   # Libraries needed for running most GUI applications
   guiLibs = with pkgs; [
     wayland
@@ -63,9 +64,7 @@ let
     vulkan-loader
     vulkan-validation-layers
   ];
-
-in
-{
+in {
   # We now return the lists under named attributes.
   # The profile will decide what to do with them.
   inherit guiLibs buildLibs vulkanLibs;

@@ -1,8 +1,6 @@
 # /etc/nixos/home/modules/shell/yazi.nix
 # Declarative configuration for the Yazi terminal file manager.
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # This option declaratively creates ~/.config/yazi/yazi.toml
   xdg.configFile."yazi/yazi.toml".text = ''
     [mgr]

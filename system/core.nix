@@ -3,10 +3,11 @@
 # This module configures the core, fundamental aspects of the NixOS system.
 # It includes the bootloader, time and language settings, and essential
 # packages that should be available to all users on the system.
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # --- System Bootloader Configuration ---
   # Defines how the system starts up. systemd-boot is a modern, simple
   # boot manager for UEFI systems.

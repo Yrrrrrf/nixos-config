@@ -4,10 +4,11 @@
 # This module uses native Home Manager options to generate the Rofi theme,
 # ensuring a robust and reproducible setup. The theme is a "Floating Island"
 # style using Catppuccin colors to match the overall desktop aesthetic.
-
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   # This helper function from the NixOS library is used to tell the Rofi
   # module to treat a string as a literal value rather than a string in quotes.
   # It's necessary for setting Rasi properties correctly.
@@ -33,9 +34,7 @@ let
   fg-col = mkLiteral "#DDDDDD"; # Off-white text
   fg-col2 = mkLiteral "#999999"; # Grayer text
   grey = mkLiteral "#808080";
-
-in
-{
+in {
   programs.rofi = {
     enable = true;
     package = pkgs.rofi; # Specify the Wayland-compatible version of Rofi.
@@ -148,7 +147,6 @@ in
         display-filebrowser = "Files";
         display-window = "Window";
       };
-
     };
   };
 }

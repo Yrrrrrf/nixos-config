@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.helix.languages.language = [
     {
       name = "typst";
-      language-servers = [ "tinymist" ];
-      file-types = [ "typ" ];
+      language-servers = ["tinymist"];
+      file-types = ["typ"];
       formatter = {
         command = "typstyle";
       };

@@ -1,8 +1,6 @@
 # /etc/nixos/home/modules/scripts.nix
 # Symlinks all custom shell scripts into ~/.local/bin to make them executable.
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.file = {
     # Keyboard Shortcut scripts
     ".local/bin/kbd-performance" = {

@@ -3,11 +3,7 @@
 # This module centralizes all system-level configuration for NVIDIA GPUs.
 # It handles driver installation, kernel modules, unfree package permissions,
 # and system-wide library access.
-
-{ pkgs, ... }:
-
-{
-
+{pkgs, ...}: {
   # --- Graphics & NVIDIA Driver Configuration ---
   # Explicit assertion — upstream nixos-hardware ga402x-nvidia sets this
   # transitively via common/gpu/nvidia/prime.nix, but we assert it locally

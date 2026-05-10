@@ -1,23 +1,19 @@
 # /etc/nixos/home/profiles/default.nix
 # This file contains the BASE configuration shared by ALL user profiles.
 # It should not contain any package lists or profile-specific settings.
-
 {
   pkgs,
   config,
   lib,
   ...
-}:
-
-let
+}: let
   user = import ../users/yrrrrrf.nix;
-in
-{
+in {
   # --- Basic Home Manager Settings ---
   home.username = user.username;
   home.homeDirectory = user.homeDirectory;
   home.stateVersion = "25.11";
-  home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
+  home.sessionPath = ["${config.home.homeDirectory}/.local/bin"];
 
   # --- Program Configurations that use User Data ---
   programs.git = {

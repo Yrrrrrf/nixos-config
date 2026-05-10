@@ -1,8 +1,6 @@
 # /etc/nixos/home/modules/packages/development.nix
 # A "package catalog" that defines categorized lists of development tools.
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Essential tools for building software from source
   buildTools = with pkgs; [
     pkg-config
@@ -37,15 +35,14 @@
       tomcat
       openjdk21
     ];
-    python = with pkgs; [ uv ];
-    rust = with pkgs; [ rustup ];
-    go = with pkgs; [ go ];
+    python = with pkgs; [uv];
+    rust = with pkgs; [rustup];
+    go = with pkgs; [go];
     web = with pkgs; [
       nodejs
       bun
       deno
     ];
-    iot = with pkgs; [ platformio ];
+    iot = with pkgs; [platformio];
   };
-
 }

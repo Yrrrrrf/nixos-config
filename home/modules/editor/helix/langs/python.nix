@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.helix.languages.language = [
     {
       name = "python";
@@ -41,11 +40,11 @@
   ];
   programs.helix.languages.language-server.ty = {
     command = "ty";
-    args = [ "server" ];
+    args = ["server"];
   };
   programs.helix.languages.language-server.ruff = {
     command = "ruff";
-    args = [ "server" ];
+    args = ["server"];
   };
   home.packages = with pkgs; [
     ty

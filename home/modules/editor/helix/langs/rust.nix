@@ -1,11 +1,10 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.helix.languages.language = [
     {
       name = "rust";
       scope = "source.rust";
       injection-regex = "rs|rust";
-      file-types = [ "rs" ];
+      file-types = ["rs"];
       roots = [
         "Cargo.toml"
         "Cargo.lock"
@@ -16,12 +15,12 @@
         "///"
         "//!"
       ];
-      language-servers = [ "rust-analyzer" ];
+      language-servers = ["rust-analyzer"];
       indent = {
         tab-width = 4;
         unit = "    ";
       };
-      formatter = { command = "rustfmt"; };
+      formatter = {command = "rustfmt";};
     }
   ];
   programs.helix.languages.language-server.rust-analyzer = {

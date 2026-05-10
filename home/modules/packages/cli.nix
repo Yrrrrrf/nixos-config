@@ -1,6 +1,5 @@
 # /etc/nixos/home/modules/packages/cli.nix
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   replacements = with pkgs; [
     ripgrep
     eza

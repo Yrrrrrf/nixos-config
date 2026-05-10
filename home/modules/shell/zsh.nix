@@ -1,8 +1,6 @@
 # /etc/nixos/home/modules/shell/zsh.nix
 # Configures the Zsh shell and related command-line tools.
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -23,14 +21,11 @@
       # uwsm-init = "uwsm start select";
     };
 
-    initContent =
-      let
-        scriptsDir = ../../scripts;
-      in
-      ''
-        source ${scriptsDir}/fn.sh
-      '';
-
+    initContent = let
+      scriptsDir = ../../scripts;
+    in ''
+      source ${scriptsDir}/fn.sh
+    '';
   };
 
   # Enable companion tools for the shell

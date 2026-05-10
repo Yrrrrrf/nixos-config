@@ -1,9 +1,6 @@
 # /etc/nixos/home/modules/desktop/default.nix
 # This module acts as a master switch for the entire graphical desktop environment.
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # This should ONLY import other configuration modules for the desktop.
   imports = [
     # --- Core Desktop Components ---

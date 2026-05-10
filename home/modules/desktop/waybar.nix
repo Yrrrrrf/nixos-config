@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
@@ -19,7 +21,7 @@
           "clock"
           "hyprland/workspaces"
         ];
-        modules-center = [ "hyprland/window" ];
+        modules-center = ["hyprland/window"];
         modules-right = [
           "custom/mic"
           "pulseaudio"
@@ -71,8 +73,7 @@
           "format-wifi" = " {essid}";
           "format-ethernet" = "󰈀 Connected";
           "format-disconnected" = "󰖪 Disconnected";
-          "tooltip-format-wifi" =
-            "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}";
+          "tooltip-format-wifi" = "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}";
           "on-click" = "wezterm -e nmtui";
         };
         bluetooth = {
@@ -115,8 +116,7 @@
         };
         "custom/power" = {
           format = "";
-          "on-click" =
-            "${pkgs.rofi}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu";
+          "on-click" = "${pkgs.rofi}/bin/rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu";
           tooltip = false;
         };
 

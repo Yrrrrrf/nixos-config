@@ -1,19 +1,18 @@
 # /etc/nixos/home/modules/desktop/swayosd.nix
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # 1. Disable the standard module to stop it from generating the broken file
   services.swayosd.enable = false;
 
   # 2. Install the package manually
-  home.packages = [ pkgs.swayosd ];
+  home.packages = [pkgs.swayosd];
 
   # 3. Manually define the Systemd Service (The "Nuclear" Fix)
   systemd.user.services.swayosd-server = {
     Unit = {
       Description = "SwayOSD Service";
       Documentation = "https://github.com/ErikReider/SwayOSD";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
+      After = ["graphical-session.target"];
     };
 
     Service = {
@@ -24,7 +23,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 

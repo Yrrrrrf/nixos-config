@@ -83,7 +83,8 @@ generations:
 [doc("Format all files")]
 [group("CI")]
 fmt:
-    fd -e nix . {{ dir }} -x nixfmt {} \;
+    alejandra .
+    # fd -e nix . {{ dir }} -x nixfmt {} \;
 
 [doc("Show the largest files in git history")]
 [group("git")]

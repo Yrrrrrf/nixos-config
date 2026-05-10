@@ -2,10 +2,7 @@
 #
 # This module declaratively manages the hyprlock screen locker via Home Manager.
 # It enables the program and links it to its separate configuration file.
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.hyprlock = {
     enable = true;
 
