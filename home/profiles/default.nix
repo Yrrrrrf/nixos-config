@@ -34,7 +34,7 @@ in
   imports = [
     ../modules/desktop/default.nix
     ../modules/shell/zsh.nix
-    ../modules/editor/helix.nix
+    ../modules/editor/helix/default.nix
     ../modules/shell/yazi.nix
     ../modules/scripts.nix
   ];

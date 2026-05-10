@@ -1,0 +1,20 @@
+{
+  imports = [
+    ./rust.nix
+    ./python.nix
+    ./c-based.nix
+    ./web.nix
+    ./toml.nix
+    ./nix.nix
+    ./sql.nix
+    ./shell.nix
+    ./go.nix
+    ./asm.nix
+    ./kotlin.nix
+    ./hyprlang.nix
+    ./typst.nix
+    ./just.nix
+    ./markdown.nix
+    ./yaml.nix
+  ];
+}
