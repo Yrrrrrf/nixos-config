@@ -18,6 +18,7 @@ in {
   # --- Program Configurations that use User Data ---
   programs.git = {
     enable = true;
+    delta.enable = true;
     settings = {
       user.name = user.fullName;
       user.email = user.email;
@@ -32,7 +33,7 @@ in {
     ../modules/shell/zsh.nix
     ../modules/editor/helix.nix
     ../modules/shell/yazi.nix
-    ../modules/shell/tools/default.nix
+    ../modules/shell/tools.nix
     ../modules/scripts.nix
   ];
 
