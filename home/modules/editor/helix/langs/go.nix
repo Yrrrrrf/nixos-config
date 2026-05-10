@@ -8,6 +8,7 @@
     comment-token = "//";
     language-servers = [ "gopls" ];
     indent = { tab-width = 4; unit = "\t"; };
+    formatter = { command = "gofmt"; };
     auto-format = false;
   }];
   programs.helix.languages.language-server.gopls = {

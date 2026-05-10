@@ -7,6 +7,7 @@
     comment-token = "#";
     language-servers = [ "taplo" ];
     indent = { tab-width = 2; unit = "  "; };
+    formatter = { command = "taplo"; args = [ "format" "-" ]; };
     auto-format = false;
   }];
   programs.helix.languages.language-server.taplo = {

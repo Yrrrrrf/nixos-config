@@ -8,9 +8,10 @@
     language-servers = [ "kotlin-language-server" ];
     auto-format = false;
     indent = { tab-width = 4; unit = "    "; };
+    formatter = { command = "ktlint"; args = [ "--format" "--stdin" ]; };
   }];
   programs.helix.languages.language-server.kotlin-language-server = {
     command = "kotlin-language-server";
   };
-  home.packages = with pkgs; [ kotlin-language-server ];
+  home.packages = with pkgs; [ kotlin-language-server ktlint ];
 }
