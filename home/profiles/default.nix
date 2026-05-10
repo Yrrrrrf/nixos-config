@@ -5,9 +5,10 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
-  user = import ../users/yrrrrrf.nix;
+  user = inputs.self.lib.users.yrrrrrf;
 in {
   # --- Basic Home Manager Settings ---
   home.username = user.username;
@@ -33,12 +34,24 @@ in {
   # --- FEATURE MODULE IMPORTS ---
   # These are the core modules for the desktop experience.
   imports = [
-    ../modules/desktop/default.nix
-    ../modules/shell/zsh.nix
-    ../modules/editor/helix.nix
-    ../modules/shell/yazi.nix
-    ../modules/scripts.nix
+    inputs.self.homeModules.dunst
+    inputs.self.homeModules.hypridle
+    inputs.self.homeModules.hyprland
+    inputs.self.homeModules.hyprlock
+    inputs.self.homeModules.rofi
+    inputs.self.homeModules.waybar
+    inputs.self.homeModules.wezterm
+    inputs.self.homeModules.swayosd
+    inputs.self.homeModules.zsh
+    inputs.self.homeModules.fastfetch
+    inputs.self.homeModules.yazi
+    inputs.self.homeModules.helix
+    inputs.self.homeModules.scripts
   ];
+
+  # Enable core graphical services needed for everything to work.
+  services.dunst.enable = true;
+  programs.rofi.enable = true;
 
   # --- Declarative .desktop files ---
   xdg.desktopEntries = {
