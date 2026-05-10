@@ -18,7 +18,6 @@ in {
   # --- Program Configurations that use User Data ---
   programs.git = {
     enable = true;
-    delta.enable = true;
     settings = {
       user.name = user.fullName;
       user.email = user.email;
