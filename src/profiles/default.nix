@@ -27,10 +27,12 @@
       };
     };
 
+    /*
     programs.delta = {
       enable = true;
       enableGitIntegration = true;
     };
+    */
 
     # --- FEATURE MODULE IMPORTS ---
     # These are the core modules for the desktop experience.
@@ -48,6 +50,10 @@
       inputs.self.homeModules.yazi
       inputs.self.homeModules.helix
       inputs.self.homeModules.scripts
+      inputs.self.homeModules.direnv
+      inputs.self.homeModules.nix-index
+      inputs.self.homeModules.difftastic
+      inputs.self.homeModules.agenix
     ];
 
     # Enable core graphical services needed for everything to work.

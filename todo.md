@@ -2,7 +2,7 @@
 
 **Target:** `yrrrrrf`'s NixOS configuration (single-host, NixOS 25.11, Home Manager nested, ASUS G14)
 **Author:** Principal architect view
-**Status:** Spec, ready for execution
+**Status:** Complete — v0.0.1 architecture landed.
 
 ---
 
