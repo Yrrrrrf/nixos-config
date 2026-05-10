@@ -1,10 +1,7 @@
 {...}: {
-  flake.nixosModules.specialisations-dev = {inputs, ...}: let
-    user = inputs.self.lib.users.yrrrrrf;
-  in {
+  flake.nixosModules.specialisations-dev = {inputs, ...}: {
     specialisation.dev.configuration = {
       system.nixos.tags = ["dev"];
-      home-manager.users.${user.username} = inputs.self.homeModules.dev;
     };
   };
 
@@ -20,7 +17,7 @@
     dev = inputs.self.lib.pkgsets.dev;
   in {
     imports = [
-      inputs.self.homeModules.default
+      inputs.self.homeModules.common
       inputs.self.homeModules.dev-lang-asm
       inputs.self.homeModules.dev-lang-c-based
       inputs.self.homeModules.dev-lang-go
@@ -48,21 +45,16 @@
 
     home.packages =
       (libs.gui pkgs)
-      ++ (cli.nav pkgs)
-      ++ (cli.view pkgs)
-      ++ (cli.text pkgs)
-      ++ (cli.git pkgs)
-      ++ (cli.system pkgs)
       ++ (cli.net pkgs)
       ++ (cli.archive pkgs)
       ++ (cli.bench pkgs)
-      ++ (cli.shell pkgs)
       ++ (cli.rust-dev pkgs)
       ++ (cli.misc pkgs)
       ++ (desktop.apps pkgs)
       ++ (desktop.creative pkgs)
       ++ (desktop.office pkgs)
       ++ (desktop.tools pkgs)
-      ++ (dev.build pkgs) ++ (dev.ides pkgs);
+      ++ (dev.build pkgs)
+      ++ (dev.ides pkgs);
   };
 }

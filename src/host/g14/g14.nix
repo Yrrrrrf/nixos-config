@@ -53,28 +53,37 @@
           username = "yrrrrrf";
         };
       }
-      ({
-        config,
-        pkgs,
-        ...
-      }: let
-        user = inputs.self.lib.users.yrrrrrf;
-      in {
-        nix.settings.experimental-features = ["nix-command" "flakes"];
-        nixpkgs.config.allowUnfree = true;
+      (
+        {
+          config,
+          pkgs,
+          ...
+        }: let
+          user = inputs.self.lib.users.yrrrrrf;
+        in {
+          nix.settings.experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+          nixpkgs.config.allowUnfree = true;
 
-        users.users.${user.username} = {
-          isNormalUser = true;
-          description = user.username;
-          extraGroups = ["wheel" "networkmanager" "input"];
-          shell = pkgs.zsh;
-          ignoreShellProgramCheck = true;
-        };
+          users.users.${user.username} = {
+            isNormalUser = true;
+            description = user.username;
+            extraGroups = [
+              "wheel"
+              "networkmanager"
+              "input"
+            ];
+            shell = pkgs.zsh;
+            ignoreShellProgramCheck = true;
+          };
 
-        system.stateVersion = "25.11";
+          system.stateVersion = "25.11";
 
-        home-manager.users.${user.username} = inputs.self.homeModules.default;
-      })
+          home-manager.users.${user.username} = inputs.self.homeModules.default;
+        }
+      )
     ];
   };
 }

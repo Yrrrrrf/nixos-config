@@ -3,7 +3,7 @@
     type = lib.types.lazyAttrsOf lib.types.raw;
     default = {};
   };
-  config.flake.lib.pkgsets.cli = {
+  config.flake.lib.pkgsets.cli = let
     nav = pkgs:
       with pkgs; [
         eza
@@ -73,5 +73,8 @@
         impala
         openssl
       ];
+  in {
+    inherit nav view text git system net archive bench shell rust-dev misc;
+    core = pkgs: (nav pkgs) ++ (view pkgs) ++ (text pkgs) ++ (git pkgs) ++ (system pkgs) ++ (shell pkgs);
   };
 }
