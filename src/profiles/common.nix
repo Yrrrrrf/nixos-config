@@ -33,8 +33,6 @@
       inputs.self.homeModules.wezterm
       inputs.self.homeModules.swayosd
       inputs.self.homeModules.shell
-      inputs.self.homeModules.nushell
-      inputs.self.homeModules.zsh
     ];
 
     home.packages = cli.core pkgs;
@@ -50,7 +48,10 @@
         terminal = false;
         type = "Application";
         icon = "brave-browser";
-        categories = ["Network" "WebBrowser"];
+        categories = [
+          "Network"
+          "WebBrowser"
+        ];
       };
       "obsidian" = {
         name = "Obsidian";

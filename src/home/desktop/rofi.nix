@@ -26,16 +26,6 @@
       surface0 = "#313244";
       base = "#1e1e2e";
       crust = "#11111b";
-
-      # Based on macOS Dark Mode Spotlight
-      bg-col = mkLiteral "rgba(25, 25, 25, 0.95)"; # Deep dark glass
-      bg-col-light = mkLiteral "rgba(25, 25, 25, 0.2)";
-      border-col = mkLiteral "rgba(255, 255, 255, 0.1)"; # Subtle white border
-      selected-col = mkLiteral "#007AFF"; # San Francisco Blue
-      blue = mkLiteral "#007AFF";
-      fg-col = mkLiteral "#DDDDDD"; # Off-white text
-      fg-col2 = mkLiteral "#999999"; # Grayer text
-      grey = mkLiteral "#808080";
     in {
       programs.rofi = {
         enable = true;
