@@ -75,7 +75,7 @@
               "networkmanager"
               "input"
             ];
-            shell = pkgs.zsh;
+            shell = pkgs.nushell;
             ignoreShellProgramCheck = true;
           };
 
