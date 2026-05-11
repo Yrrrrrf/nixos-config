@@ -16,6 +16,7 @@
     import-tree.url = "github:vic/import-tree";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.url = "github:danth/stylix/release-25.11";
   };
 
   # --- Flake Outputs ---

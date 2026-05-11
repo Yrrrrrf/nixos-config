@@ -1,31 +1,18 @@
-/* /etc/nixos/modules/desktop/waybar-style.css */
-/*
- * FINAL CORRECTED VERSION:
- * - Forces all module containers (.modules-left/center/right) to have ZERO styling,
- *   solving the invisible container spacing issue.
- * - All modules are now mathematically guaranteed to be identical floating pills.
- * - The central window title has a distinct glow.
- * - The active workspace is a "mini pill" that animates smoothly.
-*/
+/* /etc/nixos/src/home/desktop/waybar-style.css */
 
 * {
   border: none;
   border-radius: 0;
-  font-family: "JetBrainsMono Nerd Font Propo";
+  font-family: "JetBrainsMono Nerd Font";
   font-size: 16px;
   min-height: 0;
 }
 
 window#waybar {
   background: transparent;
-  color: #cdd6f4;
-  /* Catppuccin Mocha - Text */
+  color: @text@;
 }
 
-/* --- THE CRITICAL FIX --- */
-/* This block resets the containers themselves, forcing them to be simple,
-   invisible boxes. This ensures the margins on the pills inside work
-   identically on the left, center, and right. */
 .modules-left,
 .modules-center,
 .modules-right {
@@ -34,8 +21,6 @@ window#waybar {
   border: none;
 }
 
-/* --- THE MASTER "FLOATING PILL" STYLE --- */
-/* This is the single source of truth for all standard modules. */
 #clock,
 #workspaces,
 #hyprland-window,
@@ -47,70 +32,46 @@ window#waybar {
 #battery,
 #custom-asus-profile,
 #custom-keyboard-layout {
-  background-color: #313244;
-  /* Catppuccin Mocha - Surface0 */
+  background-color: @surface0@;
   padding: 4px 14px;
   margin: 4px;
-  /* The unified margin that now works everywhere */
-  border-radius: 10px;
-  border: 1px solid #45475A;
-  /* Catppuccin Mocha - Surface1 */
+  border-radius: @borderRadius_pill@px;
+  border: @borderWidth@px solid @surface1@;
 }
 
-/* --- Left Side Modules --- */
-
-/* Special style for the profile image (not a pill) */
 #custom-profile {
   background-image: url("/home/yrrrrrf/Pictures/Images/fire.png");
   background-size: cover;
   background-position: center;
   border-radius: 50%;
   margin: 4px 6px;
-  /* A bit of extra horizontal margin next to the pill */
   padding: 0;
   min-width: 30px;
   min-height: 30px;
 }
 
-/* --- Final Animated Workspace Module --- */
 #workspaces button {
-  color: #6c7086;
-  /* Catppuccin Mocha - Overlay0 */
+  color: @overlay0@;
   background-color: transparent;
   padding: 0 4px;
-  border-radius: 8px;
-  /* The "mini pill" shape */
+  border-radius: @borderRadius_pill@px;
   min-width: 24px;
-  /* The animation for a smooth transition */
   transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.68);
 }
 
 #workspaces button:hover {
-  background-color: #1E1E2E;
-  /* Catppuccin Mocha - Base */
+  background-color: @base@;
 }
 
 #workspaces button.active {
-  background-color: #a6e3a1;
-  /* Catppuccin Mocha - Green */
-  color: #1e1e2e;
-  /* Dark text for high contrast */
+  background-color: @green@;
+  color: @base@;
 }
 
-/* --- Center Module (Glow Override) --- */
 @keyframes glow {
-  0% {
-    box-shadow: 0 0 3px #cba6f7;
-  }
-
-  /* Catppuccin Mauve */
-  50% {
-    box-shadow: 0 0 10px #cba6f7;
-  }
-
-  100% {
-    box-shadow: 0 0 3px #cba6f7;
-  }
+  0% { box-shadow: 0 0 3px @mauve@; }
+  50% { box-shadow: 0 0 10px @mauve@; }
+  100% { box-shadow: 0 0 3px @mauve@; }
 }
 
 #hyprland-window {
@@ -121,64 +82,21 @@ window#waybar {
   animation-iteration-count: infinite;
 }
 
-/* --- Right Side Modules (Color Theming) --- */
-#pulseaudio,
-#custom-mic {
-  color: #f9e2af;
-}
+#pulseaudio, #custom-mic { color: @yellow@; }
+#pulseaudio.muted, #custom-mic.muted { color: @red@; }
+#cpu { color: @peach@; }
+#network { color: @teal@; }
+#network.disconnected { color: @red@; }
+#bluetooth { color: @blue@; }
+#battery { color: @green@; }
+#battery.warning { color: @yellow@; }
+#battery.critical { color: @red@; }
 
-/* Yellow */
-#pulseaudio.muted,
-#custom-mic.muted {
-  color: #f38ba8;
-}
-
-/* Red */
-#cpu {
-  color: #fab387;
-}
-
-/* Peach */
-#network {
-  color: #94e2d5;
-}
-
-/* Teal */
-#network.disconnected {
-  color: #f38ba8;
-}
-
-/* Red */
-#bluetooth {
-  color: #89b4fa;
-}
-
-/* Blue */
-#battery {
-  color: #a6e3a1;
-}
-
-/* Green */
-#battery.warning {
-  color: #f9e2af;
-}
-
-/* Yellow */
-#battery.critical {
-  color: #f38ba8;
-}
-
-/* Red */
-
-/* --- Special Style for the Power Button --- */
 #custom-power {
-  color: #1e1e2e;
-  /* Dark text for contrast */
-  background-color: #f38ba8;
-  /* Red */
+  color: @base@;
+  background-color: @red@;
   padding: 4px 14px;
   margin: 4px 8px 4px 4px;
-  /* Final margin for the right edge */
-  border-radius: 10px;
-  border: 1px solid #45475A;
+  border-radius: @borderRadius_pill@px;
+  border: @borderWidth@px solid @surface1@;
 }

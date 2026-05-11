@@ -24,21 +24,11 @@
     };
 
     imports = [
-      inputs.self.homeModules.dunst
-      inputs.self.homeModules.hypridle
-      inputs.self.homeModules.hyprland
-      inputs.self.homeModules.hyprlock
-      inputs.self.homeModules.rofi
-      inputs.self.homeModules.waybar
-      inputs.self.homeModules.wezterm
-      inputs.self.homeModules.swayosd
+      inputs.self.homeModules.desktop
       inputs.self.homeModules.shell
     ];
 
     home.packages = cli.core pkgs;
-
-    services.dunst.enable = true;
-    programs.rofi.enable = true;
 
     xdg.desktopEntries = {
       "brave-browser" = {
