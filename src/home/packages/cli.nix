@@ -8,7 +8,7 @@
       with pkgs; [
         eza
         fd
-        broot
+        # broot
       ];
     view = pkgs:
       with pkgs; [
@@ -74,7 +74,19 @@
         openssl
       ];
   in {
-    inherit nav view text git system net archive bench shell rust-dev misc;
+    inherit
+      nav
+      view
+      text
+      git
+      system
+      net
+      archive
+      bench
+      shell
+      rust-dev
+      misc
+      ;
     core = pkgs: (nav pkgs) ++ (view pkgs) ++ (text pkgs) ++ (git pkgs) ++ (system pkgs) ++ (shell pkgs);
   };
 }

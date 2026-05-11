@@ -27,6 +27,33 @@
         extraConfig = builtins.readFile ./hyprland.conf;
       };
 
+      home.file = {
+        ".local/bin/kbd-performance" = {
+          executable = true;
+          source = ./scripts/kbd-performance.nu;
+        };
+        ".local/bin/kbd-layout" = {
+          executable = true;
+          source = ./scripts/kbd-layout.nu;
+        };
+        ".local/bin/kbd-mic" = {
+          executable = true;
+          source = ./scripts/kbd-mic.nu;
+        };
+        ".local/bin/volume" = {
+          executable = true;
+          source = ./scripts/volume.nu;
+        };
+        ".local/bin/kbd-backlight" = {
+          executable = true;
+          source = ./scripts/kbd-backlight.nu;
+        };
+        ".local/bin/screenshot" = {
+          executable = true;
+          source = ./scripts/screenshot.nu;
+        };
+      };
+
       # --- Hyprland Lock Screen Configuration ---
       # Although hyprlock is a separate program, its configuration is tightly
       # coupled with the Hyprland session. We manage it here for co-location.

@@ -37,33 +37,6 @@
       inputs.self.homeModules.zsh
     ];
 
-    home.file = {
-      ".local/bin/kbd-performance" = {
-        executable = true;
-        source = ../home/shell/scripts/kbd-performance.sh;
-      };
-      ".local/bin/kbd-layout" = {
-        executable = true;
-        source = ../home/shell/scripts/kbd-layout.sh;
-      };
-      ".local/bin/kbd-mic" = {
-        executable = true;
-        source = ../home/shell/scripts/kbd-mic.sh;
-      };
-      ".local/bin/volume" = {
-        executable = true;
-        source = ../home/shell/scripts/kbd-volume.sh;
-      };
-      ".local/bin/kbd-backlight" = {
-        executable = true;
-        source = ../home/shell/scripts/kbd-backlight.sh;
-      };
-      ".local/bin/screenshot" = {
-        executable = true;
-        source = ../home/shell/scripts/screenshot.sh;
-      };
-    };
-
     home.packages = cli.core pkgs;
 
     services.dunst.enable = true;
