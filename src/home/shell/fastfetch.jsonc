@@ -1,0 +1,117 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "nixos",
+    "padding": {
+      "top": 1
+    }
+  },
+  "modules": [
+    "break",
+    {
+      "type": "host",
+      "key": " PC",
+      "keyColor": "green"
+    },
+    {
+      "type": "cpu",
+      "key": "│ ├",
+      "format": "{name} ({cores-logical}) @ {freq-max} {temperature}",
+      "temp": true,
+      "keyColor": "green"
+    },
+    {
+      "type": "gpu",
+      "key": "│ ├",
+      "format": "{name} {temperature}",
+      "temp": true,
+      "keyColor": "green"
+    },
+    {
+      "type": "display",
+      "key": "│ ├󰍹",
+      "keyColor": "green"
+    },
+    {
+      "type": "disk",
+      "key": "│ ├󰋊",
+      "keyColor": "green"
+    },
+    {
+      "type": "battery",
+      "key": "└ └",
+      "keyColor": "green"
+    },
+    "break",
+    {
+      "type": "os",
+      "key": " OS",
+      "keyColor": "blue"
+    },
+    {
+      "type": "kernel",
+      "key": "│ ├",
+      "keyColor": "blue"
+    },
+    {
+      "type": "wm",
+      "key": "│ ├",
+      "keyColor": "blue"
+    },
+    {
+      "type": "command",
+      "key": "└ └󱄅 Gen",
+      "text": "gen=$(readlink /nix/var/nix/profiles/system | cut -d- -f2); spec=$(readlink -f /run/current-system | grep -oP 'specialization/\\K[^/]+' || echo 'main'); echo \"$gen ($spec)\"",
+      "keyColor": "blue"
+    },
+    "break",
+    {
+      "type": "command",
+      "key": "󰀂 Net",
+      "text": "hostname -I | awk '{print $1}'",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "wifi",
+      "key": "│ ├",
+      "format": "{ssid}",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "bluetooth",
+      "key": "└ └",
+      "keyColor": "yellow"
+    },
+    "break",
+    {
+      "type": "terminal",
+      "key": " Session",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "shell",
+      "key": "│ ├",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "packages",
+      "key": "│ ├󰏖",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "memory",
+      "key": "└ └",
+      "keyColor": "cyan"
+    },
+    "break",
+    {
+      "type": "uptime",
+      "key": "󱫐 ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "colors",
+      "symbol": "circle"
+    }
+  ]
+}
