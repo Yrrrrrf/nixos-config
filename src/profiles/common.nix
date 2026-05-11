@@ -32,14 +32,9 @@
       inputs.self.homeModules.waybar
       inputs.self.homeModules.wezterm
       inputs.self.homeModules.swayosd
+      inputs.self.homeModules.shell
+      inputs.self.homeModules.nushell
       inputs.self.homeModules.zsh
-      inputs.self.homeModules.fastfetch
-      inputs.self.homeModules.yazi
-      inputs.self.homeModules.helix
-      inputs.self.homeModules.direnv
-      inputs.self.homeModules.nix-index
-      inputs.self.homeModules.difftastic
-      inputs.self.homeModules.agenix
     ];
 
     home.file = {

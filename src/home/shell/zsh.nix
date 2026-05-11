@@ -24,10 +24,5 @@
           source ${scriptsDir}/fn.sh
         '';
       };
-
-      # Enable companion tools for the shell
-      programs.atuin.enable = true;
-      programs.zoxide.enable = true;
-      programs.starship.enable = true;
     };
 }
