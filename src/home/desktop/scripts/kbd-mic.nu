@@ -20,8 +20,11 @@ def main [
         
         let mute_state = (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | split row " " | get 2? | default "")
         let status = if $mute_state == "[MUTED]" { "Muted" } else { "Active" }
-        log_success $"Microphone status set to: ($status)"
+        let msg = $"Microphone status set to: ($status)"
+        log_success $msg
+        notify "Microphone" $msg --icon "audio-input-microphone" --tag "mic_status"
     }
+
 }
 
 

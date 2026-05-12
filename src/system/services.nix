@@ -5,12 +5,8 @@
     ...
   }: {
     services = {
-      asusd = {
-        enable = true;
-        enableUserService = true;
-      };
-
       podman.enable = true;
+
       blueman.enable = true;
     };
 

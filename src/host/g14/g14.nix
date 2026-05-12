@@ -67,6 +67,15 @@
           ];
           nixpkgs.config.allowUnfree = true;
 
+          environment.systemPackages = with pkgs; [
+            asusctl
+          ];
+
+          services.asusd = {
+            enable = true;
+            enableUserService = true;
+          };
+
           users.users.${user.username} = {
             isNormalUser = true;
             description = user.username;

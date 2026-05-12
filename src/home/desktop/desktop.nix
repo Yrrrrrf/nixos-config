@@ -5,8 +5,7 @@
     lib,
     theme,
     ...
-  }: let
-  in {
+  }: {
     imports = [
       inputs.self.homeModules.stylix
     ];

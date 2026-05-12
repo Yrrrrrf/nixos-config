@@ -37,7 +37,7 @@
       crust = "#11111b";
     };
 
-    stripHash = color: builtins.substring 1 (builtins.stringLength color) color;
+    stripHash = color: builtins.substring 1 ((builtins.stringLength color) - 1) color;
 
     # Map for builtins.replaceStrings
     placeholders = {
@@ -92,8 +92,9 @@
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-      image = ./wallpaper.png;
+      image = ./wallpaper.jpg;
       polarity = "dark";
+
       cursor = {
         package = pkgs.bibata-cursors;
         name = "Bibata-Modern-Ice";
