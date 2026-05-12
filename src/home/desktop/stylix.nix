@@ -68,6 +68,8 @@
       "@borderRadius_pill@" = toString 10;
       "@borderWidth@" = toString 1;
       "@wallpaper@" = toString ./wallpaper.jpg;
+      "@opacity@" = toString 0.95;
+      "@monospace@" = "JetBrainsMono Nerd Font Mono";
     };
   in {
     imports = [inputs.stylix.homeModules.stylix];
@@ -130,7 +132,10 @@
       targets.gtk.enable = true;
       targets.qt.enable = true;
       targets.wezterm.enable = lib.mkForce false;
+      targets.helix.enable = lib.mkForce false;
+      targets.yazi.enable = lib.mkForce false;
       targets.fish.enable = true;
+
       targets.bat.enable = true;
       targets.btop.enable = true;
     };
