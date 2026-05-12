@@ -6,35 +6,34 @@
 
 const KEYBOARD_NAME = "asus-keyboard"
 
-def get_short_name [full_name: string] {
+def get_layout_info [full_name: string] {
     if ($full_name | str contains "English (US)") {
-        "US"
+        { key: "US", language: "English" }
     } else if ($full_name | str contains "intl") {
-        "MX"
+        { key: "MX", language: "Spanish" }
     } else {
-        "?"
+        { key: "?", language: "Unknown" }
     }
 }
 
 def main [
-    --get    # Get current layout for Waybar
+    --get    # Get current layout info for Waybar
     --change # Change to next layout
 ] {
     if $get {
         let full_name = (hyprctl devices -j | from json | get keyboards | where name == $KEYBOARD_NAME | get 0.active_keymap)
-        let short_name = (get_short_name $full_name)
-        
-        {
-            text: $short_name,
-            tooltip: $"Layout: ($full_name)"
-        } | to json --raw
+        get_layout_info $full_name | to json --raw
     } else if $change {
         hyprctl switchxkblayout $KEYBOARD_NAME next
         sleep 100ms
         
         let full_name = (hyprctl devices -j | from json | get keyboards | where name == $KEYBOARD_NAME | get 0.active_keymap)
-        let short_name = (get_short_name $full_name)
+        let info = (get_layout_info $full_name)
+        let msg = $"Language set to: \(($info.key)\) ($info.language)"
         
-        notify-send -i "input-keyboard" -h string:x-dunst-stack-tag:keyboard_layout $"Keyboard Layout: ($short_name)"
+        print $msg
+        notify-send -i "input-keyboard" -h string:x-dunst-stack-tag:keyboard_layout $msg
     }
 }
+
+

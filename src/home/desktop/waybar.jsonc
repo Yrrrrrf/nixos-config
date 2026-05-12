@@ -76,7 +76,8 @@
         ]
     },
     "custom/asus-profile": {
-        "format": "{}",
+        "format": "{icon}",
+
         "tooltip": true,
         "return-type": "json",
         "interval": 5,
@@ -84,7 +85,8 @@
         "on-click": "kbd-performance --change"
     },
     "custom/keyboard-layout": {
-        "format": "{}",
+        "format": "Layout: {language} ({key})",
+
         "tooltip": true,
         "return-type": "json",
         "interval": 1,
@@ -110,7 +112,8 @@
         }
     },
     "custom/mic": {
-        "format": "{}",
+        "format": "{icon}",
+
         "interval": 1,
         "return-type": "json",
         "exec": "kbd-mic --get-status",

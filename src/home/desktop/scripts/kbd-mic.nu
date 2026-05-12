@@ -11,18 +11,18 @@ def main [
     if $get_status {
         let mute_state = (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | split row " " | get 2? | default "")
         
-        let info = if $mute_state == "[MUTED]" {
-            { icon: "", class: "muted", tooltip: "Microphone: Muted" }
+        if $mute_state == "[MUTED]" {
+            { status: "Muted", icon: "" }
         } else {
-            { icon: "", class: "", tooltip: "Microphone: Active" }
-        }
-
-        {
-            text: $info.icon,
-            tooltip: $info.tooltip,
-            class: $info.class
+            { status: "Active", icon: "" }
         } | to json --raw
     } else if $toggle {
         swayosd-client --input-volume mute-toggle
+        sleep 100ms
+        
+        let mute_state = (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | split row " " | get 2? | default "")
+        let status = if $mute_state == "[MUTED]" { "Muted" } else { "Active" }
+        print $"Microphone status set to: ($status)"
     }
 }
+

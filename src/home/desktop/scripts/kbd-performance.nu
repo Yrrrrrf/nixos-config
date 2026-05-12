@@ -8,24 +8,22 @@ def main [
     --change # Change to the next profile
 ] {
     if $get {
-        let profile = (asusctl profile -p | lines | find "Active profile is" | split row " " | last)
+        let profile = (asusctl profile -p | lines | find "Active profile is" | first | ansi strip | split row " " | last)
         
-        let info = match $profile {
-            "Quiet" => { icon: "󰒑", class: "quiet" }
-            "Balanced" => { icon: "󰾅", class: "balanced" }
-            "Performance" => { icon: "󰓅", class: "performance" }
-            _ => { icon: "", class: "unknown" }
+        let icon = match $profile {
+            "Quiet" => "󰒑"
+            "Balanced" => "󰾅"
+            "Performance" => "󰓅"
+            _ => ""
         }
 
-        {
-            text: $info.icon,
-            tooltip: $"Profile: ($profile)",
-            class: $info.class
-        } | to json --raw
+        { profile: $profile, icon: $icon } | to json --raw
     } else if $change {
         asusctl profile -n
-        let profile = (asusctl profile -p | lines | find "Active profile is" | split row " " | last)
+        let profile = (asusctl profile -p | lines | find "Active profile is" | first | ansi strip | split row " " | last)
         
+        print $"Performance profile set to: ($profile)"
         notify-send -i "system-performance" -h string:x-dunst-stack-tag:performance_profile $"Performance Profile: ($profile)"
     }
 }
+

@@ -13,16 +13,19 @@ def main [
 ] {
     let output_dir = ($env.HOME | path join "Pictures" "Screenshots")
     mkdir $output_dir
+    let filename = (date now | format date "screenshot_%Y%m%d_%H%M%S.png")
 
     if $region {
-        if (do { hyprshot -m region -o $output_dir } | complete).exit_code == 0 {
-            send_notification "Screenshot Captured" "Region copied and saved."
-        } else {
-            send_notification "Screenshot Cancelled" "Capture was cancelled."
-        }
+        print "Select a region to capture..."
+        ^hyprshot -s -m region -o $output_dir -f $filename
+        print $"Screenshot stored on: ($output_dir | path join $filename)"
+        send_notification "Screenshot Captured" "Region saved and copied."
     } else if $screen {
-        if (do { hyprshot -m output --current -o $output_dir } | complete).exit_code == 0 {
-            send_notification "Screenshot Captured" "Screen copied and saved."
-        }
+        ^hyprshot -s -m output -m active -o $output_dir -f $filename
+        print $"Screenshot stored on: ($output_dir | path join $filename)"
+        send_notification "Screenshot Captured" "Screen saved and copied."
     }
 }
+
+
+
