@@ -12,6 +12,7 @@
         obsidian
         discord
         rnote
+        cheese
       ];
     creative = pkgs:
       with pkgs; [
@@ -21,25 +22,8 @@
       ];
     office = pkgs:
       with pkgs; [
-        libreoffice-qt6-fresh
         thunderbird
         mendeley
-      ];
-    tools = pkgs:
-      with pkgs; [
-        wezterm
-        swww
-        hyprlock
-        hypridle
-        xfce.thunar
-        dunst
-        libnotify
-        hyprshot
-        cliphist
-        wl-clipboard
-        cheese
-        brightnessctl
-        yt-dlp
       ];
   };
 }

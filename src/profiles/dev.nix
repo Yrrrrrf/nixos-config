@@ -53,7 +53,6 @@
       ++ (desktop.apps pkgs)
       ++ (desktop.creative pkgs)
       ++ (desktop.office pkgs)
-      ++ (desktop.tools pkgs)
       ++ (dev.build pkgs)
       ++ (dev.ides pkgs);
   };

@@ -64,6 +64,10 @@
         bacon
         mprocs
       ];
+    media = pkgs:
+      with pkgs; [
+        yt-dlp
+      ];
     misc = pkgs:
       with pkgs; [
         ttyper
@@ -85,8 +89,9 @@
       bench
       shell
       rust-dev
+      media
       misc
       ;
-    core = pkgs: (nav pkgs) ++ (view pkgs) ++ (text pkgs) ++ (git pkgs) ++ (system pkgs) ++ (shell pkgs);
+    core = pkgs: (nav pkgs) ++ (view pkgs) ++ (text pkgs) ++ (git pkgs) ++ (system pkgs) ++ (shell pkgs) ++ (media pkgs);
   };
 }
