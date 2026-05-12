@@ -1,4 +1,5 @@
-set shell := ["bash", "-cu"]
+# set shell := ["bash", "-cu"]
+set shell := ["nu", "-c"]
 
 user := env('USER')
 group := "users"
