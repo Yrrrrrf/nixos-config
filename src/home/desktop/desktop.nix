@@ -51,6 +51,11 @@
         source = ./scripts/kbd-performance.nu;
         executable = true;
       };
+      ".local/bin/kbd-volume" = {
+        source = ./scripts/kbd-volume.nu;
+        executable = true;
+      };
+
       ".local/bin/screenshot" = {
         source = ./scripts/screenshot.nu;
         executable = true;
@@ -75,5 +80,7 @@
       dunst # Notification daemon
       hyprshot # Screenshot tool
     ];
+
+
   };
 }

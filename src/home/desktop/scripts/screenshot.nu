@@ -14,14 +14,17 @@ def main [
     if $region {
         log_success "Select a region to capture..."
         ^hyprshot -s -m region -o $output_dir -f $filename
-        log_success $"Screenshot stored on: ($full_path)"
-        notify "Screenshot Captured" "Region saved and copied." --icon "camera-photo" --tag "screenshot_notification"
+        let msg = $"Screenshot stored on: ($full_path)"
+        log_success $msg
+        notify "Screenshot Captured" $msg --icon "camera-photo" --tag "screenshot_notification"
     } else if $screen {
         ^hyprshot -s -m output -m active -o $output_dir -f $filename
-        log_success $"Screenshot stored on: ($full_path)"
-        notify "Screenshot Captured" "Screen saved and copied." --icon "camera-photo" --tag "screenshot_notification"
+        let msg = $"Screenshot stored on: ($full_path)"
+        log_success $msg
+        notify "Screenshot Captured" $msg --icon "camera-photo" --tag "screenshot_notification"
     }
 }
+
 
 
 
