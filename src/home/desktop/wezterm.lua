@@ -1,10 +1,12 @@
 local wezterm = require 'wezterm'
 local config = {}
 
-config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
-config.window_background_opacity = 0.95
+config.font = wezterm.font("@monospace@")
+config.window_background_opacity = @opacity@
+config.color_scheme = 'Catppuccin Mocha'
 
--- Stylix will handle colors in the end, but we can add placeholders if we want
--- For now, let's just keep it simple as it was.
+-- Standard WezTerm setup
+config.hide_tab_bar_if_only_one_tab = true
+config.scrollback_lines = 10000
 
 return config

@@ -67,7 +67,7 @@
       "@borderRadius_island@" = toString 12;
       "@borderRadius_pill@" = toString 10;
       "@borderWidth@" = toString 1;
-      "@wallpaper@" = toString ./wallpaper.png;
+      "@wallpaper@" = toString ./wallpaper.jpg;
     };
   in {
     imports = [inputs.stylix.homeModules.stylix];

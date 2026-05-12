@@ -27,7 +27,7 @@
       ".config/waybar/style.css".text = theme.apply (builtins.readFile ./waybar-style.css);
       ".config/rofi/config.rasi".text = lib.mkForce (theme.apply (builtins.readFile ./rofi.rasi));
       ".config/dunst/dunstrc".text = lib.mkForce (theme.apply (builtins.readFile ./dunst.conf));
-      ".config/wezterm/wezterm.lua".text = builtins.readFile ./wezterm.lua;
+      ".config/wezterm/wezterm.lua".text = theme.apply (builtins.readFile ./wezterm.lua);
       ".config/swayosd/style.css".text = theme.apply (builtins.readFile ./swayosd-style.css);
 
       ".local/bin/waybar-powermenu" = {
@@ -80,7 +80,5 @@
       dunst # Notification daemon
       hyprshot # Screenshot tool
     ];
-
-
   };
 }
