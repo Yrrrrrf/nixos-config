@@ -1,12 +1,7 @@
 #!/usr/bin/env nu
+use _shared.nu *
 
-# A helper script for taking fast screenshots with hyprshot on Hyprland.
-# It saves the image, copies it to the clipboard, and sends a notification.
-
-def send_notification [title: string, message: string] {
-    notify-send -i "camera-photo" -h string:x-dunst-stack-tag:screenshot_notification $title $message
-}
-
+# Screenshot Utility
 def main [
     --region # Capture a region
     --screen # Capture the current monitor
@@ -14,18 +9,20 @@ def main [
     let output_dir = ($env.HOME | path join "Pictures" "Screenshots")
     mkdir $output_dir
     let filename = (date now | format date "screenshot_%Y%m%d_%H%M%S.png")
+    let full_path = ($output_dir | path join $filename)
 
     if $region {
-        print "Select a region to capture..."
+        log_success "Select a region to capture..."
         ^hyprshot -s -m region -o $output_dir -f $filename
-        print $"Screenshot stored on: ($output_dir | path join $filename)"
-        send_notification "Screenshot Captured" "Region saved and copied."
+        log_success $"Screenshot stored on: ($full_path)"
+        notify "Screenshot Captured" "Region saved and copied." --icon "camera-photo" --tag "screenshot_notification"
     } else if $screen {
         ^hyprshot -s -m output -m active -o $output_dir -f $filename
-        print $"Screenshot stored on: ($output_dir | path join $filename)"
-        send_notification "Screenshot Captured" "Screen saved and copied."
+        log_success $"Screenshot stored on: ($full_path)"
+        notify "Screenshot Captured" "Screen saved and copied." --icon "camera-photo" --tag "screenshot_notification"
     }
 }
+
 
 
 

@@ -1,9 +1,7 @@
 #!/usr/bin/env nu
+use _shared.nu *
 
 # Microphone Manager
-# --get-status: Used by Waybar (JSON output)
-# --toggle:     Used by Keybinds (Triggers SwayOSD)
-
 def main [
     --get-status # Get status for Waybar
     --toggle     # Toggle mic using SwayOSD
@@ -12,17 +10,18 @@ def main [
         let mute_state = (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | split row " " | get 2? | default "")
         
         if $mute_state == "[MUTED]" {
-            { status: "Muted", icon: "" }
+            waybar_json { status: "Muted", icon: "" }
         } else {
-            { status: "Active", icon: "" }
-        } | to json --raw
+            waybar_json { status: "Active", icon: "" }
+        }
     } else if $toggle {
         swayosd-client --input-volume mute-toggle
         sleep 100ms
         
         let mute_state = (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | split row " " | get 2? | default "")
         let status = if $mute_state == "[MUTED]" { "Muted" } else { "Active" }
-        print $"Microphone status set to: ($status)"
+        log_success $"Microphone status set to: ($status)"
     }
 }
+
 

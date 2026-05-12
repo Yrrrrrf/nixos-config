@@ -1,20 +1,18 @@
 #!/usr/bin/env nu
+use _shared.nu *
 
-# A helper script to manage keyboard backlight for Hyprland in a NON-CYCLIC way.
-# It checks the current state and will not wrap around from high to off or vice-versa.
-
+# Keyboard Backlight Manager
 const levels = ["Off", "Low", "Med", "High"]
 
 def get_current_level [] {
-    asusctl -k | lines | find "Current keyboard led brightness:" | first | ansi strip | split row ":" | last | str trim
+    parse_asus (asusctl -k) "Current keyboard led brightness:"
 }
-
-
 
 def set_brightness [level: string] {
-    let level_lower = ($level | str downcase)
-    asusctl --kbd-bright $level_lower
+    run_silent { asusctl --kbd-bright ($level | str downcase) }
 }
+
+
 
 def main [
     --up   # Increase brightness
@@ -24,7 +22,7 @@ def main [
     let current_level = (get_current_level)
     
     if $get {
-        { level: $current_level, icon: "󰌌" } | to json --raw
+        waybar_json { level: $current_level, icon: "󰌌" }
         return
     }
 
@@ -39,14 +37,15 @@ def main [
         if $current_index < (($levels | length) - 1) {
             let next = ($levels | get ($current_index + 1))
             set_brightness $next
-            print $"Keyboard backlight increased to: ($next)"
+            log_success $"Keyboard backlight increased to: ($next)"
         }
     } else if $down {
         if $current_index > 0 {
             let next = ($levels | get ($current_index - 1))
             set_brightness $next
-            print $"Keyboard backlight decreased to: ($next)"
+            log_success $"Keyboard backlight decreased to: ($next)"
         }
     }
 }
+
 

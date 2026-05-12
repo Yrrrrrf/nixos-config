@@ -1,14 +1,13 @@
 #!/usr/bin/env nu
+use _shared.nu *
 
-# A consolidated helper script to manage ASUS performance profiles.
-# It can get the current status for Waybar or change to the next profile.
-
+# Performance Profile Manager
 def main [
     --get    # Get current status for Waybar
     --change # Change to the next profile
 ] {
     if $get {
-        let profile = (asusctl profile -p | lines | find "Active profile is" | first | ansi strip | split row " " | last)
+        let profile = (parse_asus (asusctl profile -p) "Active profile is")
         
         let icon = match $profile {
             "Quiet" => "󰒑"
@@ -17,13 +16,17 @@ def main [
             _ => ""
         }
 
-        { profile: $profile, icon: $icon } | to json --raw
+        waybar_json { profile: $profile, icon: $icon }
     } else if $change {
-        asusctl profile -n
-        let profile = (asusctl profile -p | lines | find "Active profile is" | first | ansi strip | split row " " | last)
+        run_silent { asusctl profile -n }
+
+        let profile = (parse_asus (asusctl profile -p) "Active profile is")
+
         
-        print $"Performance profile set to: ($profile)"
-        notify-send -i "system-performance" -h string:x-dunst-stack-tag:performance_profile $"Performance Profile: ($profile)"
+        let msg = $"Performance profile set to: ($profile)"
+        log_success $msg
+        notify "Performance Profile" $msg --icon "system-performance" --tag "performance_profile"
     }
 }
+
 

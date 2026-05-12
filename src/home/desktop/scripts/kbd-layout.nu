@@ -1,9 +1,7 @@
 #!/usr/bin/env nu
+use _shared.nu *
 
-# A helper script to manage keyboard layout switching for Hyprland.
-# It can change to the next layout and notify the user, or get the
-# current layout for display in Waybar.
-
+# Keyboard Layout Manager
 const KEYBOARD_NAME = "asus-keyboard"
 
 def get_layout_info [full_name: string] {
@@ -22,18 +20,20 @@ def main [
 ] {
     if $get {
         let full_name = (hyprctl devices -j | from json | get keyboards | where name == $KEYBOARD_NAME | get 0.active_keymap)
-        get_layout_info $full_name | to json --raw
+        waybar_json (get_layout_info $full_name)
     } else if $change {
-        hyprctl switchxkblayout $KEYBOARD_NAME next
+        run_silent { hyprctl switchxkblayout $KEYBOARD_NAME next }
         sleep 100ms
+
         
         let full_name = (hyprctl devices -j | from json | get keyboards | where name == $KEYBOARD_NAME | get 0.active_keymap)
         let info = (get_layout_info $full_name)
         let msg = $"Language set to: \(($info.key)\) ($info.language)"
         
-        print $msg
-        notify-send -i "input-keyboard" -h string:x-dunst-stack-tag:keyboard_layout $msg
+        log_success $msg
+        notify "Keyboard Layout" $msg --icon "input-keyboard" --tag "keyboard_layout"
     }
 }
+
 
 
