@@ -23,7 +23,7 @@ def main [
         let profile = (parse_asus (asusctl profile -p) "Active profile is")
 
         
-        let msg = $"Performance profile set to: ($profile)"
+        let msg = $"GPU profile set to: ($profile)"
         log_success $msg
         notify "Performance Profile" $msg --icon "system-performance" --tag "performance_profile"
     }
