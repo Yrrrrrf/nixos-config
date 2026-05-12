@@ -9,10 +9,9 @@ export def notify [title: string, msg: string, --icon: string, --tag: string] {
 }
 
 # Standardized Waybar JSON output
-export def waybar_json [data: record] {
+export def as_json [data: record] {
     $data | to json --raw | print
 }
-
 
 # Standardized console logging
 export def log_success [msg: string] {
@@ -41,4 +40,3 @@ export def parse_asus [cmd_output: string, search_pattern: string] {
         $line | split row " " | last | str trim
     }
 }
-

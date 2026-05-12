@@ -16,13 +16,12 @@ def main [
             _ => ""
         }
 
-        waybar_json { profile: $profile, icon: $icon }
+        as_json { profile: $profile, icon: $icon }
     } else if $change {
         run_silent { asusctl profile -n }
 
         let profile = (parse_asus (asusctl profile -p) "Active profile is")
 
-        
         let msg = $"GPU profile set to: ($profile)"
         log_success $msg
         notify "Performance Profile" $msg --icon "system-performance" --tag "performance_profile"

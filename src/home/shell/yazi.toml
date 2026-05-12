@@ -8,4 +8,6 @@ edit = [ { run = 'hx "$@"', block = true } ]
 rules = [
   { mime = "text/*", use = "edit" },
   { mime = "inode/x-empty", use = "edit" },
+  { name = "*", use = "edit" },
 ]
+

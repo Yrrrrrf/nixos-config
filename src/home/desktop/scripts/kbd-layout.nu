@@ -20,7 +20,7 @@ def main [
 ] {
     if $get {
         let full_name = (hyprctl devices -j | from json | get keyboards | where name == $KEYBOARD_NAME | get 0.active_keymap)
-        waybar_json (get_layout_info $full_name)
+        as_json (get_layout_info $full_name)
     } else if $change {
         run_silent { hyprctl switchxkblayout $KEYBOARD_NAME next }
         sleep 100ms

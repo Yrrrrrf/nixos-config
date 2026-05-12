@@ -10,9 +10,9 @@ def main [
         let mute_state = (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | split row " " | get 2? | default "")
         
         if $mute_state == "[MUTED]" {
-            waybar_json { status: "Muted", icon: "" }
+            as_json { status: "Muted", icon: "" }
         } else {
-            waybar_json { status: "Active", icon: "" }
+            as_json { status: "Active", icon: "" }
         }
     } else if $toggle {
         swayosd-client --input-volume mute-toggle

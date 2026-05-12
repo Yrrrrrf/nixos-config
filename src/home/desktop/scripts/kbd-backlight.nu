@@ -22,7 +22,7 @@ def main [
     let current_level = (get_current_level)
     
     if $get {
-        waybar_json { level: $current_level, icon: "󰌌" }
+        as_json { level: $current_level, icon: "󰌌" }
         return
     }
 

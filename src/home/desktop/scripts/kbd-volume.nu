@@ -15,7 +15,9 @@ def main [
 
         
         let icon = if $muted { "󰖁" } else if $volume == 0 { "" } else if $volume < 50 { "" } else { "󰕾" }
-        waybar_json { volume: $volume, muted: $muted, icon: $icon }
+        as_json { volume: $volume, muted: $muted, icon: $icon }
+
+
     } else if $up {
         run_silent { swayosd-client --output-volume raise }
         log_success "Volume increased"

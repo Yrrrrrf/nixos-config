@@ -15,7 +15,8 @@
     ],
     "modules-right": [
         "custom/mic",
-        "pulseaudio",
+        "custom/volume",
+        "custom/backlight",
         "cpu",
         "network",
         "bluetooth",
@@ -24,6 +25,7 @@
         "custom/keyboard-layout",
         "custom/power"
     ],
+
     "custom/profile": {
         "format": " ",
         "tooltip": true,
@@ -98,19 +100,27 @@
         "on-click": "rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu",
         "tooltip": false
     },
-    "pulseaudio": {
+    "custom/volume": {
         "format": "{icon} {volume}%",
-        "format-muted": "󰖁 {volume}%",
-        "on-click": "pavucontrol",
-        "format-icons": {
-            "headphone": "",
-            "default": [
-                "",
-                "󰕾",
-                ""
-            ]
-        }
+        "return-type": "json",
+        "interval": 1,
+        "exec": "kbd-volume --get",
+        "on-click": "kbd-volume --mute",
+        "on-scroll-up": "kbd-volume --up",
+        "on-scroll-down": "kbd-volume --down",
+        "tooltip": false
     },
+    "custom/backlight": {
+        "format": "{icon} {level}",
+        "return-type": "json",
+        "interval": 5,
+        "exec": "kbd-backlight --get",
+        "on-click": "kbd-backlight --up",
+        "on-scroll-up": "kbd-backlight --up",
+        "on-scroll-down": "kbd-backlight --down",
+        "tooltip": false
+    },
+
     "custom/mic": {
         "format": "{icon}",
 
