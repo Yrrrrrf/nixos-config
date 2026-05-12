@@ -25,8 +25,10 @@
       inputs.self.homeModules.dev-lang-iot
       inputs.self.homeModules.dev-lang-just
       inputs.self.homeModules.dev-lang-kotlin
+      inputs.self.homeModules.dev-lang-lua
       inputs.self.homeModules.dev-lang-markdown
       inputs.self.homeModules.dev-lang-nix
+      inputs.self.homeModules.dev-lang-nu
       inputs.self.homeModules.dev-lang-python
       inputs.self.homeModules.dev-lang-rust
       inputs.self.homeModules.dev-lang-shell

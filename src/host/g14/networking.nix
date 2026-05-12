@@ -6,15 +6,16 @@
   }: {
     networking.hostName = "g14";
 
-    networking.networkmanager.enable = true;
+    networking.networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
 
     networking.extraHosts = ''
       127.0.0.1   traefik.localhost
       127.0.0.1   api.localhost
       127.0.0.1   app.localhost
     '';
-
-    services.openssh.enable = true;
 
     networking.firewall = {
       enable = true;

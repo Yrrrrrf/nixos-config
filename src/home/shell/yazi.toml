@@ -2,7 +2,7 @@
 show_hidden = true
 
 [opener]
-edit = [ { run = 'hx "$@"', block = true } ]
+edit = [{ run = 'hx "$@"', block = true }]
 
 [open]
 rules = [
@@ -10,4 +10,3 @@ rules = [
   { mime = "inode/x-empty", use = "edit" },
   { name = "*", use = "edit" },
 ]
-

@@ -25,7 +25,6 @@
         "custom/keyboard-layout",
         "custom/power"
     ],
-
     "custom/profile": {
         "format": " ",
         "tooltip": true,
@@ -53,7 +52,7 @@
         "format-ethernet": "󰈀 Connected",
         "format-disconnected": "󰖪 Disconnected",
         "tooltip-format-wifi": "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}",
-        "on-click": "wezterm -e nmtui"
+        "on-click": "wezterm -e impala"
     },
     "bluetooth": {
         "format": " {status}",
@@ -79,7 +78,6 @@
     },
     "custom/asus-profile": {
         "format": "{icon}",
-
         "tooltip": true,
         "return-type": "json",
         "interval": 5,
@@ -88,7 +86,6 @@
     },
     "custom/keyboard-layout": {
         "format": "Layout: {language} ({key})",
-
         "tooltip": true,
         "return-type": "json",
         "interval": 1,
@@ -120,10 +117,8 @@
         "on-scroll-down": "kbd-backlight --down",
         "tooltip": false
     },
-
     "custom/mic": {
         "format": "{icon}",
-
         "interval": 1,
         "return-type": "json",
         "exec": "kbd-mic --get-status",
