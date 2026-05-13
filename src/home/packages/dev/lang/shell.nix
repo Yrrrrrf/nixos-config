@@ -1,39 +1,38 @@
-{...}: {
-  flake.homeModules."dev-lang-shell" = {pkgs, ...}: {
-    programs.helix.languages.language = [
-      {
-        name = "bash";
-        scope = "source.bash";
-        file-types = [
-          "sh"
-          "bash"
-          "zsh"
-        ];
-        shebangs = [
-          "sh"
-          "bash"
-          "dash"
-          "zsh"
-        ];
-        comment-token = "#";
-        language-servers = ["bash-language-server"];
-        indent = {
-          tab-width = 2;
-          unit = "  ";
-        };
-        formatter = {
-          command = "shfmt";
-        };
-        auto-format = false;
-      }
+{lib, ...}:
+(import ../../../../lib/mkLang.nix {inherit lib;}) {
+  name = "shell";
+  language = {
+    name = "bash";
+    scope = "source.bash";
+    file-types = [
+      "sh"
+      "bash"
+      "zsh"
     ];
-    programs.helix.languages.language-server.bash-language-server = {
-      command = "bash-language-server";
-      args = ["start"];
+    shebangs = [
+      "sh"
+      "bash"
+      "dash"
+      "zsh"
+    ];
+    comment-token = "#";
+    language-servers = ["bash-language-server"];
+    indent = {
+      tab-width = 2;
+      unit = "  ";
     };
-    home.packages = with pkgs; [
+    formatter = {
+      command = "shfmt";
+    };
+    auto-format = false;
+  };
+  servers.bash-language-server = {
+    command = "bash-language-server";
+    args = ["start"];
+  };
+  extraPackages = pkgs:
+    with pkgs; [
       bash-language-server
       shfmt
     ];
-  };
 }

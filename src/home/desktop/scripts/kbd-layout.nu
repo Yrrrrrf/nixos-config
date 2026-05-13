@@ -2,6 +2,7 @@
 use _shared.nu *
 
 # Keyboard Layout Manager
+# const KEYBOARD_NAME = "K280e-KB-English"
 const KEYBOARD_NAME = "asus-keyboard"
 
 def get_layout_info [full_name: string] {

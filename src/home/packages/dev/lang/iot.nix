@@ -1,7 +1,4 @@
-{...}: {
-  flake.homeModules."dev-lang-iot" = {pkgs, ...}: {
-    home.packages = with pkgs; [
-      platformio
-    ];
-  };
+{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
+  name = "iot";
+  extraPackages = pkgs: [pkgs.platformio];
 }

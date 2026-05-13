@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   flake.nixosModules.specialisations-dev = {inputs, ...}: {
     specialisation.dev.configuration = {
       system.nixos.tags = ["dev"];
@@ -16,28 +16,11 @@
     libs = inputs.self.lib.libsets;
     dev = inputs.self.lib.pkgsets.dev;
   in {
-    imports = [
-      inputs.self.homeModules.common
-      inputs.self.homeModules.dev-lang-asm
-      inputs.self.homeModules.dev-lang-c-based
-      inputs.self.homeModules.dev-lang-go
-      inputs.self.homeModules.dev-lang-hyprlang
-      inputs.self.homeModules.dev-lang-iot
-      inputs.self.homeModules.dev-lang-just
-      inputs.self.homeModules.dev-lang-kotlin
-      inputs.self.homeModules.dev-lang-lua
-      inputs.self.homeModules.dev-lang-markdown
-      inputs.self.homeModules.dev-lang-nix
-      inputs.self.homeModules.dev-lang-nu
-      inputs.self.homeModules.dev-lang-python
-      inputs.self.homeModules.dev-lang-rust
-      inputs.self.homeModules.dev-lang-shell
-      inputs.self.homeModules.dev-lang-sql
-      inputs.self.homeModules.dev-lang-toml
-      inputs.self.homeModules.dev-lang-typst
-      inputs.self.homeModules.dev-lang-web
-      inputs.self.homeModules.dev-lang-yaml
-    ];
+    imports =
+      [
+        inputs.self.homeModules.common
+      ]
+      ++ (lib.attrValues (lib.filterAttrs (n: _: lib.hasPrefix "dev-lang-" n) inputs.self.homeModules));
 
     home.sessionVariables = {
       AQ_DRM_DEVICES = "/dev/dri/igpu:/dev/dri/dgpu";

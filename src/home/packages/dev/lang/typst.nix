@@ -1,22 +1,17 @@
-{...}: {
-  flake.homeModules."dev-lang-typst" = {pkgs, ...}: {
-    programs.helix.languages.language = [
-      {
-        name = "typst";
-        language-servers = ["tinymist"];
-        file-types = ["typ"];
-        formatter = {
-          command = "typstyle";
-        };
-      }
-    ];
-    programs.helix.languages.language-server.tinymist = {
-      command = "tinymist";
+{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
+  name = "typst";
+  language = {
+    name = "typst";
+    language-servers = ["tinymist"];
+    file-types = ["typ"];
+    formatter = {
+      command = "typstyle";
     };
-    home.packages = with pkgs; [
-      tinymist
-      typstyle
-      typst
-    ];
   };
+  servers.tinymist.command = "tinymist";
+  extraPackages = pkgs: with pkgs; [
+    tinymist
+    typstyle
+    typst
+  ];
 }
