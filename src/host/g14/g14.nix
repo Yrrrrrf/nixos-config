@@ -81,7 +81,6 @@
             description = user.username;
             extraGroups = [
               "wheel"
-              "networkmanager"
               "input"
             ];
             shell = pkgs.nushell;
