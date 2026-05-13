@@ -1,4 +1,7 @@
-{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "iot";
-  extraPackages = pkgs: [pkgs.platformio];
+# No Helix language entry — packages only. Loader should treat missing
+# `helix` as `{ language = []; language-server = {}; }`.
+{config, ...}: {
+  config.flake.lib.dev.langs.iot = {
+    extraPackages = pkgs: [pkgs.platformio];
+  };
 }

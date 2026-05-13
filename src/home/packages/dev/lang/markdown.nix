@@ -1,16 +1,15 @@
-{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "markdown";
-  language = {
-    name = "markdown";
-    scope = "source.markdown";
-    file-types = ["md"];
-    language-servers = ["markdown-oxide"];
-    formatter = {
-      command = "dprint";
-      args = ["fmt" "--stdin" "md"];
+{config, ...}: {
+  config.flake.lib.dev.langs.markdown = {
+    helix = config.flake.lib.helix.mkLangs {
+      name = "markdown";
+      scope = "source.markdown";
+      file-types = ["md"];
+      lsp = "markdown-oxide";
+      formatter = {
+        command = "dprint";
+        args = ["fmt" "--stdin" "md"];
+      };
     };
-    auto-format = false;
+    extraPackages = pkgs: with pkgs; [markdown-oxide dprint];
   };
-  servers.markdown-oxide.command = "markdown-oxide";
-  extraPackages = pkgs: with pkgs; [markdown-oxide dprint];
 }

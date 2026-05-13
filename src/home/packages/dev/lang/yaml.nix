@@ -1,29 +1,24 @@
-{lib, ...}:
-(import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "yaml";
-  language = {
-    name = "yaml";
-    scope = "source.yaml";
-    file-types = ["yml" "yaml"];
-    comment-token = "#";
-    language-servers = ["yaml-language-server"];
-    indent = {
-      tab-width = 2;
-      unit = "  ";
+{config, ...}: {
+  config.flake.lib.dev.langs.yaml = {
+    helix = config.flake.lib.helix.mkLangs {
+      name = "yaml";
+      scope = "source.yaml";
+      file-types = ["yml" "yaml"];
+      comment-token = "#";
+      auto-format = false;
+      lsp = {
+        name = "yaml-language-server";
+        args = ["--stdio"];
+      };
+      indent = {
+        tab-width = 2;
+        unit = "  ";
+      };
+      formatter = {
+        command = "prettier";
+        args = ["--parser" "yaml"];
+      };
     };
-    formatter = {
-      command = "prettier";
-      args = ["--parser" "yaml"];
-    };
-    auto-format = false;
+    extraPackages = pkgs: with pkgs; [yaml-language-server nodePackages.prettier];
   };
-  servers.yaml-language-server = {
-    command = "yaml-language-server";
-    args = ["--stdio"];
-  };
-  extraPackages = pkgs:
-    with pkgs; [
-      yaml-language-server
-      nodePackages.prettier
-    ];
 }

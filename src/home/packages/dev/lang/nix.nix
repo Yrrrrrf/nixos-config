@@ -1,18 +1,13 @@
-{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "nix";
-  language = {
-    name = "nix";
-    scope = "source.nix";
-    file-types = ["nix"];
-    comment-token = "#";
-    language-servers = ["nil"];
-    indent = {
-      tab-width = 2;
-      unit = "  ";
+{config, ...}: {
+  config.flake.lib.dev.langs.nix = {
+    helix = config.flake.lib.helix.mkLangs {
+      name = "nix";
+      scope = "source.nix";
+      file-types = ["nix"];
+      comment-token = "#";
+      lsp = "nil";
+      formatter = "alejandra";
     };
-    formatter = {command = "alejandra";};
-    auto-format = false;
+    extraPackages = pkgs: with pkgs; [nil alejandra];
   };
-  servers.nil.command = "nil";
-  extraPackages = pkgs: with pkgs; [nil alejandra];
 }

@@ -15,12 +15,18 @@
     desktop = inputs.self.lib.pkgsets.desktop;
     libs = inputs.self.lib.libsets;
     dev = inputs.self.lib.pkgsets.dev;
+    langs = builtins.attrValues inputs.self.lib.dev.langs;
   in {
     imports =
       [
         inputs.self.homeModules.common
       ]
       ++ (lib.attrValues (lib.filterAttrs (n: _: lib.hasPrefix "dev-lang-" n) inputs.self.homeModules));
+
+    programs.helix.languages = {
+      language = lib.concatMap (l: l.helix.language or []) langs;
+      language-server = lib.foldl' (a: l: a // (l.helix.language-server or {})) {} langs;
+    };
 
     home.sessionVariables = {
       AQ_DRM_DEVICES = "/dev/dri/igpu:/dev/dri/dgpu";
@@ -39,6 +45,7 @@
       ++ (desktop.creative pkgs)
       ++ (desktop.office pkgs)
       ++ (dev.build pkgs)
-      ++ (dev.ides pkgs);
+      ++ (dev.ides pkgs)
+      ++ (lib.concatMap (l: (l.extraPackages or (_: [])) pkgs) langs);
   };
 }

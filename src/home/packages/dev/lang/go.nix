@@ -1,19 +1,19 @@
-{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "go";
-  language = {
-    name = "go";
-    scope = "source.go";
-    file-types = ["go"];
-    roots = ["go.work" "go.mod"];
-    comment-token = "//";
-    language-servers = ["gopls"];
-    indent = {
-      tab-width = 4;
-      unit = "\t";
+{config, ...}: {
+  config.flake.lib.dev.langs.go = {
+    helix = config.flake.lib.helix.mkLangs {
+      name = "go";
+      scope = "source.go";
+      file-types = ["go"];
+      roots = ["go.work" "go.mod"];
+      comment-token = "//";
+      lsp = "gopls";
+      formatter = "gofmt";
+      auto-format = false;
+      indent = {
+        tab-width = 4;
+        unit = "\t";
+      };
     };
-    formatter = {command = "gofmt";};
-    auto-format = false;
+    extraPackages = pkgs: with pkgs; [gopls go];
   };
-  servers.gopls.command = "gopls";
-  extraPackages = pkgs: with pkgs; [gopls go];
 }

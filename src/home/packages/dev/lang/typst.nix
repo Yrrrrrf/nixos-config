@@ -1,17 +1,11 @@
-{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "typst";
-  language = {
-    name = "typst";
-    language-servers = ["tinymist"];
-    file-types = ["typ"];
-    formatter = {
-      command = "typstyle";
+{config, ...}: {
+  config.flake.lib.dev.langs.typst = {
+    helix = config.flake.lib.helix.mkLangs {
+      name = "typst";
+      file-types = ["typ"];
+      lsp = "tinymist";
+      formatter = "typstyle";
     };
+    extraPackages = pkgs: with pkgs; [tinymist typstyle typst];
   };
-  servers.tinymist.command = "tinymist";
-  extraPackages = pkgs: with pkgs; [
-    tinymist
-    typstyle
-    typst
-  ];
 }

@@ -1,24 +1,19 @@
-{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "toml";
-  language = {
-    name = "toml";
-    scope = "source.toml";
-    file-types = ["toml"];
-    comment-token = "#";
-    language-servers = ["taplo"];
-    indent = {
-      tab-width = 2;
-      unit = "  ";
+{config, ...}: {
+  config.flake.lib.dev.langs.toml = {
+    helix = config.flake.lib.helix.mkLangs {
+      name = "toml";
+      scope = "source.toml";
+      file-types = ["toml"];
+      comment-token = "#";
+      lsp = {
+        name = "taplo";
+        args = ["lsp" "stdio"];
+      };
+      formatter = {
+        command = "taplo";
+        args = ["format" "-"];
+      };
     };
-    formatter = {
-      command = "taplo";
-      args = ["format" "-"];
-    };
-    auto-format = false;
+    extraPackages = pkgs: [pkgs.taplo];
   };
-  servers.taplo = {
-    command = "taplo";
-    args = ["lsp" "stdio"];
-  };
-  extraPackages = pkgs: [pkgs.taplo];
 }

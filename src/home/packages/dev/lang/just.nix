@@ -1,21 +1,16 @@
-{lib, ...}: (import ../../../../lib/mkLang.nix {inherit lib;}) {
-  name = "just";
-  language = {
-    name = "just";
-    scope = "source.just";
-    file-types = ["Justfile" "just"];
-    comment-token = "#";
-    language-servers = ["just-lsp"];
-    indent = {
-      tab-width = 4;
-      unit = "    ";
+{config, ...}: {
+  config.flake.lib.dev.langs.just = {
+    helix = config.flake.lib.helix.mkLangs {
+      name = "just";
+      scope = "source.just";
+      file-types = ["Justfile" "just"];
+      comment-token = "#";
+      lsp = "just-lsp";
+      formatter = {
+        command = "just";
+        args = ["--fmt" "--unstable"];
+      };
     };
-    formatter = {
-      command = "just";
-      args = ["--fmt" "--unstable"];
-    };
-    auto-format = false;
+    extraPackages = pkgs: with pkgs; [just-lsp just];
   };
-  servers.just-lsp.command = "just-lsp";
-  extraPackages = pkgs: with pkgs; [just-lsp just];
 }
