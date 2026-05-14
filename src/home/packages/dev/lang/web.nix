@@ -4,8 +4,14 @@
       {
         name = "typescript";
         scope = "source.ts";
-        file-types = ["ts" "tsx"];
-        roots = ["package.json" "tsconfig.json"];
+        file-types = [
+          "ts"
+          "tsx"
+        ];
+        roots = [
+          "package.json"
+          "tsconfig.json"
+        ];
         comment-token = "//";
         lsp = {
           name = "typescript-language-server";
@@ -13,14 +19,25 @@
         };
         formatter = {
           command = "biome";
-          args = ["format" "--stdin-file-path" "a.ts"];
+          args = [
+            "format"
+            "--stdin-file-path"
+            "a.ts"
+          ];
         };
       }
       {
         name = "javascript";
         scope = "source.js";
-        file-types = ["js" "mjs" "jsx"];
-        roots = ["package.json" "jsconfig.json"];
+        file-types = [
+          "js"
+          "mjs"
+          "jsx"
+        ];
+        roots = [
+          "package.json"
+          "jsconfig.json"
+        ];
         comment-token = "//";
         lsp = {
           name = "typescript-language-server";
@@ -28,20 +45,31 @@
         };
         formatter = {
           command = "biome";
-          args = ["format" "--stdin-file-path" "a.js"];
+          args = [
+            "format"
+            "--stdin-file-path"
+            "a.js"
+          ];
         };
       }
       {
         name = "json";
         scope = "source.json";
-        file-types = ["json" "jsonc"];
+        file-types = [
+          "json"
+          "jsonc"
+        ];
         lsp = {
           name = "vscode-json-language-server";
           args = ["--stdio"];
         };
         formatter = {
           command = "biome";
-          args = ["format" "--stdin-file-path" "a.json"];
+          args = [
+            "format"
+            "--stdin-file-path"
+            "a.json"
+          ];
         };
       }
       {
@@ -52,8 +80,12 @@
           args = ["--stdio"];
         };
         formatter = {
-          command = "prettier";
-          args = ["--parser" "html"];
+          command = "biome"; # Biome is adding HTML support
+          args = [
+            "format"
+            "--stdin-file-path"
+            "a.html"
+          ];
         };
       }
       {
@@ -65,7 +97,11 @@
         };
         formatter = {
           command = "biome";
-          args = ["format" "--stdin-file-path" "a.css"];
+          args = [
+            "format"
+            "--stdin-file-path"
+            "a.css"
+          ];
         };
       }
       {
@@ -84,7 +120,12 @@
         };
         formatter = {
           command = "prettier";
-          args = ["--plugin" "prettier-plugin-svelte" "--parser" "svelte"];
+          args = [
+            "--plugin"
+            "prettier-plugin-svelte"
+            "--parser"
+            "svelte"
+          ];
         };
       }
     ];

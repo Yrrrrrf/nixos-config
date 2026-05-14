@@ -1,3 +1,4 @@
+# src/home/packages/dev/lang/nu.nix
 {config, ...}: {
   config.flake.lib.dev.langs.nu = {
     helix = config.flake.lib.helix.mkLangs {
@@ -6,13 +7,20 @@
       file-types = ["nu"];
       shebangs = ["nu"];
       comment-token = "#";
-      # command differs from server name → use attrset form
       lsp = {
         name = "nu-lsp";
         command = "nu";
         args = ["--lsp"];
       };
+      formatter = {
+        command = "nufmt";
+        args = ["--stdin"];
+      };
     };
-    extraPackages = pkgs: [pkgs.nushell];
+    extraPackages = pkgs:
+      with pkgs; [
+        nushell
+        nufmt # The Rust-based formatter for Nu
+      ];
   };
 }

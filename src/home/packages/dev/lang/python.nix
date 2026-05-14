@@ -4,25 +4,41 @@
       name = "python";
       scope = "source.python";
       injection-regex = "py(thon)?";
-      file-types = ["py" "pyi" "pyw"];
-      shebangs = ["python" "uv"];
-      roots = ["pyproject.toml" "setup.py" "poetry.lock" "pyrightconfig.json"];
+      file-types = [
+        "py"
+        "pyi"
+        "pyw"
+      ];
+      shebangs = [
+        "python"
+        "uv"
+      ];
+      roots = [
+        "pyproject.toml"
+        "setup.py"
+        "poetry.lock"
+        "pyrightconfig.json"
+      ];
       comment-token = "#";
       lsp = [
         {
           name = "ty";
           args = ["server"];
         }
-        {
-          name = "ruff";
-          args = ["server"];
-        }
       ];
       formatter = {
         command = "ruff";
-        args = ["format" "-"];
+        args = [
+          "format"
+          "."
+        ];
       };
     };
-    extraPackages = pkgs: with pkgs; [ty ruff uv];
+    extraPackages = pkgs:
+      with pkgs; [
+        uv # pkg manager
+        ty # lsp
+        ruff # fmt
+      ];
   };
 }
