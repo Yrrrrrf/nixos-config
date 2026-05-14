@@ -8,7 +8,6 @@
       with pkgs; [
         eza
         fd
-        # broot
       ];
     view = pkgs:
       with pkgs; [
@@ -92,6 +91,13 @@
       media
       misc
       ;
-    core = pkgs: (nav pkgs) ++ (view pkgs) ++ (text pkgs) ++ (git pkgs) ++ (system pkgs) ++ (shell pkgs) ++ (media pkgs);
+    core = pkgs:
+      (nav pkgs)
+      ++ (view pkgs)
+      ++ (text pkgs)
+      ++ (git pkgs)
+      ++ (system pkgs)
+      ++ (shell pkgs)
+      ++ (media pkgs);
   };
 }

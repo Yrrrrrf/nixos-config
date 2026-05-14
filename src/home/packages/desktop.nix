@@ -6,13 +6,13 @@
   config.flake.lib.pkgsets.desktop = {
     apps = pkgs:
       with pkgs; [
-        spotify
         brave
         firefox
         obsidian
         discord
         rnote
         cheese
+        steam
       ];
     creative = pkgs:
       with pkgs; [
