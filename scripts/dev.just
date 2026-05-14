@@ -2,9 +2,8 @@ import "_shared.just"
 
 [doc("Check the configuration for errors")]
 [group("CI")]
-check:
+check: fmt
     nix flake check
-    alejandra --check .
 
 [doc("Check GPU status")]
 [group("AI")]

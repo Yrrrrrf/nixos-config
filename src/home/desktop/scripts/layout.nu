@@ -2,7 +2,9 @@
 use _shared.nu *
 
 # Keyboard Layout Manager
-# const KEYBOARD_NAME = "K280e-KB-English"
+# TODO(multi-host): accept --device as CLI arg instead of hardcoding.
+# Each host's hyprland binding should pass --device <name> explicitly
+# via homeExtras. Default: "asus-keyboard" (g14-specific).
 const KEYBOARD_NAME = "asus-keyboard"
 
 def get_layout_info [full_name: string] {

@@ -1,5 +1,10 @@
 # _asus.nu
 # ASUS-specific helpers + locally-bundled copies of the generic helpers.
+# TODO(dedup): set NU_LIB_DIRS in nushell.nix to include both script dirs,
+# then replace the bundled helpers below with `use _shared.nu *`.
+# Until then, keep these 4 functions in sync with _shared.nu manually:
+#   diff src/home/desktop/scripts/_shared.nu src/host/g14/scripts/_asus.nu
+
 # Bundled (not imported) because nushell's `use` resolves relative to the
 # script's directory, and these scripts live in a different folder than
 # src/home/desktop/scripts/_shared.nu.

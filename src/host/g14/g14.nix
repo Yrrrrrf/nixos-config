@@ -4,7 +4,6 @@
   ...
 }: {
   config.flake.lib.hosts.g14 = {
-    _inputs = inputs;
     hostname = "g14";
     system = "x86_64-linux";
     user = "yrrrrrf";

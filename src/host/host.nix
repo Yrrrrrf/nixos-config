@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs,
   ...
 }: {
   options.flake.lib.hosts = lib.mkOption {
@@ -14,10 +15,9 @@
   };
 
   config.flake.lib.mkHost = host: let
-    inputs = host._inputs;
     resolveModule = m:
       if builtins.isString m
-      then inputs.self.nixosModules.${m}
+      then inputs.self.nixosModules.${m} or (throw "mkHost: unknown nixosModule '${m}' — check host.modules list")
       else m;
   in
     inputs.nixpkgs.lib.nixosSystem {
@@ -25,6 +25,10 @@
       specialArgs = {inherit inputs;};
       modules =
         [
+          # NOTE: `host` module is implicitly included here. All other modules
+          # flow through host.modules as strings. This is intentional — omitting
+          # "host" from every host record would be error-prone. Be aware if you
+          # ever need to override or replace the host glue module per-machine.
           {_module.args.host = host;}
           inputs.self.nixosModules.host
           host.hardwareConfig
@@ -41,8 +45,11 @@
     host,
     ...
   }: let
-    user = inputs.self.lib.users.${host.user};
+    user = inputs.self.lib.users.${host.user} or (throw "nixosModules.host: unknown user '${host.user}' — check host.user field");
   in {
+    # DANGER: this `imports` line is evaluated during config resolution.
+    # `inputs` is safe here (specialArgs). `host` is NOT safe (_module.args).
+    # Conditional imports based on host.* belong in a child module, not here.
     imports = [inputs.home-manager.nixosModules.home-manager];
 
     networking.hostName = host.hostname;

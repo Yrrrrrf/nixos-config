@@ -1,3 +1,7 @@
+// TODO(multi-host): custom/asus-profile and custom/backlight exec g14-only
+// binaries (gpu-performance, kbd-backlight). Moving waybar to
+// programs.waybar.settings (Nix attrset) in the theming PR will allow
+// gating these with lib.optionals per-host.
 {
     "layer": "top",
     "position": "top",
