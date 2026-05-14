@@ -23,20 +23,3 @@ export def run_silent [code: closure] {
     do $code | complete | ignore
 }
 
-
-
-# Robust asusctl output parsing (handles ANSI, log noise, and various separators)
-export def parse_asus [cmd_output: string, search_pattern: string] {
-    let line = ($cmd_output
-        | lines
-        | find $search_pattern
-        | first
-        | ansi strip)
-    
-    if ($line | str contains ":") {
-        $line | split row ":" | last | str trim
-    } else {
-        # Fallback for "Active profile is Quiet" style outputs
-        $line | split row " " | last | str trim
-    }
-}

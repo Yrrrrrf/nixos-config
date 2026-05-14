@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-use _shared.nu *
+use _asus.nu *
 
 # Performance Profile Manager
 def main [

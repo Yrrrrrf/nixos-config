@@ -4,12 +4,12 @@
 {
   config,
   lib,
-  modulesPath,
   ...
-}: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+} @ args:
+if !(args ? modulesPath)
+then {}
+else {
+  imports = [(args.modulesPath + "/installer/scan/not-detected.nix")];
 
   boot.initrd.availableKernelModules = [
     "nvme"

@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-use _shared.nu *
+use _asus.nu *
 
 # Keyboard Backlight Manager
 const levels = ["Off", "Low", "Med", "High"]

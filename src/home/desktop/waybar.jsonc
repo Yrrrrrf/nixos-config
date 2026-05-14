@@ -81,30 +81,30 @@
         "tooltip": true,
         "return-type": "json",
         "interval": 5,
-        "exec": "kbd-performance --get",
-        "on-click": "kbd-performance --change"
+        "exec": "gpu-performance --get",
+        "on-click": "gpu-performance --change"
     },
     "custom/keyboard-layout": {
         "format": "Layout: {language} ({key})",
         "tooltip": true,
         "return-type": "json",
         "interval": 1,
-        "exec": "kbd-layout --get",
-        "on-click": "kbd-layout --change"
+        "exec": "layout --get",
+        "on-click": "layout --change"
     },
     "custom/power": {
         "format": "",
-        "on-click": "rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/waybar-powermenu",
+        "on-click": "rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/powermenu",
         "tooltip": false
     },
     "custom/volume": {
         "format": "{icon} {volume}%",
         "return-type": "json",
         "interval": 1,
-        "exec": "kbd-volume --get",
-        "on-click": "kbd-volume --mute",
-        "on-scroll-up": "kbd-volume --up",
-        "on-scroll-down": "kbd-volume --down",
+        "exec": "volume --get",
+        "on-click": "volume --mute",
+        "on-scroll-up": "volume --up",
+        "on-scroll-down": "volume --down",
         "tooltip": false
     },
     "custom/backlight": {
@@ -121,7 +121,7 @@
         "format": "{icon}",
         "interval": 1,
         "return-type": "json",
-        "exec": "kbd-mic --get-status",
-        "on-click": "kbd-mic --toggle"
+        "exec": "mic --get-status",
+        "on-click": "mic --toggle"
     }
 }
