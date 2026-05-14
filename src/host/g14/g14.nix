@@ -17,34 +17,38 @@
       # Inline unstable overlay — stays host-local for now.
       {
         nixpkgs.overlays = [
-          (final: prev: let
-            unstable = import inputs.nixpkgs-unstable {
-              system = "x86_64-linux";
-              config = {
-                allowUnfree = true;
-                permittedInsecurePackages = ["libxml2-2.13.9"];
+          (
+            final: prev: let
+              unstable = import inputs.nixpkgs-unstable {
+                system = "x86_64-linux";
+                config = {
+                  allowUnfree = true;
+                  permittedInsecurePackages = ["libxml2-2.13.9"];
+                };
               };
-            };
-            unstablePackages = import ../../../unstable.nix;
-          in
-            inputs.nixpkgs.lib.mapAttrs (
-              name: override:
-                if override == null
-                then unstable.${name}
-                else override unstable.${name}
-            )
-            unstablePackages)
+              unstablePackages = import ../../../unstable.nix;
+            in
+              inputs.nixpkgs.lib.mapAttrs (
+                name: override:
+                  if override == null
+                  then unstable.${name}
+                  else override unstable.${name}
+              )
+              unstablePackages
+          )
         ];
       }
 
       # G14-specific extras: asusctl userland package + asusd service.
-      ({pkgs, ...}: {
-        environment.systemPackages = [pkgs.asusctl];
-        services.asusd = {
-          enable = true;
-          enableUserService = true;
-        };
-      })
+      (
+        {pkgs, ...}: {
+          environment.systemPackages = [pkgs.asusctl];
+          services.asusd = {
+            enable = true;
+            enableUserService = true;
+          };
+        }
+      )
 
       # Named modules from the dendritic registry.
       "g14-networking"
@@ -82,6 +86,5 @@
     };
   };
 
-  config.flake.nixosConfigurations.g14 =
-    inputs.self.lib.mkHost inputs.self.lib.hosts.g14;
+  config.flake.nixosConfigurations.g14 = inputs.self.lib.mkHost inputs.self.lib.hosts.g14;
 }
