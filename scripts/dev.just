@@ -1,5 +1,10 @@
 import "_shared.just"
 
+[doc("Audit flake.lock for stale/unsupported nixpkgs inputs")]
+[group("CI")]
+health:
+    flake-checker -- --no-telemetry
+
 [doc("Check the configuration for errors")]
 [group("CI")]
 check: fmt
@@ -10,6 +15,9 @@ check: fmt
 lint:
     statix check .
     deadnix --fail .
+
+[group("CI")]
+quality: health check lint
 
 [doc("Check GPU status")]
 [group("AI")]
