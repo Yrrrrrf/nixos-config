@@ -67,6 +67,7 @@
     # this field cause no error.
     homeExtras = {...}: {
       home.file = {
+        ".local/bin/_asus.nu".source = ./scripts/_asus.nu;
         ".local/bin/kbd-backlight" = {
           source = ./scripts/kbd-backlight.nu;
           executable = true;

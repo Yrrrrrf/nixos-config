@@ -3,11 +3,14 @@
     programs.nushell = {
       enable = true;
       # Basic configuration
+      envFile.text = ''
+        $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".local/bin") | uniq)
+      '';
       configFile.text = ''
         $env.config = {
           show_banner: false,
         }
-        source ${./fn.nu}
+        ${builtins.readFile ./fn.nu}
       '';
       shellAliases = {
         lg = "lazygit";

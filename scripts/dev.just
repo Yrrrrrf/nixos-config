@@ -5,6 +5,12 @@ import "_shared.just"
 check: fmt
     nix flake check
 
+[doc("Lint (statix) + dead-code (deadnix)")]
+[group("CI")]
+lint:
+    statix check .
+    deadnix --fail .
+
 [doc("Check GPU status")]
 [group("AI")]
 check-gpu:

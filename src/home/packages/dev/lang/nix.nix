@@ -8,6 +8,12 @@
       lsp = "nil";
       formatter = "alejandra";
     };
-    extraPackages = pkgs: with pkgs; [nil alejandra];
+    extraPackages = pkgs:
+      with pkgs; [
+        nil
+        alejandra
+        statix
+        deadnix
+      ];
   };
 }

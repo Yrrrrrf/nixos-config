@@ -9,16 +9,24 @@
     # Generic, host-agnostic scripts. Installed as ~/.local/bin/<name>.
     # Host-specific scripts (e.g. ASUS keyboard backlight) are installed by
     # the host's homeExtras (see src/host/g14/g14.nix).
-    scripts = ["volume" "mic" "layout" "screenshot" "powermenu"];
+    scripts = [
+      "volume"
+      "mic"
+      "layout"
+      "screenshot"
+      "powermenu"
+    ];
 
-    scriptFiles = builtins.listToAttrs (map (n: {
+    scriptFiles = builtins.listToAttrs (
+      map (n: {
         name = ".local/bin/${n}";
         value = {
           source = ./scripts/${n}.nu;
           executable = true;
         };
       })
-      scripts);
+      scripts
+    );
   in {
     imports = [
       inputs.self.homeModules.stylix
@@ -34,6 +42,7 @@
     home.file =
       scriptFiles
       // {
+        ".local/bin/_shared.nu".source = ./scripts/_shared.nu;
         ".config/hypr/hyprlock.conf".text = theme.apply (builtins.readFile ./hyprlock.conf);
         ".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
         ".config/waybar/config.jsonc".text = builtins.readFile ./waybar.jsonc;
@@ -52,7 +61,7 @@
       pavucontrol
       brightnessctl
       libnotify
-      xfce.thunar
+      cosmic-files
       swayosd
       rofi
       waybar
