@@ -1,31 +1,35 @@
 #!/usr/bin/env nu
-use _asus.nu *
+# gpu-performance.nu — ASUS power profile control (G14-specific).
+# Imports _shared.nu — both files land in ~/.local/bin/ at runtime.
+use _shared.nu *
 
-# Performance Profile Manager
-def main [
-    --get    # Get current status for Waybar
-    --change # Change to the next profile
-] {
-    if $get {
-        let profile = (parse_asus (asusctl profile -p) "Active profile is")
-        
-        let icon = match $profile {
-            "Quiet" => "󰒑"
-            "Balanced" => "󰾅"
-            "Performance" => "󰓅"
-            _ => ""
-        }
+# Read current profile. asusctl output ends with the profile name
+# regardless of phrasing across versions, so we take the last token.
+def current_profile [] {
+    asusctl profile -p | str trim | split row " " | last
+}
 
-        as_json { profile: $profile, icon: $icon }
-    } else if $change {
-        run_silent { asusctl profile -n }
-
-        let profile = (parse_asus (asusctl profile -p) "Active profile is")
-
-        let msg = $"GPU profile set to: ($profile)"
-        log_success $msg
-        notify "Performance Profile" $msg --icon "system-performance" --tag "performance_profile"
+def pick_meta [profile: string] {
+    match $profile {
+        "Quiet"       => { icon: "󰒑", class: "quiet" }
+        "Balanced"    => { icon: "󰾅", class: "balanced" }
+        "Performance" => { icon: "󰓅", class: "performance" }
+        _             => { icon: "", class: "unknown" }
     }
 }
 
-
+def main [--get --change] {
+    if $change {
+        run_silent { asusctl profile -n }
+        log_success $"Profile: (current_profile)"
+    } else {
+        # default = --get
+        let p = (current_profile)
+        let m = (pick_meta $p)
+        as_json {
+            text: $"($m.icon) ($p)"
+            tooltip: $"Power profile: ($p)"
+            class: $m.class
+        }
+    }
+}

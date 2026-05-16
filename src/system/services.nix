@@ -1,9 +1,5 @@
 {...}: {
-  flake.nixosModules.services = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.services = {pkgs, ...}: {
     services = {
       podman.enable = true;
 

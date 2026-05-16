@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.nh = {pkgs, ...}: {
+  flake.nixosModules.nh = { ...}: {
     programs.nh = {
       enable = true;
       flake = "/etc/nixos";

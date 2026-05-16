@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.homeModules.shell = {pkgs, ...}: {
+  flake.homeModules.shell = {...}: {
     imports = [
       inputs.agenix.homeManagerModules.default
       # Add nu shell module as default shell

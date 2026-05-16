@@ -1,9 +1,5 @@
 {...}: {
-  flake.nixosModules.core = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.core = {...}: {
     # --- System Bootloader Configuration ---
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;

@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   inputs,
   ...
 }: {
@@ -38,7 +37,6 @@
     };
 
   config.flake.nixosModules.host = {
-    config,
     lib,
     pkgs,
     inputs,

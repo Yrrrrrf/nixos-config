@@ -1,7 +1,3 @@
-// TODO(multi-host): custom/asus-profile and custom/backlight exec g14-only
-// binaries (gpu-performance, kbd-backlight). Moving waybar to
-// programs.waybar.settings (Nix attrset) in the theming PR will allow
-// gating these with lib.optionals per-host.
 {
     "layer": "top",
     "position": "top",
@@ -20,6 +16,7 @@
     "modules-right": [
         "custom/mic",
         "custom/volume",
+        "custom/brightness",
         "custom/backlight",
         "cpu",
         "network",
@@ -29,28 +26,33 @@
         "custom/keyboard-layout",
         "custom/power"
     ],
+
     "custom/profile": {
         "format": " ",
-        "tooltip": true,
         "tooltip-format": "yrrrrrf"
     },
+
     "clock": {
         "format": "{:%H:%M}",
         "tooltip-format": "<big>{:%D}</big>\n<tt><small>{calendar}</small></tt>"
     },
+
     "hyprland/workspaces": {
         "format": "{id}",
         "on-click": "activate"
     },
+
     "hyprland/window": {
         "format": "{title}",
         "max-length": 50
     },
+
     "cpu": {
         "format": " {usage}%",
         "tooltip-format": "CPU: {usage}%",
         "on-click": "wezterm -e btop"
     },
+
     "network": {
         "format-wifi": " {essid}",
         "format-ethernet": "󰈀 Connected",
@@ -58,74 +60,79 @@
         "tooltip-format-wifi": "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}",
         "on-click": "wezterm -e impala"
     },
+
     "bluetooth": {
         "format": " {status}",
         "format-off": "",
         "format-disabled": " Disabled",
-        "format-connected": " {device_alias}"
+        "format-connected": " {device_alias}",
+        "on-click": "wezterm -e bluetui"
     },
+
     "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
+        "states": { "warning": 30, "critical": 15 },
         "format": "{icon} {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": "🔌 {capacity}%",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
+        "format-icons": ["", "", "", "", ""]
     },
-    "custom/asus-profile": {
-        "format": "{icon}",
-        "tooltip": true,
-        "return-type": "json",
-        "interval": 5,
-        "exec": "gpu-performance --get",
-        "on-click": "gpu-performance --change"
-    },
-    "custom/keyboard-layout": {
-        "format": "Layout: {language} ({key})",
-        "tooltip": true,
-        "return-type": "json",
-        "interval": 1,
-        "exec": "layout --get",
-        "on-click": "layout --change"
-    },
-    "custom/power": {
-        "format": "",
-        "on-click": "printf 'Logout\nSuspend\nReboot\nShutdown' | walker --dmenu --prompt 'Power:' | xargs -r ~/.local/bin/powermenu",
-        "tooltip": false
-    },
+
     "custom/volume": {
-        "format": "{icon} {volume}%",
+        "format": "{}",
         "return-type": "json",
         "interval": 1,
         "exec": "volume --get",
         "on-click": "volume --mute",
         "on-scroll-up": "volume --up",
-        "on-scroll-down": "volume --down",
-        "tooltip": false
+        "on-scroll-down": "volume --down"
     },
+
+    "custom/mic": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": 1,
+        "exec": "mic --get-status",
+        "on-click": "mic --toggle"
+    },
+
+    "custom/brightness": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": 5,
+        "exec": "brightness --get",
+        "on-scroll-up": "brightness --up",
+        "on-scroll-down": "brightness --down"
+    },
+
     "custom/backlight": {
-        "format": "{icon} {level}",
+        "format": "{}",
         "return-type": "json",
         "interval": 5,
         "exec": "kbd-backlight --get",
         "on-click": "kbd-backlight --up",
         "on-scroll-up": "kbd-backlight --up",
-        "on-scroll-down": "kbd-backlight --down",
-        "tooltip": false
+        "on-scroll-down": "kbd-backlight --down"
     },
-    "custom/mic": {
-        "format": "{icon}",
-        "interval": 1,
+
+    "custom/asus-profile": {
+        "format": "{}",
         "return-type": "json",
-        "exec": "mic --get-status",
-        "on-click": "mic --toggle"
+        "interval": 5,
+        "exec": "gpu-performance --get",
+        "on-click": "gpu-performance --change"
+    },
+
+    "custom/keyboard-layout": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": 2,
+        "exec": "layout --get",
+        "on-click": "layout --change"
+    },
+
+    "custom/power": {
+        "format": "",
+        "on-click": "powermenu",
+        "tooltip": false
     }
 }

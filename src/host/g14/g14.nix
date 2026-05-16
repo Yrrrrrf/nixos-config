@@ -1,8 +1,4 @@
-{
-  inputs,
-  config,
-  ...
-}: {
+{inputs, ...}: {
   config.flake.lib.hosts.g14 = {
     hostname = "g14";
     system = "x86_64-linux";
@@ -17,7 +13,7 @@
       {
         nixpkgs.overlays = [
           (
-            final: prev: let
+            _final: _prev: let
               unstable = import inputs.nixpkgs-unstable {
                 system = "x86_64-linux";
                 config = {
@@ -67,7 +63,6 @@
     # this field cause no error.
     homeExtras = {...}: {
       home.file = {
-        ".local/bin/_asus.nu".source = ./scripts/_asus.nu;
         ".local/bin/kbd-backlight" = {
           source = ./scripts/kbd-backlight.nu;
           executable = true;

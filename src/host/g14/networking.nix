@@ -1,9 +1,5 @@
 {...}: {
-  flake.nixosModules.g14-networking = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.g14-networking = {...}: {
     networking.hostName = "g14";
 
     # ── iwd standalone ────────────────────────────────────────────────

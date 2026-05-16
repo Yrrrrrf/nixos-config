@@ -1,5 +1,5 @@
-{config, ...}: {
-  flake.nixosModules.specialisations-dev = {inputs, ...}: {
+{...}: {
+  flake.nixosModules.specialisations-dev = {...}: {
     specialisation.dev.configuration = {
       system.nixos.tags = ["dev"];
     };

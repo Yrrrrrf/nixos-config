@@ -1,5 +1,5 @@
 {...}: {
-  flake.homeModules.nushell = {pkgs, ...}: {
+  flake.homeModules.nushell = {...}: {
     programs.nushell = {
       enable = true;
       # Basic configuration

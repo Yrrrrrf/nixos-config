@@ -1,6 +1,5 @@
 {inputs, ...}: {
   flake.homeModules.desktop = {
-    config,
     pkgs,
     lib,
     theme,
@@ -12,6 +11,7 @@
     scripts = [
       "volume"
       "mic"
+      "brightness"
       "layout"
       "screenshot"
       "powermenu"
