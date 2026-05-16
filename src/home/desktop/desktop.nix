@@ -30,6 +30,7 @@
   in {
     imports = [
       inputs.self.homeModules.stylix
+      inputs.walker.homeManagerModules.default
     ];
 
     services.swayosd.enable = true;
@@ -47,7 +48,6 @@
         ".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
         ".config/waybar/config.jsonc".text = builtins.readFile ./waybar.jsonc;
         ".config/waybar/style.css".text = theme.apply (builtins.readFile ./waybar-style.css);
-        ".config/rofi/config.rasi".text = lib.mkForce (theme.apply (builtins.readFile ./rofi.rasi));
         ".config/dunst/dunstrc".text = lib.mkForce (theme.apply (builtins.readFile ./dunst.conf));
         ".config/wezterm/wezterm.lua".text = theme.apply (builtins.readFile ./wezterm.lua);
         ".config/swayosd/style.css".text = theme.apply (builtins.readFile ./swayosd-style.css);
@@ -72,7 +72,6 @@
       libnotify
       cosmic-files
       swayosd
-      rofi
       waybar
       wezterm
       hypridle
@@ -80,5 +79,19 @@
       dunst
       hyprshot
     ];
+    programs.walker = {
+      enable = true;
+      runAsService = true;
+      config = {
+        theme = "yrrrrrf";
+        builtins = {
+          applications.weight = 5;
+          runner.weight = 1;
+          symbols.weight = 1;
+          calc.weight = 1;
+        };
+      };
+      themes.yrrrrrf.style = theme.apply (builtins.readFile ./walker-style.css);
+    };
   };
 }

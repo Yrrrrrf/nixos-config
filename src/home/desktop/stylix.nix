@@ -124,7 +124,6 @@
       targets = {
         dunst.enable = lib.mkForce false;
         hyprlock.enable = lib.mkForce false;
-        rofi.enable = lib.mkForce false;
         waybar.enable = lib.mkForce false;
         hyprland.enable = lib.mkForce false;
       };

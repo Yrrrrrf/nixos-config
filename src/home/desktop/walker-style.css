@@ -1,0 +1,97 @@
+/* src/home/desktop/walker-style.css
+ *
+ * Walker GTK4 theme — catppuccin mocha. Templated through `theme.apply`
+ * (see flake.homeModules.stylix) so colour rotation stays a single-source change.
+ *
+ * Selectors mirror walker's default theme widget tree:
+ *   #window       — the layer-shell window itself
+ *   #box          — outer container (#window > #box)
+ *   #input        — search entry
+ *   #list         — results ScrolledWindow > ListView
+ *   child         — each list row (GTK4 ListView uses `child`, not `.item`)
+ *   child:selected — current selection
+ *
+ * Provider-class scoping (e.g. #window.runner, #window.dmenu) is intentionally
+ * omitted — keep this file under ~80 lines until a real need shows up.
+ */
+
+#window {
+  background-color: transparent;
+  color: @text@;
+  font-family: "@monospace@";
+  font-size: 12pt;
+}
+
+#box {
+  background-color: alpha(@base@, @opacity@);
+  border: @borderWidth@px solid @surface1@;
+  border-radius: @borderRadius_island@px;
+  padding: 12px;
+  margin: 0;
+  min-width: 560px;
+}
+
+#input {
+  background-color: @mantle@;
+  color: @text@;
+  border: @borderWidth@px solid @surface0@;
+  border-radius: @borderRadius_pill@px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  caret-color: @mauve@;
+}
+
+#input:focus {
+  border-color: @mauve@;
+  outline: none;
+}
+
+#list {
+  background-color: transparent;
+  border: none;
+  min-height: 320px;
+}
+
+child {
+  background-color: transparent;
+  color: @text@;
+  border-radius: @borderRadius_pill@px;
+  padding: 6px 10px;
+  margin: 1px 0;
+}
+
+child:hover {
+  background-color: @surface0@;
+}
+
+child:selected,
+child:selected:hover {
+  background-color: @mauve@;
+  color: @crust@;
+}
+
+/* Per-item internals (icon + label rendered by item.xml layouts).
+ * Walker uses standard GTK4 widget names; these cover the common ones. */
+child image {
+  -gtk-icon-size: 22px;
+  margin-right: 10px;
+}
+
+child label.name {
+  font-weight: 500;
+}
+
+child label.description {
+  color: @overlay0@;
+  font-size: 10pt;
+}
+
+child:selected label.description {
+  color: @crust@;
+}
+
+/* Empty-state placeholder text (config.toml: placeholders.default.list) */
+#list placeholder {
+  color: @overlay0@;
+  font-style: italic;
+}

@@ -98,7 +98,7 @@
     },
     "custom/power": {
         "format": "",
-        "on-click": "rofi -dmenu -p 'Power' -i <<< $'Logout\nSuspend\nReboot\nShutdown' | xargs -r ~/.local/bin/powermenu",
+        "on-click": "printf 'Logout\nSuspend\nReboot\nShutdown' | walker --dmenu --prompt 'Power:' | xargs -r ~/.local/bin/powermenu",
         "tooltip": false
     },
     "custom/volume": {

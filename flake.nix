@@ -17,6 +17,13 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix/release-25.11";
+
+    elephant.url = "github:abenz1267/elephant";
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # --- Flake Outputs ---
@@ -29,4 +36,9 @@
         (inputs.import-tree ./src)
       ];
     };
+
+  nixConfig = {
+    extra-substituters = ["https://walker-git.cachix.org"];
+    extra-trusted-public-keys = ["walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="];
+  };
 }
