@@ -28,7 +28,7 @@ def country [name: string]: nothing -> string {
         "Mexico":          "MX"
         "Latin American":  "LA"
         "United Kingdom":  "UK"
-    } | get -i $inside | default "??"
+    } | get -o $inside | default "??"
 }
 
 def main [--get --change] {
