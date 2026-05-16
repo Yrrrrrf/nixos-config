@@ -2,22 +2,29 @@
 # mic.nu — Microphone mute toggle + waybar status.
 use _shared.nu *
 
-# Read mic mute state from PipeWire/WirePlumber.
-def read_muted [] {
-    wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | str trim | str contains "MUTED"
+def muted []: nothing -> bool {
+    capture { wpctl get-volume @DEFAULT_AUDIO_SOURCE@ } | str contains "MUTED"
+}
+
+def meta [is_muted: bool]: nothing -> record {
+    if $is_muted {
+        { icon: "󰍭", desc: "Microphone muted",  class: "muted" }
+    } else {
+        { icon: "󰍬", desc: "Microphone active", class: "active" }
+    }
 }
 
 def main [--get-status --toggle] {
     if $toggle {
-        run_silent { swayosd-client --input-volume mute-toggle }
-        let muted = (read_muted)
-        log_success (if $muted { "Microphone muted" } else { "Microphone active" })
+        run_silent { wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle }
+        let m = (meta (muted))
+        notify "Microphone" $m.desc
     } else {
-        # default = --get-status
-        let muted = (read_muted)
-        let icon = (if $muted { "" } else { "" })
-        let class = (if $muted { "muted" } else { "active" })
-        let tooltip = (if $muted { "Mic: Muted" } else { "Mic: Active" })
-        as_json { text: $icon, tooltip: $tooltip, class: $class }
+        let m = (meta (muted))
+        as_json {
+            text:    $m.icon
+            tooltip: $m.desc
+            class:   $m.class
+        }
     }
 }

@@ -1,35 +1,47 @@
 #!/usr/bin/env nu
-# gpu-performance.nu — ASUS power profile control (G14-specific).
-# Imports _shared.nu — both files land in ~/.local/bin/ at runtime.
+# gpu-performance.nu — ASUS power profile (G14).
+# Reads asusctl's "Active profile is X" line, ignoring stderr spam.
 use _shared.nu *
 
-# Read current profile. asusctl output ends with the profile name
-# regardless of phrasing across versions, so we take the last token.
-def current_profile [] {
-    asusctl profile -p | str trim | split row " " | last
+# asusctl profile -p outputs (after stderr filter):
+#   Active profile is Performance
+#   Profile on AC is Performance
+#   Profile on Battery is Quiet
+# Only the first line carries the active profile.
+def current []: nothing -> string {
+    capture { asusctl profile -p }
+    | lines
+    | where {|l| $l | str starts-with "Active profile is"}
+    | get 0?
+    | default ""
+    | parse "Active profile is {p}"
+    | get p.0?
+    | default "Unknown"
 }
 
-def pick_meta [profile: string] {
+# Single source of truth: profile name → presentation record.
+# tooltip carries the *description*, not a restatement of `text`.
+def meta [profile: string]: nothing -> record {
     match $profile {
-        "Quiet"       => { icon: "󰒑", class: "quiet" }
-        "Balanced"    => { icon: "󰾅", class: "balanced" }
-        "Performance" => { icon: "󰓅", class: "performance" }
-        _             => { icon: "", class: "unknown" }
+        "Quiet"       => { icon: "󰒲", desc: "Silent — fans off, battery priority" }
+        "Balanced"    => { icon: "󰓅", desc: "Default — adaptive performance" }
+        "Performance" => { icon: "󱐌", desc: "Maximum — fans engaged, plugged in recommended" }
+        _             => { icon: "󰋖", desc: "Unknown profile state" }
     }
 }
 
 def main [--get --change] {
     if $change {
         run_silent { asusctl profile -n }
-        log_success $"Profile: (current_profile)"
+        let now = (current)
+        notify "Power Profile" $"Switched to ($now)"
     } else {
-        # default = --get
-        let p = (current_profile)
-        let m = (pick_meta $p)
+        let now = (current)
+        let m = (meta $now)
         as_json {
-            text: $"($m.icon) ($p)"
-            tooltip: $"Power profile: ($p)"
-            class: $m.class
+            text:    $"($m.icon) ($now)"
+            tooltip: $m.desc
+            class:   ($now | str downcase)
         }
     }
 }

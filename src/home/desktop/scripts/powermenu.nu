@@ -1,11 +1,9 @@
 #!/usr/bin/env nu
 # powermenu.nu — Session/power actions.
-#   No args  → open walker dmenu picker, dispatch the choice.
-#   With arg → dispatch directly. Used by waybar on-click (no args)
-#              and available for keybinds (e.g. `powermenu Suspend`).
+# No args = walker picker. With arg = dispatch directly.
 use _shared.nu *
 
-def open_picker [] {
+def pick []: nothing -> string {
     "Logout\nSuspend\nReboot\nShutdown"
     | walker --dmenu --prompt "Power:"
     | str trim
@@ -17,11 +15,11 @@ def dispatch [action: string] {
         "Suspend"  => { run_silent { systemctl suspend } }
         "Reboot"   => { run_silent { systemctl reboot } }
         "Shutdown" => { run_silent { systemctl poweroff } }
-        _          => { }  # empty or unknown — silently no-op
+        _          => { }
     }
 }
 
 def main [action?: string] {
-    let chosen = (if ($action | is-empty) { open_picker } else { $action })
+    let chosen = (if ($action | is-empty) { pick } else { $action })
     if not ($chosen | is-empty) { dispatch $chosen }
 }

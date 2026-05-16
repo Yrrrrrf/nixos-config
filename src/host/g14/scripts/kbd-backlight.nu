@@ -1,47 +1,53 @@
 #!/usr/bin/env nu
-# kbd-backlight.nu — ASUS keyboard backlight cycling (G14-specific).
+# kbd-backlight.nu — ASUS keyboard backlight cycling (G14).
+# Reads kernel sysfs; writes via asusctl daemon path.
 use _shared.nu *
 
+const SYS_PATH = "/sys/class/leds/asus::kbd_backlight/brightness"
 const LEVELS = ["off" "low" "med" "high"]
 
-# asusctl -k prints: "Current keyboard led brightness: Med"
-def current_level [] {
-    asusctl -k | str trim | split row " " | last | str downcase
+# Current level as integer 0..3. sysfs is single source of truth.
+def current []: nothing -> int {
+    try { open $SYS_PATH | str trim | into int } catch { 0 }
 }
 
-def next_level [direction: string] {
-    let now = (current_level)
-    let idx = (
-        $LEVELS
-        | enumerate
-        | where item == $now
-        | get 0.index?
-        | default 1
-    )
+# Compute next level name (clamped, no wrap).
+def step [direction: string]: nothing -> string {
+    let now = (current)
     let next_idx = (match $direction {
-        "up"   => (($idx + 1) | math min (($LEVELS | length) - 1))
-        "down" => (($idx - 1) | math max 0)
-        _      => $idx
+        "up"   => (($now + 1) | math min 3)
+        "down" => (($now - 1) | math max 0)
+        _      => $now
     })
     $LEVELS | get $next_idx
 }
 
+# Level int → presentation record. Different icons per level so the
+# bar visually reflects state, not a static glyph.
+def meta [level: int]: nothing -> record {
+    match $level {
+        0 => { icon: "󰌌", desc: "Backlight off" }
+        1 => { icon: "󱨇", desc: "Backlight low" }
+        2 => { icon: "󱨈", desc: "Backlight medium" }
+        3 => { icon: "󱨉", desc: "Backlight high" }
+        _ => { icon: "󰋖", desc: "Backlight unknown" }
+    }
+}
+
 def main [--get --up --down] {
-    if $up {
-        let next = (next_level "up")
-        run_silent { asusctl --kbd-bright $next }
-        log_success $"Keyboard backlight: ($next)"
-    } else if $down {
-        let next = (next_level "down")
-        run_silent { asusctl --kbd-bright $next }
-        log_success $"Keyboard backlight: ($next)"
+    let dir = if $up { "up" } else if $down { "down" } else { null }
+
+    if $dir != null {
+        let target = (step $dir)
+        run_silent { asusctl --kbd-bright $target }
+        notify "Keyboard Backlight" $"Set to ($target)"
     } else {
-        # default = --get
-        let level = (current_level)
+        let lvl = (current)
+        let m = (meta $lvl)
         as_json {
-            text: $"󰌌 ($level)"
-            tooltip: $"Keyboard backlight: ($level)"
-            class: $level
+            text:    $m.icon
+            tooltip: $m.desc
+            class:   ($LEVELS | get $lvl)
         }
     }
 }

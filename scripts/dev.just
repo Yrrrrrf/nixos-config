@@ -22,7 +22,7 @@ quality: health check lint
 [doc("Check GPU status")]
 [group("AI")]
 check-gpu:
-    cd /home/yrrrrrf/docs/lab/ai && uv run scripts/check_gpu.py
+    cd /home/yrrrrrf/docs/lab/ai; uv run scripts/check_gpu.py
 
 [doc("Show ownership of all files (highlights anything not owned by you)")]
 [group("Permissions")]

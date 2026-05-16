@@ -4,10 +4,10 @@ use _shared.nu *
 
 def main [--region --screen] {
     if $region {
-        log_success "Select a region to capture..."
+        notify "Screenshot" "Select a region to capture"
         run_silent { hyprshot -m region }
     } else if $screen {
         run_silent { hyprshot -m output }
-        log_success "Full screenshot saved"
+        notify "Screenshot" "Full screen saved"
     }
 }
