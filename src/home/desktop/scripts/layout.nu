@@ -16,19 +16,12 @@ def keymap []: nothing -> string {
 }
 
 # Reduce keymap names to country codes.
-# Fast path: 2 uppercase letters right after first "(", e.g. "(US".
-# Fallback: known country names mapped to ISO-ish codes.
-# Add new entries here as new layouts join the rotation.
 def country [name: string]: nothing -> string {
-    let direct = ($name | parse -r '\((?P<c>[A-Z]{2})' | get c.0?)
-    if $direct != null { return $direct }
-
-    let inside = ($name | parse -r '\((?P<v>[^,)]+)' | get v.0? | default "" | str trim)
-    {
-        "Mexico":          "MX"
-        "Latin American":  "LA"
-        "United Kingdom":  "UK"
-    } | get -o $inside | default "??"
+    if ($name | str contains "intl") {
+        "MX"
+    } else {
+        "US"
+    }
 }
 
 def main [--get --change] {
