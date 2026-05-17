@@ -15,8 +15,8 @@ def current []: nothing -> int {
 def step [direction: string]: nothing -> string {
     let now = (current)
     let next_idx = (match $direction {
-        "up"   => (($now + 1) | math min 3)
-        "down" => (($now - 1) | math max 0)
+        "up"   => { if $now < 3 { $now + 1 } else { 3 } }
+        "down" => { if $now > 0 { $now - 1 } else { 0 } }
         _      => $now
     })
     $LEVELS | get $next_idx

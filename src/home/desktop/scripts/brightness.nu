@@ -15,16 +15,22 @@ def meta [pct: int]: nothing -> record {
     { icon: $icon, desc: "Scroll to adjust", class: $class }
 }
 
+def get_waybar [] {
+    let p = (percent)
+    let m = (meta $p)
+    as_json {
+        text:    $"($m.icon) ($p)%"
+        tooltip: $m.desc
+        class:   $m.class
+    }
+}
+
 def main [--get --up --down] {
-    if    $up   { run_silent { swayosd-client --brightness raise } }
-    else if $down { run_silent { swayosd-client --brightness lower } }
-    else {
-        let p = (percent)
-        let m = (meta $p)
-        as_json {
-            text:    $"($m.icon) ($p)%"
-            tooltip: $m.desc
-            class:   $m.class
-        }
+    if $up {
+        run_silent { swayosd-client --brightness raise }
+    } else if $down {
+        run_silent { swayosd-client --brightness lower }
+    } else {
+        get_waybar
     }
 }

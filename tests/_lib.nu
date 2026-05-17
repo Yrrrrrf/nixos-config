@@ -19,9 +19,7 @@ export def try_json [text: string]: nothing -> any {
 export def field_issues [rec: record, required: list]: nothing -> list {
     $required | each {|f|
         let v = ($rec | get -o $f)
-        if $v == null           { $"missing ($f)" }
-        else if ($v | is-empty) { $"empty ($f)" }
-        else                    { null }
+        if $v == null { $"missing ($f)" } else if ($v | is-empty) { $"empty ($f)" } else { null }
     } | compact
 }
 

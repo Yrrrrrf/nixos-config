@@ -24,6 +24,12 @@ quality: health check lint
 check-gpu:
     cd /home/yrrrrrf/docs/lab/ai; uv run scripts/check_gpu.py
 
+test:
+    # nu tests/set.nu
+    # nu tests/get.nu
+    # nu tests/wifi.nu
+    nu tests/run.nu
+
 [doc("Show ownership of all files (highlights anything not owned by you)")]
 [group("Permissions")]
 status:

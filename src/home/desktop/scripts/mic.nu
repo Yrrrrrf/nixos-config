@@ -16,7 +16,7 @@ def meta [is_muted: bool]: nothing -> record {
 
 def main [--get-status --toggle] {
     if $toggle {
-        run_silent { wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle }
+        run_silent { swayosd-client --input-volume mute-toggle }
         let m = (meta (muted))
         notify "Microphone" $m.desc
     } else {

@@ -5,24 +5,22 @@
 #   nu tests/set.nu              # all actions
 #   nu tests/set.nu volume       # filter by prefix
 #
-# ⚠  These are real state changes (mic toggle, profile cycle, etc.).
-#    Run without a filter only when you're okay with all of them firing.
-#
+# ⚠  Real state changes. Re-run to restore original state.
 # Exit code: 0 = all pass, 1 = any fail.
 use _lib.nu *
 
-const CASES = [
+def cases [] { [
     {
         name: "volume --mute"
         run:  { run-external "volume" "--mute" | complete }
     }
     {
         name: "mic --toggle"
-        run:  { run-external "mic" "--toggle" | complete }
-        snapshot: { (run-external "mic" "--get-status" | complete).stdout | str trim | from json | get class }
-        verify: {|before|
-            let after = ((run-external "mic" "--get-status" | complete).stdout | str trim | from json | get class)
-            if $after != $before { null } else { $"class did not change \(stayed '($before)'\)" }
+        run:      { run-external "mic" "--toggle" | complete }
+        snapshot: { run-external "mic" "--get-status" | complete | get stdout | str trim | from json | get class }
+        verify:   {|b|
+            let a = (run-external "mic" "--get-status" | complete | get stdout | str trim | from json | get class)
+            if $a != $b { null } else { $"class unchanged '($b)'" }
         }
     }
     {
@@ -35,20 +33,20 @@ const CASES = [
     }
     {
         name: "layout --change"
-        run:  { run-external "layout" "--change" | complete }
-        snapshot: { (run-external "layout" "--get" | complete).stdout | str trim | from json | get class }
-        verify: {|before|
-            let after = ((run-external "layout" "--get" | complete).stdout | str trim | from json | get class)
-            if $after != $before { null } else { $"layout class did not change \(stayed '($before)'\)" }
+        run:      { run-external "layout" "--change" | complete }
+        snapshot: { run-external "layout" "--get" | complete | get stdout | str trim | from json | get class }
+        verify:   {|b|
+            let a = (run-external "layout" "--get" | complete | get stdout | str trim | from json | get class)
+            if $a != $b { null } else { $"class unchanged '($b)'" }
         }
     }
     {
         name: "gpu-performance --change"
-        run:  { run-external "gpu-performance" "--change" | complete }
-        snapshot: { (run-external "gpu-performance" "--get" | complete).stdout | str trim | from json | get class }
-        verify: {|before|
-            let after = ((run-external "gpu-performance" "--get" | complete).stdout | str trim | from json | get class)
-            if $after != $before { null } else { $"profile class did not change \(stayed '($before)'\)" }
+        run:      { run-external "gpu-performance" "--change" | complete }
+        snapshot: { run-external "gpu-performance" "--get" | complete | get stdout | str trim | from json | get class }
+        verify:   {|b|
+            let a = (run-external "gpu-performance" "--get" | complete | get stdout | str trim | from json | get class)
+            if $a != $b { null } else { $"class unchanged '($b)'" }
         }
     }
     {
@@ -59,24 +57,20 @@ const CASES = [
         name: "kbd-backlight --down"
         run:  { run-external "kbd-backlight" "--down" | complete }
     }
-]
+] }
 
 def check_case [c: record]: nothing -> record {
-    # Snapshot state before action (if the case defines one)
-    let before = (
-        if ($c | get -o snapshot) != null { do $c.snapshot } else { null }
-    )
+    let before = if ($c | get -o snapshot) != null { do $c.snapshot } else { null }
 
     let out = (do $c.run)
     if $out.exit_code != 0 {
-        let stderr = ($out.stderr | str trim)
-        let detail = if ($stderr | is-not-empty) { $stderr } else { $"exited ($out.exit_code)" }
+        let detail = ($out.stderr | str trim)
+        let detail = if ($detail | is-empty) { $"exited ($out.exit_code)" } else { $detail }
         return (fail $c.name $detail)
     }
 
-    sleep 300ms  # let daemon state settle
+    sleep 300ms
 
-    # Verify state actually changed (if the case defines a verifier)
     if ($c | get -o verify) != null {
         let issue = (do $c.verify $before)
         if $issue != null { return (fail $c.name $issue) }
@@ -86,20 +80,20 @@ def check_case [c: record]: nothing -> record {
 }
 
 def main [filter?: string] {
-    let cases = (
-        if ($filter | is-empty) { $CASES }
-        else { $CASES | where {|c| $c.name | str starts-with $filter} }
+    let all_cases = (cases)
+    let selected = (
+        if ($filter | is-empty) { $all_cases }
+        else { $all_cases | where {|c| $c.name | str starts-with $filter} }
     )
 
-    if ($cases | is-empty) {
+    if ($selected | is-empty) {
         print $"(ansi red)No case matches '($filter)'(ansi reset)"
-        print $"Available: ($CASES | get name | str join ', ')"
+        print $"Available: ($all_cases | get name | str join ', ')"
         exit 1
     }
 
     print $"(ansi yellow_bold)⚠  Destructive — real state changes will happen(ansi reset)\n"
-
-    let results = ($cases | each { check_case $in })
+    let results = ($selected | each { check_case $in })
     let ok = (report "Action verbs" $results)
     if not $ok { exit 1 }
 }

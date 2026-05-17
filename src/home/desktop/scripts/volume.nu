@@ -29,17 +29,24 @@ def meta [pct: int, muted: bool]: nothing -> record {
     }
 }
 
+def get_waybar [] {
+    let s = (state)
+    let m = (meta $s.pct $s.muted)
+    as_json {
+        text:    $"($m.icon) ($s.pct)%"
+        tooltip: $m.desc
+        class:   $m.class
+    }
+}
+
 def main [--get --up --down --mute] {
-    if    $up   { run_silent { swayosd-client --output-volume raise } }
-    else if $down { run_silent { swayosd-client --output-volume lower } }
-    else if $mute { run_silent { swayosd-client --output-volume mute-toggle } }
-    else {
-        let s = (state)
-        let m = (meta $s.pct $s.muted)
-        as_json {
-            text:    $"($m.icon) ($s.pct)%"
-            tooltip: $m.desc
-            class:   $m.class
-        }
+    if $up {
+        run_silent { swayosd-client --output-volume raise }
+    } else if $down {
+        run_silent { swayosd-client --output-volume lower }
+    } else if $mute {
+        run_silent { swayosd-client --output-volume mute-toggle }
+    } else {
+        get_waybar
     }
 }

@@ -8,76 +8,67 @@
 # Exit code: 0 = all pass, 1 = any fail.
 use _lib.nu *
 
-const REQUIRED = ["text" "tooltip" "class"]
 
-const CASES = [
+
+def cases [] { [
     { name: "volume",          cmd: "volume",          args: ["--get"] }
     { name: "mic",             cmd: "mic",             args: ["--get-status"] }
     { name: "brightness",      cmd: "brightness",      args: ["--get"] }
     { name: "layout",          cmd: "layout",          args: ["--get"] }
     { name: "gpu-performance", cmd: "gpu-performance", args: ["--get"] }
     { name: "kbd-backlight",   cmd: "kbd-backlight",   args: ["--get"] }
-]
+] }
 
 def check_case [c: record]: nothing -> record {
+    let required = ["text" "tooltip" "class"]
     let out = (run-external $c.cmd ...$c.args | complete)
 
     if $out.exit_code != 0 {
-        let stderr = ($out.stderr | str trim)
-        let stdout = ($out.stdout | str trim)
-        let detail = (
-            if ($stderr | is-not-empty) { $stderr }
-            else if ($stdout | is-not-empty) { $stdout }
-            else { $"exited ($out.exit_code) with no output" }
-        )
+        let detail = ($out.stderr | str trim)
+        let detail = if ($detail | is-empty) { $out.stdout | str trim } else { $detail }
         return (fail $c.name $detail)
     }
 
     let raw = ($out.stdout | str trim)
-    if ($raw | is-empty) {
-        return (fail $c.name "no output (empty stdout)")
-    }
+    if ($raw | is-empty) { return (fail $c.name "no output (empty stdout)") }
 
     let json = (try_json $raw)
-    if $json == null {
-        return (fail $c.name $"not valid JSON:\n($raw)")
-    }
+    if $json == null { return (fail $c.name $"not valid JSON:\n($raw)") }
 
     let issues = (field_issues $json $REQUIRED)
-    if ($issues | is-empty) {
-        # Show the parsed values so you can visually confirm them
-        pass $c.name
-    } else {
-        fail $c.name ($issues | str join "; ")
-    }
+    if ($issues | is-empty) { pass $c.name } else { fail $c.name ($issues | str join "; ") }
 }
 
 def main [filter?: string] {
-    let cases = (
-        if ($filter | is-empty) { $CASES }
-        else { $CASES | where name =~ $filter }
+    let all_cases = (cases)
+    let selected = (
+        if ($filter | is-empty) { $all_cases }
+        else { $all_cases | where name =~ $filter }
     )
 
-    if ($cases | is-empty) {
+    if ($selected | is-empty) {
         print $"(ansi red)No case matches '($filter)'(ansi reset)"
-        print $"Available: ($CASES | get name | str join ', ')"
+        print $"Available: ($all_cases | get name | str join ', ')"
         exit 1
     }
 
-    let results = ($cases | each { check_case $in })
+    let results = ($selected | each { check_case $in })
 
-    # Print what each script actually returned (handy sanity check)
+    # Preview table
     print $"(ansi cyan_bold)── Script output preview ──(ansi reset)"
-    $cases | each {|c|
+    $selected | each {|c|
         let out = (run-external $c.cmd ...$c.args | complete)
-        let raw = ($out.stdout | str trim)
-        let json = (try_json $raw)
+        let json = (try_json ($out.stdout | str trim))
         let preview = if $json != null {
-            $"text=(ansi yellow)($json.text)(ansi reset)  tooltip=(ansi dark_gray)($json.tooltip)(ansi reset)  class=(ansi cyan)($json.class)(ansi reset)"
+            [
+                $"text=(ansi yellow)($json.text)(ansi reset)"
+                $"tooltip=(ansi dark_gray)($json.tooltip)(ansi reset)"
+                $"class=(ansi cyan)($json.class)(ansi reset)"
+            ] | str join "  "
         } else {
-            $"(ansi red)($raw)(ansi reset)"
+            $"(ansi red)($out.stdout | str trim)(ansi reset)"
         }
-        print $"  ($c.name): ($preview)"
+        print $"  (ansi bold)($c.name)(ansi reset): ($preview)"
     } | ignore
     print ""
 
