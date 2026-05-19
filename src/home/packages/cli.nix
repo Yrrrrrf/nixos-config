@@ -31,6 +31,7 @@
       ];
     system = pkgs:
       with pkgs; [
+        # btop-cuda
         bottom
         procs
         dust
@@ -46,7 +47,6 @@
     archive = pkgs:
       with pkgs; [
         ouch
-        p7zip
       ];
     bench = pkgs:
       with pkgs; [

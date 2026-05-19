@@ -6,7 +6,7 @@
 *.lock
 
 # assets/*
-# *.deb
+*.deb
 # assets/*.deb
 
 docs

@@ -12,7 +12,7 @@
       acceleration = "cuda";
     };
 
-    services.open-webui.enable = true;
+    # services.open-webui.enable = true;
 
     programs.nix-ld.libraries = with pkgs; [
       cudaPackages.cudatoolkit
