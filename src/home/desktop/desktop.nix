@@ -5,28 +5,31 @@
     theme,
     ...
   }: let
-    # Generic, host-agnostic scripts. Installed as ~/.local/bin/<name>.
-    # Host-specific scripts (e.g. ASUS keyboard backlight) are installed by
-    # the host's homeExtras (see src/host/g14/g14.nix).
-    scripts = [
-      "volume"
-      "mic"
-      "brightness"
-      "layout"
-      "screenshot"
-      "powermenu"
-    ];
-
-    scriptFiles = builtins.listToAttrs (
-      map (n: {
-        name = ".local/bin/${n}";
-        value = {
-          source = ./scripts/${n}.nu;
-          executable = true;
-        };
-      })
-      scripts
-    );
+    # Auto-discover every .nu file in ./scripts/. Host-specific scripts
+    # (e.g. ASUS keyboard backlight) are installed by the host's homeExtras
+    # (see src/host/g14/g14.nix).
+    #
+    # Convention: filenames starting with `_` are libraries — kept with the
+    # .nu suffix, not executable (e.g. `_shared.nu`, consumed via
+    # `use _shared.nu *`). Every other *.nu is a command: suffix stripped,
+    # executable, dropped into ~/.local/bin/.
+    scriptFiles =
+      lib.mapAttrs' (
+        fname: _type: let
+          isLib = lib.hasPrefix "_" fname;
+          installName =
+            if isLib
+            then fname
+            else lib.removeSuffix ".nu" fname;
+        in
+          lib.nameValuePair ".local/bin/${installName}" {
+            source = ./scripts + "/${fname}";
+            executable = !isLib;
+          }
+      ) (
+        lib.filterAttrs (n: t: t == "regular" && lib.hasSuffix ".nu" n)
+        (builtins.readDir ./scripts)
+      );
   in {
     imports = [
       inputs.self.homeModules.stylix
@@ -43,7 +46,6 @@
     home.file =
       scriptFiles
       // {
-        ".local/bin/_shared.nu".source = ./scripts/_shared.nu;
         ".config/hypr/hyprlock.conf".text = theme.apply (builtins.readFile ./hyprlock.conf);
         ".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
         ".config/waybar/config.jsonc".text = builtins.readFile ./waybar.jsonc;

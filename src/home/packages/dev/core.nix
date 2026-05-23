@@ -59,7 +59,7 @@
     in
       {
         inherit name;
-        auto-format = true;
+        auto-format = false;
         language-servers = map (l: l.name) lsps;
       }
       // lib.optionalAttrs (scope != null) {inherit scope;}

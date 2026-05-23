@@ -5,7 +5,7 @@ use _shared.nu *
 
 def pick []: nothing -> string {
     "Logout\nSuspend\nReboot\nShutdown"
-    | walker --dmenu --prompt "Power:"
+    | walker --dmenu --placeholder "Power:"
     | str trim
 }
 
