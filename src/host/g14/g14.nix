@@ -49,7 +49,6 @@
       "g14-networking"
       "core"
       "fonts"
-      "keyboard"
       "services"
       "podman"
       "nvidia"
