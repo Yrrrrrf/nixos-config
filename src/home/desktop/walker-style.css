@@ -1,6 +1,6 @@
 /* src/home/desktop/walker-style.css
  *
- * Walker GTK4 theme — catppuccin mocha. Templated through `theme.apply`
+ * Walker GTK4 theme — base16. Templated through `theme.apply`
  * (see flake.homeModules.stylix) so colour rotation stays a single-source change.
  *
  * Selectors mirror walker's default theme widget tree:
@@ -23,8 +23,8 @@
 }
 
 #box {
-  background-color: alpha(@base@, @opacity@);
-  border: @borderWidth@px solid @surface1@;
+  background-color: alpha(@bg@, @opacity@);
+  border: @borderWidth@px solid @border@;
   border-radius: @borderRadius_island@px;
   padding: 12px;
   margin: 0;
@@ -32,17 +32,17 @@
 }
 
 #input {
-  background-color: @mantle@;
+  background-color: @bg-alt@;
   color: @text@;
-  border: @borderWidth@px solid @surface0@;
+  border: @borderWidth@px solid @surface@;
   border-radius: @borderRadius_pill@px;
   padding: 8px 12px;
   margin-bottom: 10px;
-  caret-color: @mauve@;
+  caret-color: @accent@;
 }
 
 #input:focus {
-  border-color: @mauve@;
+  border-color: @accent@;
   outline: none;
 }
 
@@ -61,13 +61,13 @@ child {
 }
 
 child:hover {
-  background-color: @surface0@;
+  background-color: @surface@;
 }
 
 child:selected,
 child:selected:hover {
-  background-color: @mauve@;
-  color: @crust@;
+  background-color: @accent@;
+  color: @bg@;
 }
 
 /* Per-item internals (icon + label rendered by item.xml layouts).
@@ -82,16 +82,16 @@ child label.name {
 }
 
 child label.description {
-  color: @overlay0@;
+  color: @subtext@;
   font-size: 10pt;
 }
 
 child:selected label.description {
-  color: @crust@;
+  color: @bg@;
 }
 
 /* Empty-state placeholder text (config.toml: placeholders.default.list) */
 #list placeholder {
-  color: @overlay0@;
+  color: @subtext@;
   font-style: italic;
 }

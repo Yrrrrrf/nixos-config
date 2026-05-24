@@ -35,11 +35,11 @@ window#waybar {
 #battery,
 #custom-asus-profile,
 #custom-keyboard-layout {
-  background-color: @surface0@;
+  background-color: @surface@;
   padding: 4px 14px;
   margin: 4px;
   border-radius: @borderRadius_pill@px;
-  border: @borderWidth@px solid @surface1@;
+  border: @borderWidth@px solid @border@;
 }
 
 #custom-profile {
@@ -54,7 +54,7 @@ window#waybar {
 }
 
 #workspaces button {
-  color: @overlay0@;
+  color: @subtext@;
   background-color: transparent;
   padding: 0 4px;
   border-radius: @borderRadius_pill@px;
@@ -63,18 +63,18 @@ window#waybar {
 }
 
 #workspaces button:hover {
-  background-color: @base@;
+  background-color: @bg@;
 }
 
 #workspaces button.active {
-  background-color: @green@;
-  color: @base@;
+  background-color: @ok@;
+  color: @bg@;
 }
 
 @keyframes glow {
-  0% { box-shadow: 0 0 3px @mauve@; }
-  50% { box-shadow: 0 0 10px @mauve@; }
-  100% { box-shadow: 0 0 3px @mauve@; }
+  0% { box-shadow: 0 0 3px @accent@; }
+  50% { box-shadow: 0 0 10px @accent@; }
+  100% { box-shadow: 0 0 3px @accent@; }
 }
 
 #hyprland-window {
@@ -85,23 +85,23 @@ window#waybar {
   animation-iteration-count: infinite;
 }
 
-#custom-volume, #custom-mic { color: @yellow@; }
-#custom-backlight { color: @mauve@; }
+#custom-volume, #custom-mic { color: @warn@; }
+#custom-backlight { color: @accent@; }
 
 
-#cpu { color: @peach@; }
-#network { color: @teal@; }
-#network.disconnected { color: @red@; }
-#bluetooth { color: @blue@; }
-#battery { color: @green@; }
-#battery.warning { color: @yellow@; }
-#battery.critical { color: @red@; }
+#cpu { color: @extra@; }
+#network { color: @info@; }
+#network.disconnected { color: @err@; }
+#bluetooth { color: @accent-alt@; }
+#battery { color: @ok@; }
+#battery.warning { color: @warn@; }
+#battery.critical { color: @err@; }
 
 #custom-power {
-  color: @base@;
-  background-color: @red@;
+  color: @bg@;
+  background-color: @err@;
   padding: 4px 14px;
   margin: 4px 8px 4px 4px;
   border-radius: @borderRadius_pill@px;
-  border: @borderWidth@px solid @surface1@;
+  border: @borderWidth@px solid @border@;
 }

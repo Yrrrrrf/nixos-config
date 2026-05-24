@@ -1,104 +1,82 @@
 {inputs, ...}: {
   flake.homeModules.stylix = {
-    lib,
     pkgs,
+    config,
     user,
     ...
   }: let
-    colors = {
-      rosewater = "#f5e0dc";
-      flamingo = "#f2cdcd";
-      pink = "#f5c2e7";
-      mauve = "#cba6f7";
-      red = "#f38ba8";
-      maroon = "#eba0ac";
-      peach = "#fab387";
-      yellow = "#f9e2af";
-      green = "#a6e3a1";
-      teal = "#94e2d5";
-      sky = "#89dceb";
-      sapphire = "#74c7ec";
-      blue = "#89b4fa";
-      lavender = "#b4befe";
-      text = "#cdd6f4";
-      subtext1 = "#bac2de";
-      subtext0 = "#a6adc8";
-      overlay2 = "#9399b2";
-      overlay1 = "#7f849c";
-      overlay0 = "#6c7086";
-      surface2 = "#585b70";
-      surface1 = "#45475a";
-      surface0 = "#313244";
-      base = "#1e1e2e";
-      mantle = "#181825";
-      crust = "#11111b";
-    };
+    # Stylix exposes the loaded base16 palette in two forms:
+    #   c.*  — raw hex without #  (for Hyprland rgb()/rgba())
+    #   h.*  — hex with #         (for CSS, most config formats)
+    c = config.lib.stylix.colors;
+    h = config.lib.stylix.colors.withHashtag;
 
-    stripHash = color: builtins.substring 1 ((builtins.stringLength color) - 1) color;
-
-    # Map for builtins.replaceStrings
     placeholders = {
-      "@base@" = colors.base;
-      "@mantle@" = colors.mantle;
-      "@crust@" = colors.crust;
-      "@text@" = colors.text;
-      "@mauve@" = colors.mauve;
-      "@blue@" = colors.blue;
-      "@surface0@" = colors.surface0;
-      "@surface1@" = colors.surface1;
-      "@overlay0@" = colors.overlay0;
-      "@green@" = colors.green;
-      "@yellow@" = colors.yellow;
-      "@red@" = colors.red;
-      "@peach@" = colors.peach;
-      "@teal@" = colors.teal;
+      # Backgrounds
+      "@bg@" = h.base00;
+      "@bg-alt@" = h.base01;
+      "@surface@" = h.base02;
+      "@border@" = h.base03;
+      "@subtext@" = h.base04;
 
-      # Raw hex for Hyprland
-      "@mauve_raw@" = stripHash colors.mauve;
-      "@blue_raw@" = stripHash colors.blue;
-      "@surface0_raw@" = stripHash colors.surface0;
-      "@crust_raw@" = stripHash colors.crust;
-      "@text_raw@" = stripHash colors.text;
-      "@mantle_raw@" = stripHash colors.mantle;
+      # Text & accents
+      "@text@" = h.base05;
+      "@accent-alt@" = h.base0D;
+      "@accent@" = h.base0E;
 
+      # Status
+      "@err@" = h.base08;
+      "@extra@" = h.base09;
+      "@warn@" = h.base0A;
+      "@ok@" = h.base0B;
+      "@info@" = h.base0C;
+
+      # Raw (no #) — Hyprland rgb()/rgba() syntax
+      "@bg_nohash@" = c.base00;
+      "@bg-alt_nohash@" = c.base01;
+      "@surface_nohash@" = c.base02;
+      "@text_nohash@" = c.base05;
+      "@accent-alt_nohash@" = c.base0D;
+      "@accent_nohash@" = c.base0E;
+
+      # Layout constants
       "@borderRadius_island@" = toString 12;
       "@borderRadius_pill@" = toString 10;
       "@borderWidth@" = toString 1;
+      "@opacity@" = toString 0.95;
+
+      # User assets
       "@wallpaper@" = "${user.wallpaper}";
       "@profileImg@" = "${user.profileImage}";
       "@user@" = user.username;
-      "@opacity@" = toString 0.95;
-      "@monospace@" = "FiraCode Nerd Font Mono";
+
+      # Font — single source of truth via stylix.fonts.monospace.name
+      "@monospace@" = config.stylix.fonts.monospace.name;
     };
   in {
     imports = [inputs.stylix.homeModules.stylix];
 
-    _module.args.theme =
-      colors
-      // {
-        apply = text:
-          builtins.replaceStrings (builtins.attrNames placeholders) (builtins.attrValues placeholders) text;
-        style = {
-          borderRadius = {
-            island = 12;
-            pill = 10;
-          };
-          borderWidth = 1;
-          spacing = 8;
-        };
-      };
+    _module.args.theme = {
+      apply = text:
+        builtins.replaceStrings
+        (builtins.attrNames placeholders)
+        (builtins.attrValues placeholders)
+        text;
+    };
 
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
       image = user.wallpaper;
       polarity = "dark";
+      opacity.terminal = 0.95;
 
       cursor = {
         package = pkgs.bibata-cursors;
         name = "Bibata-Modern-Ice";
         size = 24;
       };
+
       fonts = {
         monospace = {
           package = pkgs.nerd-fonts.fira-code;
@@ -120,19 +98,14 @@
         };
       };
 
-      targets = {
-        dunst.enable = lib.mkForce false;
-        hyprlock.enable = lib.mkForce false;
-        waybar.enable = lib.mkForce false;
-        hyprland.enable = lib.mkForce false;
-      };
       autoEnable = false;
-      # Re-enable standard things we want themed
-      targets.gtk.enable = true;
-      targets.qt.enable = true;
-      targets.wezterm.enable = lib.mkForce false;
-      targets.helix.enable = lib.mkForce false;
-      targets.yazi.enable = lib.mkForce false;
+      targets = {
+        gtk.enable = true;
+        qt.enable = true;
+        helix.enable = true;
+        yazi.enable = true;
+        wezterm.enable = true;
+      };
     };
   };
 }

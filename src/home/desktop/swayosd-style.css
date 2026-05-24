@@ -4,19 +4,19 @@ window {
     font-size: 24px;
     font-weight: bold;
     color: @text@;
-    background: @base@;
-    border: @borderWidth@px solid @mauve@;
+    background: @bg@;
+    border: @borderWidth@px solid @accent@;
     border-radius: @borderRadius_island@px;
     padding: 10px 20px;
 }
 trough {
-    background-color: @surface0@;
+    background-color: @surface@;
     border-radius: @borderRadius_pill@px;
     min-height: 10px;
     min-width: 250px;
 }
 progress {
-    background-color: @mauve@;
+    background-color: @accent@;
     border-radius: @borderRadius_pill@px;
     min-height: 10px;
 }
@@ -26,5 +26,5 @@ window#input-volume progress {
     min-height: 0; min-width: 0; margin: 0; padding: 0;
     background-color: transparent; box-shadow: none; border: none;
 }
-window#input-volume image { margin: 0; padding: 5px; color: @mauve@; }
-window#input-volume image:disabled { color: @red@; }
+window#input-volume image { margin: 0; padding: 5px; color: @accent@; }
+window#input-volume image:disabled { color: @err@; }

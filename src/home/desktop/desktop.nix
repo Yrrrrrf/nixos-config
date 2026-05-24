@@ -52,7 +52,6 @@
         ".config/waybar/config.jsonc".text = theme.apply (builtins.readFile ./waybar.jsonc);
         ".config/waybar/style.css".text = theme.apply (builtins.readFile ./waybar-style.css);
         ".config/dunst/dunstrc".text = lib.mkForce (theme.apply (builtins.readFile ./dunst.conf));
-        ".config/wezterm/wezterm.lua".text = theme.apply (builtins.readFile ./wezterm.lua);
         ".config/swayosd/style.css".text = theme.apply (builtins.readFile ./swayosd-style.css);
       };
 
@@ -76,7 +75,6 @@
       cosmic-files
       swayosd
       waybar
-      wezterm
       hypridle
       hyprlock
       dunst
@@ -95,6 +93,13 @@
         };
       };
       themes.${user.username}.style = theme.apply (builtins.readFile ./walker-style.css);
+    };
+    programs.wezterm = {
+      enable = true;
+      extraConfig = ''
+        config.hide_tab_bar_if_only_one_tab = true
+        config.scrollback_lines = 10000
+      '';
     };
   };
 }
