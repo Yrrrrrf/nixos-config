@@ -3,7 +3,12 @@ import "_shared.just"
 [doc("Audit flake.lock for stale/unsupported nixpkgs inputs")]
 [group("CI")]
 health:
-    flake-checker -- --no-telemetry
+    flake-checker
+
+[doc("Format all files")]
+[group("CI")]
+fmt:
+    alejandra . o+e>| head -n 1
 
 [doc("Check the configuration for errors")]
 [group("CI")]

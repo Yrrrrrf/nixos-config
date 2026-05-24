@@ -110,8 +110,8 @@
           name = "DejaVu Serif";
         };
         sizes = {
-          applications = 12;
-          terminal = 12;
+          applications = 14;
+          terminal = 14;
           desktop = 10;
           popups = 10;
         };

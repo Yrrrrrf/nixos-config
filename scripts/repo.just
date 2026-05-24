@@ -1,10 +1,5 @@
 import "_shared.just"
 
-[doc("Format all files")]
-[group("CI")]
-fmt:
-    alejandra . o+e>| head -n 1
-
 [doc("Unlock: take ownership so you can edit without sudo")]
 [group("Permissions")]
 unlock:
