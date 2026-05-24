@@ -27,7 +27,7 @@
         gitui
         lazygit
         delta
-        git-cliff  # CI tool (release notes generator)
+        git-cliff # CI tool (release notes generator)
         jujutsu
       ];
     system = pkgs:
@@ -44,6 +44,7 @@
         gping
         bandwhich
         killport
+        iroh
       ];
     archive = pkgs:
       with pkgs; [
