@@ -21,7 +21,7 @@
 
 	"custom/profile": {
 		"format": " ",
-		"tooltip-format": "yrrrrrf"
+		"tooltip-format": "@user@"
 	},
 
 	"clock": {

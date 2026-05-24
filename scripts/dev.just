@@ -22,12 +22,12 @@ lint:
     deadnix --fail .
 
 [group("CI")]
-quality: health check lint
+quality: health fmt check lint
 
 [doc("Check GPU status")]
 [group("AI")]
 check-gpu:
-    cd /home/yrrrrrf/docs/lab/ai; uv run scripts/check_gpu.py
+    cd ~/docs/lab/ai; uv run scripts/check_gpu.py
 
 test:
     # nu tests/set.nu

@@ -2,10 +2,9 @@
   flake.nixosModules.specialisations-minimal = {
     inputs,
     lib,
+    user,
     ...
-  }: let
-    user = inputs.self.lib.users.yrrrrrf;
-  in {
+  }: {
     specialisation.minimal.configuration = {
       system.nixos.tags = ["minimal"];
       home-manager.users.${user.username} = lib.mkForce inputs.self.homeModules.minimal;

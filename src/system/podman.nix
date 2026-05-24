@@ -3,6 +3,7 @@
     config,
     pkgs,
     lib,
+    user,
     ...
   }: {
     options.services.podman.enable = lib.mkEnableOption "Enable Podman services";
@@ -18,7 +19,7 @@
         };
       };
 
-      users.users.yrrrrrf.extraGroups = ["podman"];
+      users.users.${user.username}.extraGroups = ["podman"];
 
       environment.systemPackages = with pkgs; [
         podman-compose

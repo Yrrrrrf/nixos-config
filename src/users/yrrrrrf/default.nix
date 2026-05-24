@@ -8,5 +8,7 @@
     homeDirectory = "/home/yrrrrrf";
     fullName = "Fernando Bryan Reza Campos";
     email = "fer.rezac@outlook.com";
+    wallpaper = ./wallpaper.jpg;
+    profileImage = ./profile.png;
   };
 }

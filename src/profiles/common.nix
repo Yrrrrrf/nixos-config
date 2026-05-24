@@ -3,9 +3,9 @@
     pkgs,
     config,
     inputs,
+    user,
     ...
   }: let
-    user = inputs.self.lib.users.yrrrrrf;
     cli = inputs.self.lib.pkgsets.cli;
   in {
     home.username = user.username;

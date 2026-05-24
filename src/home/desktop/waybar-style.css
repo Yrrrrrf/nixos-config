@@ -43,7 +43,7 @@ window#waybar {
 }
 
 #custom-profile {
-  background-image: url("/home/yrrrrrf/Pictures/Images/fire.png");
+  background-image: url("@profileImg@");
   background-size: cover;
   background-position: center;
   border-radius: 50%;

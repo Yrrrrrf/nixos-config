@@ -2,6 +2,7 @@
   flake.homeModules.stylix = {
     lib,
     pkgs,
+    user,
     ...
   }: let
     colors = {
@@ -63,7 +64,9 @@
       "@borderRadius_island@" = toString 12;
       "@borderRadius_pill@" = toString 10;
       "@borderWidth@" = toString 1;
-      "@wallpaper@" = toString ./wallpaper.jpg;
+      "@wallpaper@" = toString user.wallpaper;
+      "@profileImg@" = toString user.profileImage;
+      "@user@" = user.username;
       "@opacity@" = toString 0.95;
       "@monospace@" = "FiraCode Nerd Font Mono";
     };
@@ -88,7 +91,7 @@
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-      image = ./wallpaper.jpg;
+      image = user.wallpaper;
       polarity = "dark";
 
       cursor = {

@@ -3,6 +3,7 @@
     pkgs,
     lib,
     theme,
+    user,
     ...
   }: let
     # Auto-discover every .nu file in ./scripts/. Host-specific scripts
@@ -48,7 +49,7 @@
       // {
         ".config/hypr/hyprlock.conf".text = theme.apply (builtins.readFile ./hyprlock.conf);
         ".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
-        ".config/waybar/config.jsonc".text = builtins.readFile ./waybar.jsonc;
+        ".config/waybar/config.jsonc".text = theme.apply (builtins.readFile ./waybar.jsonc);
         ".config/waybar/style.css".text = theme.apply (builtins.readFile ./waybar-style.css);
         ".config/dunst/dunstrc".text = lib.mkForce (theme.apply (builtins.readFile ./dunst.conf));
         ".config/wezterm/wezterm.lua".text = theme.apply (builtins.readFile ./wezterm.lua);
@@ -85,7 +86,7 @@
       enable = true;
       runAsService = true;
       config = {
-        theme = "yrrrrrf";
+        theme = user.username;
         builtins = {
           applications.weight = 5;
           runner.weight = 1;
@@ -93,7 +94,7 @@
           calc.weight = 1;
         };
       };
-      themes.yrrrrrf.style = theme.apply (builtins.readFile ./walker-style.css);
+      themes.${user.username}.style = theme.apply (builtins.readFile ./walker-style.css);
     };
   };
 }

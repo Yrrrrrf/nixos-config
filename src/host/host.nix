@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  config,
   ...
 }: {
   options.flake.lib.hosts = lib.mkOption {
@@ -18,10 +19,11 @@
       if builtins.isString m
       then inputs.self.nixosModules.${m} or (throw "mkHost: unknown nixosModule '${m}' — check host.modules list")
       else m;
+    user = config.flake.lib.users.${host.user} or (throw "mkHost: unknown user '${host.user}'");
   in
     inputs.nixpkgs.lib.nixosSystem {
       inherit (host) system;
-      specialArgs = {inherit inputs;};
+      specialArgs = {inherit inputs user;};
       modules =
         [
           # NOTE: `host` module is implicitly included here. All other modules
@@ -41,10 +43,9 @@
     pkgs,
     inputs,
     host,
+    user,
     ...
-  }: let
-    user = inputs.self.lib.users.${host.user} or (throw "nixosModules.host: unknown user '${host.user}' — check host.user field");
-  in {
+  }: {
     # DANGER: this `imports` line is evaluated during config resolution.
     # `inputs` is safe here (specialArgs). `host` is NOT safe (_module.args).
     # Conditional imports based on host.* belong in a child module, not here.
@@ -72,7 +73,7 @@
 
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = {inherit inputs;};
+    home-manager.extraSpecialArgs = {inherit inputs user;};
     home-manager.users.${user.username} = {
       imports = [inputs.self.homeModules.default] ++ lib.optional (host ? homeExtras) host.homeExtras;
     };
