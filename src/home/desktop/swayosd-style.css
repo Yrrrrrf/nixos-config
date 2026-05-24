@@ -1,6 +1,6 @@
 /* /etc/nixos/src/home/desktop/swayosd-style.css */
 window {
-    font-family: "JetBrainsMono Nerd Font";
+    font-family: "@monospace@";
     font-size: 24px;
     font-weight: bold;
     color: @text@;

@@ -65,7 +65,7 @@
       "@borderWidth@" = toString 1;
       "@wallpaper@" = toString ./wallpaper.jpg;
       "@opacity@" = toString 0.95;
-      "@monospace@" = "JetBrainsMono Nerd Font Mono";
+      "@monospace@" = "FiraCode Nerd Font Mono";
     };
   in {
     imports = [inputs.stylix.homeModules.stylix];
@@ -98,8 +98,8 @@
       };
       fonts = {
         monospace = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrainsMono Nerd Font Mono";
+          package = pkgs.nerd-fonts.fira-code;
+          name = "FiraCode Nerd Font Mono";
         };
         sansSerif = {
           package = pkgs.dejavu_fonts;
