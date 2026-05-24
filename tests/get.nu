@@ -35,7 +35,7 @@ def check_case [c: record]: nothing -> record {
     let json = (try_json $raw)
     if $json == null { return (fail $c.name $"not valid JSON:\n($raw)") }
 
-    let issues = (field_issues $json $REQUIRED)
+    let issues = (field_issues $json $required)
     if ($issues | is-empty) { pass $c.name } else { fail $c.name ($issues | str join "; ") }
 }
 

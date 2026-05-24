@@ -130,10 +130,6 @@
       targets.wezterm.enable = lib.mkForce false;
       targets.helix.enable = lib.mkForce false;
       targets.yazi.enable = lib.mkForce false;
-      targets.fish.enable = true;
-
-      targets.bat.enable = true;
-      targets.btop.enable = true;
     };
   };
 }

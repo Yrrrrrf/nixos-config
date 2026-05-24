@@ -135,7 +135,6 @@
         vscode-langservers-extracted
         svelte-language-server
         biome
-        nodePackages.prettier
         nodejs
         bun
         deno
