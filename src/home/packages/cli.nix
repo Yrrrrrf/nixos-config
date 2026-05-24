@@ -27,7 +27,8 @@
         gitui
         lazygit
         delta
-        git-cliff
+        git-cliff  # CI tool (release notes generator)
+        jujutsu
       ];
     system = pkgs:
       with pkgs; [
