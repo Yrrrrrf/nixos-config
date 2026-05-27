@@ -22,6 +22,11 @@ ui:
 [group("Test")]
 all: health bench ui
 
+[doc("Run UI benchmarks selectively (e.g. just bench-ui, just bench-ui brightness)")]
+[group("Test")]
+bench-ui feature="":
+    @ {{test-cmd}} -c "nu tests/bench-ui.nu {{feature}}"
+
 # Internal test runner
 _run type feature flags="":
-    @ {{test-cmd}} -c "ls tests/{{type}}-{{ if feature == 'all' { '*' } else { feature } }}.nu | each { |it| print $'(ansi cyan)→ ($it.name)(ansi reset)'; nu $it.name {{flags}} }"
+    @ {{test-cmd}} -c "let file = (ls tests/{{type}}-{{feature}}.nu | get 0.name); print $'(ansi cyan)→ ($file)(ansi reset)'; nu $file {{flags}}"

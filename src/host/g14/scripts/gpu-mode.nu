@@ -9,12 +9,12 @@ use _shared.nu *
 #   Profile on Battery is Quiet
 # Only the first line carries the active profile.
 def current []: nothing -> string {
-    capture { asusctl profile -p }
+    capture { asusctl profile get }
     | lines
-    | where {|l| $l | str starts-with "Active profile is"}
+    | where {|l| $l | str starts-with "Active profile:"}
     | get 0?
     | default ""
-    | parse "Active profile is {p}"
+    | parse "Active profile: {p}"
     | get p.0?
     | default "Unknown"
 }
@@ -32,9 +32,10 @@ def meta [profile: string]: nothing -> record {
 
 def main [--get --change] {
     if $change {
-        run_silent { asusctl profile -n }
+        run_silent { asusctl profile next }
         let now = (current)
-        notify "Power Profile" $"Switched to ($now)"
+        let m = (meta $now)
+        run_silent { swayosd-client --custom-message $"GPU Mode: ($m.icon)" --custom-icon $m.icon }
     } else {
         let now = (current)
         let m = (meta $now)

@@ -7,7 +7,7 @@ def cases [] { [
     { name: "mic",             cmd: "mic",             args: ["--get-status"] }
     { name: "brightness",      cmd: "brightness",      args: ["--get"] }
     { name: "layout",          cmd: "layout",          args: ["--get"] }
-    { name: "gpu-performance", cmd: "gpu-performance", args: ["--get"] }
+    { name: "gpu-mode", cmd: "gpu-mode", args: ["--get"] }
     { name: "kbd-backlight",   cmd: "kbd-backlight",   args: ["--get"] }
 ] }
 

@@ -3,21 +3,30 @@
 # Bar shows country code only; tooltip carries the full keymap name.
 use _shared.nu *
 
-const KEYBOARD_NAME = "asus-keyboard"
+# Get the main keyboard device name.
+def keyboard_name []: nothing -> string {
+    hyprctl devices -j 
+    | from json 
+    | get keyboards 
+    | where main == true 
+    | get 0?.name 
+    | default "asus-keyboard"
+}
 
 # Active keymap name from hyprctl.
 def keymap []: nothing -> string {
+    let name = (keyboard_name)
     hyprctl devices -j
     | from json
     | get keyboards
-    | where name == $KEYBOARD_NAME
+    | where name == $name
     | get 0?.active_keymap
     | default "Unknown"
 }
 
 # Reduce keymap names to country codes.
 def country [name: string]: nothing -> string {
-    if ($name | str contains "intl") {
+    if ($name | str contains "intl") or ($name | str contains "Spanish") {
         "MX"
     } else {
         "US"
@@ -25,10 +34,12 @@ def country [name: string]: nothing -> string {
 }
 
 def main [--get --change] {
+    let kb = (keyboard_name)
     if $change {
-        run_silent { hyprctl switchxkblayout $KEYBOARD_NAME next }
+        run_silent { hyprctl switchxkblayout $kb next }
         let now = (keymap)
-        notify "Keyboard Layout" (country $now)
+        let code = (country $now)
+        run_silent { swayosd-client --custom-message $"Kbd set: ($code)" --custom-icon "input-keyboard" }
     } else {
         let now = (keymap)
         let code = (country $now)

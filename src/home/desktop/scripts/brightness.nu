@@ -25,11 +25,14 @@ def get_waybar [] {
     }
 }
 
-def main [--get --up --down] {
+def main [--get --up --down --set: int] {
     if $up {
         run_silent { swayosd-client --brightness raise }
     } else if $down {
         run_silent { swayosd-client --brightness lower }
+    } else if $set != null {
+        run_silent { brightnessctl set ($"($set)%") }
+        run_silent { swayosd-client --brightness ($set) }
     } else {
         get_waybar
     }

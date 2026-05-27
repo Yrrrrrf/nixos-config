@@ -8,8 +8,6 @@
 	"modules-left": ["custom/profile", "clock", "hyprland/workspaces"],
 	"modules-center": ["hyprland/window"],
 	"modules-right": [
-		"custom/mic",
-		"custom/volume",
 		"cpu",
 		"network",
 		"bluetooth",
@@ -69,30 +67,12 @@
 		"format-icons": ["", "", "", "", ""]
 	},
 
-	"custom/volume": {
-		"format": "{}",
-		"return-type": "json",
-		"interval": 1,
-		"exec": "volume --get",
-		"on-click": "volume --mute",
-		"on-scroll-up": "volume --up",
-		"on-scroll-down": "volume --down"
-	},
-
-	"custom/mic": {
-		"format": "{}",
-		"return-type": "json",
-		"interval": 1,
-		"exec": "mic --get-status",
-		"on-click": "mic --toggle"
-	},
-
 	"custom/asus-profile": {
 		"format": "{}",
 		"return-type": "json",
 		"interval": 5,
-		"exec": "gpu-performance --get",
-		"on-click": "gpu-performance --change"
+		"exec": "gpu-mode --get",
+		"on-click": "gpu-mode --change"
 	},
 
 	"custom/keyboard-layout": {

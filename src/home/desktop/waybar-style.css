@@ -25,9 +25,6 @@ window#waybar {
 #clock,
 #workspaces,
 #hyprland-window,
-#custom-volume,
-#custom-backlight,
-#custom-mic,
 #cpu,
 
 #network,
@@ -84,10 +81,6 @@ window#waybar {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
-
-#custom-volume, #custom-mic { color: @warn@; }
-#custom-backlight { color: @accent@; }
-
 
 #cpu { color: @extra@; }
 #network { color: @info@; }

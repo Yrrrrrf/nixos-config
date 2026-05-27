@@ -68,22 +68,22 @@
           source = ./scripts/kbd-backlight.nu;
           executable = true;
         };
-        ".local/bin/gpu-performance" = {
-          source = ./scripts/gpu-performance.nu;
+        ".local/bin/gpu-mode" = {
+          source = ./scripts/gpu-mode.nu;
           executable = true;
         };
         ".config/hypr/host-extras.conf".text = ''
           # G14-specific hyprland binds (legacy .conf — kept for 0.52 compat).
           bindel = ,XF86KbdBrightnessUp, exec, kbd-backlight --up
           bindel = ,XF86KbdBrightnessDown, exec, kbd-backlight --down
-          bind = ,XF86Launch4, exec, gpu-performance --change
+          bind = ,XF86Launch4, exec, gpu-mode --change
         '';
         # Lua version — loaded by hyprland.lua via pcall(require, "host-extras")
         ".config/hypr/host-extras.lua".text = ''
           -- G14-specific Hyprland 0.55+ binds
           hl.bind("XF86KbdBrightnessUp",   hl.dsp.exec_cmd("kbd-backlight --up"),   { locked = true, repeating = true })
           hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("kbd-backlight --down"), { locked = true, repeating = true })
-          hl.bind("XF86Launch4",           hl.dsp.exec_cmd("gpu-performance --change"))
+          hl.bind("XF86Launch4",           hl.dsp.exec_cmd("gpu-mode --change"))
         '';
       };
     };

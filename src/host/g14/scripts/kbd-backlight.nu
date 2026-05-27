@@ -38,9 +38,12 @@ def main [--get --up --down] {
     let dir = if $up { "up" } else if $down { "down" } else { null }
 
     if $dir != null {
-        let target = (step $dir)
-        run_silent { asusctl --kbd-bright $target }
-        notify "Keyboard Backlight" $"Set to ($target)"
+        let cmd = if $dir == "up" { "next" } else { "prev" }
+        run_silent { asusctl leds ($cmd) }
+        let now = (current)
+        let m = (meta $now)
+        let pct = ($now / 3.0)
+        run_silent { swayosd-client --custom-message $"($m.icon) Keyboard: ($LEVELS | get $now | str capitalize)" --custom-icon $m.icon --custom-progress $pct }
     } else {
         let lvl = (current)
         let m = (meta $lvl)

@@ -39,13 +39,19 @@ def get_waybar [] {
     }
 }
 
-def main [--get --up --down --mute] {
+def main [--get --up --down --mute --set: int] {
     if $up {
+        run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ }
         run_silent { swayosd-client --output-volume raise }
     } else if $down {
+        run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- }
         run_silent { swayosd-client --output-volume lower }
     } else if $mute {
+        run_silent { wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle }
         run_silent { swayosd-client --output-volume mute-toggle }
+    } else if $set != null {
+        run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ ($"($set)%") }
+        run_silent { swayosd-client --output-volume ($set) }
     } else {
         get_waybar
     }
