@@ -1,10 +1,5 @@
 import "_shared.just"
 
-[doc("Audit flake.lock for stale/unsupported nixpkgs inputs")]
-[group("CI")]
-health:
-    flake-checker
-
 [doc("Format all files")]
 [group("CI")]
 fmt:
@@ -14,6 +9,7 @@ fmt:
 [group("CI")]
 check: fmt
     nix flake check
+    flake-checker
 
 [doc("Lint (statix) + dead-code (deadnix)")]
 [group("CI")]
@@ -22,18 +18,26 @@ lint:
     deadnix --fail .
 
 [group("CI")]
-quality: health fmt check lint
+quality: fmt check lint
 
 [doc("Check GPU status")]
 [group("AI")]
 check-gpu:
     cd ~/docs/lab/ai; uv run scripts/check_gpu.py
 
-test:
-    # nu tests/set.nu
-    # nu tests/get.nu
-    # nu tests/wifi.nu
-    nu tests/run.nu
+[doc("Unlock: take ownership so you can edit without sudo")]
+[group("Permissions")]
+unlock:
+    @echo "→ chown {{ user }}:{{ group }} on {{ dir }}"
+    sudo chown -R {{ user }}:{{ group }} {{ dir }}
+    @echo "✓ unlocked — edit freely"
+
+[doc("Lock: hand ownership back to root (read-only for you)")]
+[group("Permissions")]
+lock:
+    @echo "→ chown root:root on {{ dir }}"
+    sudo chown -R root:root {{ dir }}
+    @echo "✓ locked"
 
 [doc("Show ownership of all files (highlights anything not owned by you)")]
 [group("Permissions")]

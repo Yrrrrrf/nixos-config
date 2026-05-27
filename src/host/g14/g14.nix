@@ -57,6 +57,7 @@
       "nvidia"
       "cuda"
       "nh"
+      "no-sleep"
       "specialisations-dev"
       "specialisations-minimal"
     ];

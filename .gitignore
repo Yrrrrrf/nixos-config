@@ -10,6 +10,6 @@
 # assets/*.deb
 
 docs
-scripts
-tests
+# scripts
+# tests
 result
