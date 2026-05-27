@@ -6,10 +6,19 @@
       file-types = ["md"];
       lsp = "markdown-oxide";
       formatter = {
-        command = "dprint";
-        args = ["fmt" "--stdin" "md"];
+        command = "deno";
+        args = [
+          "fmt"
+          "--ext"
+          "md"
+          "-"
+        ];
       };
     };
-    extraPackages = pkgs: with pkgs; [markdown-oxide dprint];
+    extraPackages = pkgs:
+      with pkgs; [
+        markdown-oxide
+        deno
+      ];
   };
 }

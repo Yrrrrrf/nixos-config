@@ -4,14 +4,14 @@
       {
         name = "gas";
         scope = "source.asm";
-        file-types = ["asm" "s"];
+        file-types = ["s"];
         comment-token = ";";
         lsp = "asm-lsp";
       }
       {
         name = "nasm";
         scope = "source.asm";
-        file-types = ["asm" "s"];
+        file-types = ["asm" "nasm"];
         comment-token = ";";
         lsp = "asm-lsp";
       }

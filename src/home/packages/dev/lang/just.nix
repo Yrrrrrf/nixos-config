@@ -3,12 +3,16 @@
     helix = config.flake.lib.helix.mkLangs {
       name = "just";
       scope = "source.just";
-      file-types = ["Justfile" "just"];
+      file-types = [
+        "just"
+        {glob = "Justfile";}
+        {glob = "justfile";}
+      ];
       comment-token = "#";
       lsp = "just-lsp";
       formatter = {
         command = "just";
-        args = ["--fmt" "--unstable"];
+        args = ["--dump" "--unstable" "--justfile" "-"];
       };
     };
     extraPackages = pkgs: with pkgs; [just-lsp just];

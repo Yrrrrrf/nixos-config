@@ -8,7 +8,6 @@
       comment-token = "//";
       lsp = "gopls";
       formatter = "gofmt";
-      auto-format = false;
       indent = {
         tab-width = 4;
         unit = "\t";

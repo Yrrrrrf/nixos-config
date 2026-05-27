@@ -80,11 +80,12 @@
           args = ["--stdio"];
         };
         formatter = {
-          command = "biome"; # Biome is adding HTML support
+          command = "biome";
           args = [
             "format"
             "--stdin-file-path"
             "a.html"
+            "--html-formatter-enabled=true"
           ];
         };
       }
@@ -117,15 +118,6 @@
         lsp = {
           name = "svelteserver";
           args = ["--stdio"];
-        };
-        formatter = {
-          command = "prettier";
-          args = [
-            "--plugin"
-            "prettier-plugin-svelte"
-            "--parser"
-            "svelte"
-          ];
         };
       }
     ];

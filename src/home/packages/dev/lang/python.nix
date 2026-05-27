@@ -30,7 +30,7 @@
         command = "ruff";
         args = [
           "format"
-          "."
+          "-"
         ];
       };
     };

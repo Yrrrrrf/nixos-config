@@ -35,6 +35,7 @@ Use the provided `justfile` for common tasks:
 ## Specialisations
 
 To switch to a specialisation at runtime:
+
 ```bash
 sudo /run/current-system/specialisation/dev/bin/switch-to-configuration switch
 ```

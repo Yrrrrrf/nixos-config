@@ -9,14 +9,10 @@
         "yaml"
       ];
       formatter = {
-        command = "dprint";
-        args = [
-          "fmt"
-          "--stdin"
-          "yaml"
-        ];
+        command = "yamlfmt";
+        args = ["-in"];
       };
     };
-    extraPackages = pkgs: [pkgs.dprint];
+    extraPackages = pkgs: [pkgs.yamlfmt];
   };
 }

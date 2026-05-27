@@ -8,7 +8,7 @@
       lsp = "kotlin-language-server";
       formatter = {
         command = "ktlint";
-        args = ["--format" "--stdin"];
+        args = ["--format" "--stdin" "--log-level" "none"];
       };
     };
     extraPackages = pkgs: with pkgs; [kotlin-language-server ktlint gradle tomcat openjdk21];
