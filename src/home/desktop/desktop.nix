@@ -60,6 +60,7 @@
       brightnessctl
       libnotify
       cosmic-files
+      cosmic-icons
       swayosd
       waybar
       hypridle
