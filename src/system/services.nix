@@ -4,10 +4,11 @@
       podman.enable = true;
     };
 
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
+    # todo: Check the bluetooth once changed to AX210
+    # hardware.bluetooth = {
+    #   enable = true;
+    #   powerOnBoot = true;
+    # };
 
     # --- Graphical Session & Desktop Services ---
     programs.hyprland = {

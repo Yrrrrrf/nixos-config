@@ -51,15 +51,6 @@
         ".config/swayosd/style.css".text = theme.apply (builtins.readFile ./swayosd-style.css);
       };
 
-    xdg.mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "inode/directory" = "com.system76.CosmicFiles.desktop";
-        "application/x-gnome-saved-search" = "com.system76.CosmicFiles.desktop";
-        "x-scheme-handler/file" = "com.system76.CosmicFiles.desktop";
-      };
-    };
-
     home.packages = with pkgs; [
       playerctl
       cliphist

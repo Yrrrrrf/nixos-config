@@ -197,11 +197,12 @@ hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up"    }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down"  }))
 
--- Resize (arrow keys)
-hl.bind(mainMod .. " + left",  hl.dsp.exec_cmd("hyprctl dispatch resizeactive -16 0"), { repeating = true })
-hl.bind(mainMod .. " + right", hl.dsp.exec_cmd("hyprctl dispatch resizeactive 16 0"), { repeating = true })
-hl.bind(mainMod .. " + up",    hl.dsp.exec_cmd("hyprctl dispatch resizeactive 0 -16"), { repeating = true })
-hl.bind(mainMod .. " + down",  hl.dsp.exec_cmd("hyprctl dispatch resizeactive 0 16"), { repeating = true })
+-- todo: Keyboard resize based on new lua syntax
+-- -- Resize (arrow keys)
+-- hl.bind(mainMod .. " + left",  hl.dsp.window.resize({ x = -16, y =   0 }), { repeating = true })
+-- hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x =  16, y =   0 }), { repeating = true })
+-- hl.bind(mainMod .. " + up",    hl.dsp.window.resize({ x =   0, y = -16 }), { repeating = true })
+-- hl.bind(mainMod .. " + down",  hl.dsp.window.resize({ x =   0, y =  16 }), { repeating = true })
 
 -- Workspaces 1-10
 for i = 1, 10 do
@@ -222,7 +223,7 @@ hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
 -- Mouse move/resize
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.resizewindow(), { mouse = true })
+-- hl.bind(mainMod .. " + mouse:273", hl.dsp.window.move_resize(), { mouse = true })
 
 -- Hardware: audio
 hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("volume --up"),     { locked = true, repeating = true })
