@@ -2,18 +2,11 @@
   flake.nixosModules.services = {pkgs, ...}: {
     services = {
       podman.enable = true;
-
-      blueman.enable = true;
     };
 
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
-      settings = {
-        General = {
-          Experimental = true;
-        };
-      };
     };
 
     # --- Graphical Session & Desktop Services ---

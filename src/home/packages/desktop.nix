@@ -8,7 +8,7 @@
       with pkgs; [
         brave
         firefox
-        # obsidian
+        obsidian
         discord
         rnote
         cheese
