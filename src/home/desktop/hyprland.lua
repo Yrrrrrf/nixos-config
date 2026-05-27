@@ -252,7 +252,7 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),    { locked = t
 --------------------------------
 
 -- Floating windows: terminals via --class + selected GUI apps
-local floatingClass = "^(floating%-term|com%.system76%.CosmicFiles)$"
+local floatingClass = "^(floating-term|com\\.system76\\.CosmicFiles)$"
 
 hl.window_rule({
     name  = "floating-apps",

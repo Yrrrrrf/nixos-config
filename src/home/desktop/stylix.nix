@@ -58,10 +58,7 @@
 
     _module.args.theme = {
       apply = text:
-        builtins.replaceStrings
-        (builtins.attrNames placeholders)
-        (builtins.attrValues placeholders)
-        text;
+        builtins.replaceStrings (builtins.attrNames placeholders) (builtins.attrValues placeholders) text;
     };
 
     stylix = {

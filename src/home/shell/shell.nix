@@ -24,7 +24,6 @@
         enable = true;
         git.enable = true;
       };
-
       fastfetch.enable = true;
 
       helix = {
@@ -90,7 +89,7 @@
                 use = "edit";
               }
               {
-                name = "*";
+                url = "*";
                 use = "edit";
               }
             ];

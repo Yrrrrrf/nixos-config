@@ -32,7 +32,7 @@
       ];
     system = pkgs:
       with pkgs; [
-        # btop-cuda
+        btop-cuda
         bottom
         procs
         dust
