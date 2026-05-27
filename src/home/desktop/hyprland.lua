@@ -19,8 +19,8 @@ local menu        = "walker"
 ---- MONITORS ----
 ------------------
 
-hl.monitor({ output = "eDP-1",    mode = "2560x1600@120",  position = "0x0",    scale = "1.00" })
-hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@100",  position = "0x-1440", scale = "1.00" })
+hl.monitor({ output = "eDP-1",    mode = "2560x1600@120",  position = "0x0",    scale = 1 })
+hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@100",  position = "0x-1440", scale = 1 })
 
 
 -------------------------------
@@ -181,7 +181,7 @@ hl.device({
 local mainMod = "SUPER"
 
 -- Core
-hl.bind(mainMod .. " + M",           hl.dsp.exit())
+hl.bind(mainMod .. " + M",           hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + return",      hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + E",           hl.dsp.exec_cmd("wezterm start --class floating-term -- yazi $HOME/Downloads"))
 hl.bind(mainMod .. " + SHIFT + E",   hl.dsp.exec_cmd(fileManager))
@@ -198,10 +198,10 @@ hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up"    }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down"  }))
 
 -- Resize (arrow keys)
-hl.bind(mainMod .. " + left",  hl.dsp.window.resize({ delta = { -16, 0 } }), { repeating = true })
-hl.bind(mainMod .. " + right", hl.dsp.window.resize({ delta = {  16, 0 } }), { repeating = true })
-hl.bind(mainMod .. " + up",    hl.dsp.window.resize({ delta = { 0, -16 } }), { repeating = true })
-hl.bind(mainMod .. " + down",  hl.dsp.window.resize({ delta = { 0,  16 } }), { repeating = true })
+hl.bind(mainMod .. " + left",  hl.dsp.window.resize({ x = -16, y =   0 }), { repeating = true })
+hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x =  16, y =   0 }), { repeating = true })
+hl.bind(mainMod .. " + up",    hl.dsp.window.resize({ x =   0, y = -16 }), { repeating = true })
+hl.bind(mainMod .. " + down",  hl.dsp.window.resize({ x =   0, y =  16 }), { repeating = true })
 
 -- Workspaces 1-10
 for i = 1, 10 do
@@ -259,7 +259,7 @@ hl.window_rule({
     match = { class = floatingClass },
     float = true,
     size  = "1280 720",
-    move  = "center",
+    center = true,
 })
 
 -- Suppress maximize events

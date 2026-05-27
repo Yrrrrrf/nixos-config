@@ -5,10 +5,7 @@
 # lock files
 *.lock
 
-# assets/*
-*.deb
-# assets/*.deb
-
+assets
 docs
 # scripts
 tests
