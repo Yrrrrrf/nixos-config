@@ -3,7 +3,7 @@
     hostname = "g14";
     system = "x86_64-linux";
     user = "yrrrrrf";
-    stateVersion = "25.11";
+    stateVersion = "26.05";
 
     hardwareConfig = ./hardware-configuration.nix;
     hardwareModule = inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia;
@@ -40,7 +40,6 @@
           environment.systemPackages = [pkgs.asusctl];
           services.asusd = {
             enable = true;
-            enableUserService = true;
           };
           # Linux 7! :D
           boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -57,7 +56,6 @@
       "nvidia"
       "cuda"
       "nh"
-      "no-sleep"
       "specialisations-dev"
       "specialisations-minimal"
     ];

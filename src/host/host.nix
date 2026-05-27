@@ -58,7 +58,7 @@
       "flakes"
     ];
     nixpkgs.config.allowUnfree = true;
-    system.stateVersion = host.stateVersion or "25.11";
+    system.stateVersion = host.stateVersion or "26.05";
 
     users.users.${user.username} = {
       isNormalUser = true;

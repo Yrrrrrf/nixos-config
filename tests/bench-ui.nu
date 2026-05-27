@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-# tests/ui-set.nu — Exercise UI action verbs
+# tests/bench-ui.nu — Exercise UI action verbs
 use _lib.nu *
 
 def cases [] { [
@@ -13,7 +13,7 @@ def check_case [c: record]: nothing -> record {
     check $c.name ($out.exit_code == 0) "action failed"
 }
 
-def main [] {
+def main [--quick] {
     audit "UI Set actions" "yellow_bold" {
         print $"(ansi yellow_bold)⚠  Destructive UI Actions(ansi reset)"
         cases | each { check_case $in }

@@ -2,26 +2,26 @@ import "_shared.just"
 
 test-cmd := "nix develop ./tests -c nu"
 
-[doc("Run all system health audits")]
+[doc("Run health audits (e.g. just health, just health ram)")]
 [group("Test")]
-health:
-    {{test-cmd}} tests/health.nu
+health feature="all":
+    @just _run health {{feature}}
 
-[doc("Run GPU health audit")]
+[doc("Run benchmarks (e.g. just bench, just bench disk quick)")]
 [group("Test")]
-gpu:
-    {{test-cmd}} tests/gpu-health.nu
-
-[doc("Run system performance benchmarks")]
-[group("Test")]
-bench quick="":
-    {{test-cmd}} tests/bench.nu {{ if quick == "quick" { "--quick" } else { "" } }}
+bench feature="all" quick="":
+    @just _run bench {{feature}} {{ if quick == "quick" { "--quick" } else { "" } }}
 
 [doc("Run all UI contract tests")]
 [group("Test")]
 ui:
-    {{test-cmd}} tests/ui-get.nu
+    @just health ui
+    @just bench ui
 
-[doc("Run everything (Health + UI)")]
+[doc("Run everything")]
 [group("Test")]
-all: health ui
+all: health bench ui
+
+# Internal test runner
+_run type feature flags="":
+    @ {{test-cmd}} -c "ls tests/{{type}}-{{ if feature == 'all' { '*' } else { feature } }}.nu | each { |it| print $'(ansi cyan)→ ($it.name)(ansi reset)'; nu $it.name {{flags}} }"

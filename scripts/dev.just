@@ -1,5 +1,9 @@
 import "_shared.just"
 
+user := env('USER')
+group := "users"
+dir := justfile_directory()
+
 [doc("Format all files")]
 [group("CI")]
 fmt:

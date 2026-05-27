@@ -1,14 +1,17 @@
 #!/usr/bin/env nu
-# tests/gpu-health.nu — GPU health scan based on check_gpu.py
+# tests/health-gpu.nu — GPU health scan based on check_gpu.py
 use _lib.nu *
 
 def test-nvidia-smi [] {
+    if (which nvidia-smi | is-empty) { return (skip "NVIDIA SMI" "nvidia-smi not found") }
     let out = (^nvidia-smi | complete)
     check "nvidia-smi executes" ($out.exit_code == 0) ($out.stderr | str trim)
 }
 
 def test-power [] {
+    if (which nvidia-smi | is-empty) { return [] }
     let out = (^nvidia-smi --query-gpu=power.draw,power.limit,utilization.gpu --format=csv,noheader,nounits | complete)
+    
     if $out.exit_code != 0 {
          return [(fail "GPU power query failed" ($out.stderr | str trim))]
     }
@@ -92,4 +95,3 @@ def main [] {
         (test-env-clean)
     ] }
 }
-

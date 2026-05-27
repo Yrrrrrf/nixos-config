@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-# tests/net-bench.nu — Network performance benchmarking
+# tests/bench-net.nu — Network performance benchmarking
 use _lib.nu *
 
 def first-wifi-iface []: nothing -> string {
@@ -15,7 +15,7 @@ def ping-stats [target: string, count: int]: nothing -> record {
     { min: ($nums | get 0), avg: ($nums | get 1), max: ($nums | get 2), jitter: ($nums | get 3) }
 }
 
-def main [--iperf: string] {
+def main [--iperf: string, --quick] {
     let iface = (first-wifi-iface)
     print $"(ansi cyan_bold)━━ Network Performance \(ping\) ━━(ansi reset)"
     let p = (ping-stats "1.1.1.1" 20)

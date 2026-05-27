@@ -1,16 +1,16 @@
 #!/usr/bin/env nu
-# tests/net-health.nu — Network stack health scan
+# tests/health-net.nu — Network stack health scan
 use _lib.nu *
 
 def is-active [unit: string]: nothing -> bool {
-    (^systemctl is-active  | complete | get stdout | str trim) == "active"
+    (^systemctl is-active $unit | complete | get stdout | str trim) == "active"
 }
 
 def wifi-device []: nothing -> string {
     let r = (^iwctl device list | complete)
-    if .exit_code != 0 { return "" }
-    let candidates = (.stdout | lines | where ( | str contains "station") | each {|l|  | str trim | split row -r "\\s+" | get 0 })
-    if ( | is-empty) { "" } else {  | first }
+    if $r.exit_code != 0 { return "" }
+    let candidates = ($r.stdout | lines | where ($it =~ "station") | each {|l| $l | str trim | split row -r "\\s+" | get 0 })
+    if ($candidates | is-empty) { "" } else { $candidates | first }
 }
 
 def main [] {
@@ -22,11 +22,11 @@ def main [] {
         ]
         
         let dev = (wifi-device)
-        let device_res = if ( | is-empty) {
+        let device_res = if ($dev | is-empty) {
             [(fail "WiFi device" "no station device found")]
         } else {
-            [(pass $"WiFi device detected ()") 
-             (check_grep "iwctl connected" "iwctl" ["station"  "show"] "connected")]
+            [(pass $"WiFi device detected ($dev)") 
+             (check_grep "iwctl connected" "iwctl" ["station" $dev "show"] "connected")]
         }
         
         let reach = [
@@ -34,6 +34,6 @@ def main [] {
             (check_exec "DNS nixos.org" "ping" ["-c" "1" "-W" "3" "nixos.org"])
         ]
         
-        [  ]
+        [ $services $device_res $reach ] | flatten
     }
 }

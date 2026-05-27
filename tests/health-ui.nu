@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-# tests/ui-get.nu — Verify waybar status scripts JSON contracts
+# tests/health-ui.nu — Verify waybar status scripts JSON contracts
 use _lib.nu *
 
 def cases [] { [

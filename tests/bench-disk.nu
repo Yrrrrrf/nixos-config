@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-# tests/disk-bench.nu — SSD benchmarking
+# tests/bench-disk.nu — SSD benchmarking
 
 const TEST_SIZE = "2G"
 const RUNTIME_SEC = 10

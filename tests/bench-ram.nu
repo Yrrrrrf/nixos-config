@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-# tests/ram-bench.nu — RAM userspace triage (triage-bench)
+# tests/bench-ram.nu — RAM userspace triage (triage-bench)
 use _lib.nu *
 
 const DEFAULT_FRACTION = 0.5

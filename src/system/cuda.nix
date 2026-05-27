@@ -9,7 +9,7 @@
 
     services.ollama = {
       enable = true;
-      acceleration = "cuda";
+      # acceleration = "cuda";
     };
 
     # services.open-webui.enable = true;

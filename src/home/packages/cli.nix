@@ -44,7 +44,7 @@
         gping
         bandwhich
         killport
-        iroh
+        # iroh
       ];
     archive = pkgs:
       with pkgs; [

@@ -10,7 +10,7 @@
   in {
     home.username = user.username;
     home.homeDirectory = user.homeDirectory;
-    home.stateVersion = "25.11";
+    home.stateVersion = "26.05";
     home.sessionPath = ["${config.home.homeDirectory}/.local/bin"];
 
     programs.git = {

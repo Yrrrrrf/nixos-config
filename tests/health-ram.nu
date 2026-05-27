@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
-# tests/ram-health.nu — RAM health scan
+# tests/health-ram.nu — RAM health scan
 use _lib.nu *
 
 def test-kernel [] {
