@@ -16,7 +16,7 @@
     import-tree.url = "github:vic/import-tree";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.url = "github:danth/stylix/release-25.11";
+    stylix.url = "github:nix-community/stylix/release-25.11";
 
     elephant.url = "github:abenz1267/elephant";
     walker = {
@@ -27,10 +27,9 @@
   };
 
   # --- Flake Outputs ---
-  outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
 
       imports = [
         inputs.home-manager.flakeModules.home-manager
@@ -39,7 +38,7 @@
     };
 
   nixConfig = {
-    extra-substituters = [ "https://walker-git.cachix.org" ];
+    extra-substituters = ["https://walker-git.cachix.org"];
     extra-trusted-public-keys = [
       "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
     ];

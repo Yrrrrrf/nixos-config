@@ -14,23 +14,19 @@
     # .nu suffix, not executable (e.g. `_shared.nu`, consumed via
     # `use _shared.nu *`). Every other *.nu is a command: suffix stripped,
     # executable, dropped into ~/.local/bin/.
-    scriptFiles =
-      lib.mapAttrs' (
-        fname: _type: let
-          isLib = lib.hasPrefix "_" fname;
-          installName =
-            if isLib
-            then fname
-            else lib.removeSuffix ".nu" fname;
-        in
-          lib.nameValuePair ".local/bin/${installName}" {
-            source = ./scripts + "/${fname}";
-            executable = !isLib;
-          }
-      ) (
-        lib.filterAttrs (n: t: t == "regular" && lib.hasSuffix ".nu" n)
-        (builtins.readDir ./scripts)
-      );
+    scriptFiles = lib.mapAttrs' (
+      fname: _type: let
+        isLib = lib.hasPrefix "_" fname;
+        installName =
+          if isLib
+          then fname
+          else lib.removeSuffix ".nu" fname;
+      in
+        lib.nameValuePair ".local/bin/${installName}" {
+          source = ./scripts + "/${fname}";
+          executable = !isLib;
+        }
+    ) (lib.filterAttrs (n: t: t == "regular" && lib.hasSuffix ".nu" n) (builtins.readDir ./scripts));
   in {
     imports = [
       inputs.self.homeModules.stylix
@@ -41,7 +37,7 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
-      extraConfig = theme.apply (builtins.readFile ./hyprland.conf);
+      extraConfig = theme.apply (builtins.readFile ./hyprland.lua);
     };
 
     home.file =
@@ -68,7 +64,7 @@
       playerctl
       cliphist
       wl-clipboard
-      swww
+      awww
       pavucontrol
       brightnessctl
       libnotify

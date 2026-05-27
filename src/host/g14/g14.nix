@@ -3,7 +3,6 @@
     hostname = "g14";
     system = "x86_64-linux";
     user = "yrrrrrf";
-    stateVersion = "26.05";
 
     hardwareConfig = ./hardware-configuration.nix;
     hardwareModule = inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia;
@@ -43,7 +42,7 @@
           };
           # Linux 7! :D
           boot.kernelPackages = pkgs.linuxPackages_latest;
-          boot.kernelParams = [ "nvme_core.default_ps_max_latency_us=0" ];
+          boot.kernelParams = ["nvme_core.default_ps_max_latency_us=0"];
         }
       )
 
@@ -74,10 +73,17 @@
           executable = true;
         };
         ".config/hypr/host-extras.conf".text = ''
-          # G14-specific hyprland binds (sourced from main hyprland.conf).
+          # G14-specific hyprland binds (legacy .conf — kept for 0.52 compat).
           bindel = ,XF86KbdBrightnessUp, exec, kbd-backlight --up
           bindel = ,XF86KbdBrightnessDown, exec, kbd-backlight --down
           bind = ,XF86Launch4, exec, gpu-performance --change
+        '';
+        # Lua version — loaded by hyprland.lua via pcall(require, "host-extras")
+        ".config/hypr/host-extras.lua".text = ''
+          -- G14-specific Hyprland 0.55+ binds
+          hl.bind("XF86KbdBrightnessUp",   hl.dsp.exec_cmd("kbd-backlight --up"),   { locked = true, repeating = true })
+          hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("kbd-backlight --down"), { locked = true, repeating = true })
+          hl.bind("XF86Launch4",           hl.dsp.exec_cmd("gpu-performance --change"))
         '';
       };
     };

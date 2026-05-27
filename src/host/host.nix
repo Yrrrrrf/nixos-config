@@ -4,6 +4,12 @@
   config,
   ...
 }: {
+  options.flake.lib.stateVersion = lib.mkOption {
+    type = lib.types.str;
+    default = "26.05";
+    description = "Single source of truth for system & home-manager stateVersion.";
+  };
+
   options.flake.lib.hosts = lib.mkOption {
     type = lib.types.lazyAttrsOf lib.types.raw;
     default = {};
@@ -58,7 +64,7 @@
       "flakes"
     ];
     nixpkgs.config.allowUnfree = true;
-    system.stateVersion = host.stateVersion or "26.05";
+    system.stateVersion = config.flake.lib.stateVersion;
 
     users.users.${user.username} = {
       isNormalUser = true;
