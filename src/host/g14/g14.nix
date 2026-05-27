@@ -17,7 +17,7 @@
                 system = "x86_64-linux";
                 config = {
                   allowUnfree = true;
-                  permittedInsecurePackages = ["libxml2-2.13.9"];
+                  # permittedInsecurePackages = ["libxml2-2.13.9"];
                 };
               };
               unstablePackages = import ../../../unstable.nix;
