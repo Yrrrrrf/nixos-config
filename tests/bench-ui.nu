@@ -1,7 +1,6 @@
 #!/usr/bin/env nu
 # tests/bench-ui.nu — Comprehensive UI component benchmarking.
 use _lib.nu *
-
 # Snapshot the current state token from a script.
 def snap [cmd: string, ...args: string]: nothing -> string {
     let out = if ($cmd | str ends-with ".nu") {
@@ -10,9 +9,10 @@ def snap [cmd: string, ...args: string]: nothing -> string {
         (run-external $cmd ...$args | complete)
     }
     if $out.exit_code != 0 { return "" }
-    $out.stdout | str trim | try { from json | get text } catch { "" }
+    $out.stdout | str trim | try {
+        from json | get text
+    } catch { "" }
 }
-
 # Execute a script action and return exit code.
 def act [cmd: string, ...args: string]: nothing -> int {
     if ($cmd | str ends-with ".nu") {
@@ -21,26 +21,22 @@ def act [cmd: string, ...args: string]: nothing -> int {
         (run-external $cmd ...$args | complete).exit_code
     }
 }
-
 def main [feature?: string, --quick] {
     let scripts = {
-        volume:          "src/home/desktop/scripts/volume.nu"
-        brightness:      "src/home/desktop/scripts/brightness.nu"
-        layout:          "src/home/desktop/scripts/layout.nu"
-        mic:             "src/home/desktop/scripts/mic.nu"
-        clipboard:       "src/home/desktop/scripts/clipboard.nu"
-        gpu_mode:        "src/host/g14/scripts/gpu-mode.nu"
-        kbd_backlight:   "src/host/g14/scripts/kbd-backlight.nu"
+        volume: "src/home/desktop/scripts/volume.nu"
+        brightness: "src/home/desktop/scripts/brightness.nu"
+        layout: "src/home/desktop/scripts/layout.nu"
+        mic: "src/home/desktop/scripts/mic.nu"
+        clipboard: "src/home/desktop/scripts/clipboard.nu"
+        gpu_mode: "src/host/g14/scripts/gpu-mode.nu"
+        kbd_backlight: "src/host/g14/scripts/kbd-backlight.nu"
     }
-
     if $feature == null {
         print "Usage: bench-ui <feature|all>"
         print "Features: volume, brightness, layout, mic, clipboard, gpu-mode, kbd-backlight"
         return
     }
-
     let run_all = ($feature == "all")
-
     # Volume: Hardware-backed sweep + mute logic.
     if $run_all or $feature == "volume" {
         audit "Audio Output" "blue_bold" {
@@ -70,7 +66,6 @@ def main [feature?: string, --quick] {
             ]
         }
     }
-    
     # Brightness: Linear backlight sweep.
     if $run_all or $feature == "brightness" {
         audit "Display Backlight" "yellow_bold" {
@@ -90,7 +85,6 @@ def main [feature?: string, --quick] {
             ]
         }
     }
-    
     # Layout: Toggle between active keymaps.
     if $run_all or $feature == "layout" {
         audit "Keyboard Input" "green_bold" {
@@ -111,7 +105,6 @@ def main [feature?: string, --quick] {
             ]
         }
     }
-
     # Mic: Hardware-backed toggle.
     if $run_all or $feature == "mic" {
         audit "Audio Input" "red_bold" {
@@ -132,7 +125,6 @@ def main [feature?: string, --quick] {
             ]
         }
     }
-
     # Clipboard: Verification of UI picker.
     if $feature == "clipboard" {
         audit "Clipboard Manager" "magenta_bold" {
@@ -143,7 +135,6 @@ def main [feature?: string, --quick] {
             ]
         }
     }
-
     # GPU Mode: Full profile rotation.
     if $run_all or $feature == "gpu-mode" {
         audit "ASUS Power Profile" "cyan_bold" {
@@ -163,7 +154,6 @@ def main [feature?: string, --quick] {
             $results | append (check $"Cycle completion: ($final)" ($final == $start) "failed to return to starting profile")
         }
     }
-
     # Keyboard Backlight: Kernel-backed intensity cycle.
     if $run_all or $feature == "kbd-backlight" {
         audit "Keyboard LEDs" "white_bold" {

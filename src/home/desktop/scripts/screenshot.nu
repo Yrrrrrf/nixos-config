@@ -6,16 +6,13 @@
 # forever for the pipe to drain). Bare call + stdio→/dev/null returns as soon
 # as hyprshot itself exits.
 use _shared.nu *
-
 const SCREENSHOT_DIR = "~/Pictures/Screenshots"
-
 def ensure_dir []: nothing -> string {
     let dir = ($SCREENSHOT_DIR | path expand)
     mkdir $dir
     $dir
 }
-
-def main [--region --screen] {
+def main [--region, --screen] {
     let dir = (ensure_dir)
     if $region {
         notify "Screenshot" "Select a region to capture"

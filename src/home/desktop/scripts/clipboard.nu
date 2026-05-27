@@ -4,11 +4,9 @@
 # wl-copy daemonizes and holds inherited fds (same issue as hyprshot in
 # screenshot.nu), so the final pipe stage gets stdio→/dev/null.
 use _shared.nu *
-
 def prompt []: nothing -> string {
     cliphist list | walker --dmenu --placeholder "Clipboard:" | str trim
 }
-
 def main [--pick] {
     if $pick {
         let chosen = (prompt)

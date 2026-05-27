@@ -1,18 +1,40 @@
 #!/usr/bin/env nu
 # tests/health-ui.nu — Verify waybar status scripts JSON contracts
 use _lib.nu *
-
 def cases [] { [
-    { name: "volume",          cmd: "volume",          args: ["--get"] }
-    { name: "mic",             cmd: "mic",             args: ["--get-status"] }
-    { name: "brightness",      cmd: "brightness",      args: ["--get"] }
-    { name: "layout",          cmd: "layout",          args: ["--get"] }
-    { name: "gpu-mode", cmd: "gpu-mode", args: ["--get"] }
-    { name: "kbd-backlight",   cmd: "kbd-backlight",   args: ["--get"] }
+    {
+        name: "volume"
+        cmd: "volume"
+        args: ["--get"]
+    }
+    {
+        name: "mic"
+        cmd: "mic"
+        args: ["--get-status"]
+    }
+    {
+        name: "brightness"
+        cmd: "brightness"
+        args: ["--get"]
+    }
+    {
+        name: "layout"
+        cmd: "layout"
+        args: ["--get"]
+    }
+    {
+        name: "gpu-mode"
+        cmd: "gpu-mode"
+        args: ["--get"]
+    }
+    {
+        name: "kbd-backlight"
+        cmd: "kbd-backlight"
+        args: ["--get"]
+    }
 ] }
-
 def check_case [c: record]: nothing -> record {
-    let required = ["text" "tooltip" "class"]
+    let required = ["text", "tooltip", "class"]
     let out = (run-external $c.cmd ...$c.args | complete)
     if $out.exit_code != 0 { return (fail $c.name "script failed") }
     let raw = ($out.stdout | str trim)
@@ -21,9 +43,6 @@ def check_case [c: record]: nothing -> record {
     let issues = (field_issues $json $required)
     check $c.name ($issues | is-empty) ($issues | str join "; ")
 }
-
-def main [] {
-    audit "UI Contract Verification" "cyan_bold" {
+def main [] { audit "UI Contract Verification" "cyan_bold" {
         cases | each { check_case $in }
-    }
-}
+    } }
