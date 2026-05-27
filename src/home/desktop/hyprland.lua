@@ -19,7 +19,7 @@ local menu        = "walker"
 ---- MONITORS ----
 ------------------
 
-hl.monitor({ output = "eDP-1",    mode = "2560x1600@120",  position = "0x0",    scale = 1 })
+hl.monitor({ output = "eDP-1",    mode = "2560x1600@165",  position = "0x0",    scale = 1 })
 hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@100",  position = "0x-1440", scale = 1 })
 
 
@@ -41,7 +41,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm app -- hypridle")
     hl.exec_cmd("uwsm app -- dunst")
     hl.exec_cmd("uwsm app -- wl-paste --watch cliphist store")
-    -- Wallpaper (awww needs the daemon running first — slight delay is fine)
     hl.exec_cmd("awww img @wallpaper@")
 end)
 
@@ -197,12 +196,11 @@ hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up"    }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down"  }))
 
--- todo: Keyboard resize based on new lua syntax
--- -- Resize (arrow keys)
--- hl.bind(mainMod .. " + left",  hl.dsp.window.resize({ x = -16, y =   0 }), { repeating = true })
--- hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x =  16, y =   0 }), { repeating = true })
--- hl.bind(mainMod .. " + up",    hl.dsp.window.resize({ x =   0, y = -16 }), { repeating = true })
--- hl.bind(mainMod .. " + down",  hl.dsp.window.resize({ x =   0, y =  16 }), { repeating = true })
+-- Resize (arrow keys)
+hl.bind(mainMod .. " + left",  hl.dsp.window.resize({ x = -16, y =   0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x =  16, y =   0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + up",    hl.dsp.window.resize({ x =   0, y = -16, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + down",  hl.dsp.window.resize({ x =   0, y =  16, relative = true }), { repeating = true })
 
 -- Workspaces 1-10
 for i = 1, 10 do
