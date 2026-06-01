@@ -37,7 +37,7 @@ hl.env("HYPRCURSOR_SIZE", "24")
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm app -- waybar")
-    hl.exec_cmd("uwsm app -- awww")
+    hl.exec_cmd("uwsm app -- awww-daemon")
     hl.exec_cmd("uwsm app -- hypridle")
     hl.exec_cmd("uwsm app -- dunst")
     hl.exec_cmd("uwsm app -- wl-paste --watch cliphist store")
@@ -182,6 +182,7 @@ local mainMod = "SUPER"
 -- Core
 hl.bind(mainMod .. " + M",           hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + return",      hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + SHIFT + return", hl.dsp.exec_cmd("wezterm start --class floating-term --cwd $HOME/Downloads"))
 hl.bind(mainMod .. " + E",           hl.dsp.exec_cmd("wezterm start --class floating-term -- yazi $HOME/Downloads"))
 hl.bind(mainMod .. " + SHIFT + E",   hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + space",       hl.dsp.exec_cmd("uwsm app -- " .. menu))
