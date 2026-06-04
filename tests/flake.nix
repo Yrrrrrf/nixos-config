@@ -5,10 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-  }: let
+  outputs = {nixpkgs}: let
     supportedSystems = ["x86_64-linux"];
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     pkgsFor = system: nixpkgs.legacyPackages.${system};
