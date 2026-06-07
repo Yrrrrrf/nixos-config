@@ -10,5 +10,6 @@
     email = "fer.rezac@outlook.com";
     wallpaper = ./wallpaper.jpg;
     profileImage = ./profile.png;
+    hashedPassword = "$6$w30PuhD8HJNMxx6D$wjIJOh8G8QslMq0jtqRjiStfiUNIdcR5ShRqVzTO5dRYc1ZKSTD8QaUdvnPA1OwXGUy744N.m//OcHCshpLUR/";
   };
 }

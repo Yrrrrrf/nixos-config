@@ -14,9 +14,13 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    # agenix.url = "github:ryantm/agenix";
+    # agenix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:nix-community/stylix/release-25.11";
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
 
     elephant.url = "github:abenz1267/elephant";
     walker = {

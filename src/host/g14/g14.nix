@@ -42,7 +42,6 @@
           };
           # Linux 7! :D
           boot.kernelPackages = pkgs.linuxPackages_latest;
-          boot.kernelParams = ["nvme_core.default_ps_max_latency_us=0"];
         }
       )
 
@@ -55,6 +54,7 @@
       "nvidia"
       "cuda"
       "nh"
+      "g14-disk"
       "specialisations-dev"
       "specialisations-minimal"
     ];

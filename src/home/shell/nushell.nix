@@ -3,13 +3,11 @@
     programs.nushell = {
       enable = true;
       # Basic configuration
-      envFile.text = ''
+      extraEnv = ''
         $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".local/bin") | uniq)
       '';
-      configFile.text = ''
-        $env.config = {
-          show_banner: false,
-        }
+      extraConfig = ''
+        $env.config.show_banner = false
         ${builtins.readFile ./fn.nu}
       '';
       shellAliases = {
