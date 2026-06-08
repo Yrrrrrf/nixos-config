@@ -7,6 +7,6 @@
 
 assets
 docs
-scripts
-tests
+# scripts
+# tests
 result

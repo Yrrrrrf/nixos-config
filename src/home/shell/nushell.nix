@@ -12,7 +12,6 @@
       '';
       shellAliases = {
         lg = "lazygit";
-        y = "yazi";
       };
     };
 
