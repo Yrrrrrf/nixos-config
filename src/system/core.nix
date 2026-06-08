@@ -6,9 +6,6 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.systemd-boot.configurationLimit = 10;
 
-    # Penchs
-    boot.supportedFilesystems = ["ntfs"];
-
     # --- Timezone and Internationalisation Settings ---
     time.timeZone = "America/Mexico_City";
     i18n.defaultLocale = "en_US.UTF-8";

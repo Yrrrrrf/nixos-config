@@ -1,6 +1,5 @@
 {...}: {
   flake.nixosModules.podman = {
-    config,
     pkgs,
     lib,
     user,
@@ -8,7 +7,9 @@
   }: {
     options.services.podman.enable = lib.mkEnableOption "Enable Podman services";
 
-    config = lib.mkIf config.services.podman.enable {
+    config = {
+      services.podman.enable = true;
+
       virtualisation.podman = {
         enable = true;
         dockerCompat = true;

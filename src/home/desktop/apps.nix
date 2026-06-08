@@ -3,6 +3,7 @@
     type = lib.types.lazyAttrsOf lib.types.raw;
     default = {};
   };
+
   config.flake.lib.pkgsets.desktop = {
     apps = pkgs:
       with pkgs; [

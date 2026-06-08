@@ -9,7 +9,7 @@
 # WARNING: `disko --mode destroy,format,mount` will WIPE this disk.
 # `nixos-rebuild switch` / `nh os switch` are safe — they never invoke disko.
 {inputs, ...}: {
-  flake.nixosModules.g14-disk = {imports, ...}: {
+  flake.nixosModules.g14-disk = {...}: {
     imports = [inputs.disko.nixosModules.disko];
 
     disko.enableConfig = false;

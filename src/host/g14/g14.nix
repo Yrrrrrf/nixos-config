@@ -46,9 +46,10 @@
       )
 
       # Named modules from the dendritic registry.
-      "g14-networking"
+      "networking"
       "core"
       "fonts"
+      "desktop"
       "services"
       "podman"
       "nvidia"

@@ -1,7 +1,5 @@
 {...}: {
-  flake.nixosModules.g14-networking = {...}: {
-    networking.hostName = "g14";
-
+  flake.nixosModules.networking = {...}: {
     # ── iwd standalone ────────────────────────────────────────────────
     # impala speaks D-Bus directly to iwd. NetworkManager is removed
     # so nothing else asserts state on the wireless device.
@@ -46,6 +44,13 @@
       enableIPv6 = true;
       internalInterfaces = ["wlp2s0"];
       externalInterface = "enp101s0f3u2c2";
+    };
+
+    # Bluetooth configuration (moved from services.nix)
+    # todo: Check the bluetooth once changed to AX210
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
     };
   };
 }

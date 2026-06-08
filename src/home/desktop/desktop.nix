@@ -1,4 +1,20 @@
 {inputs, ...}: {
+  flake.nixosModules.desktop = {pkgs, ...}: {
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      withUWSM = true;
+    };
+
+    security.pam.services.hyprlock = {};
+
+    xdg.portal = {
+      enable = true;
+      config.common.default = "*";
+      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    };
+  };
+
   flake.homeModules.desktop = {
     pkgs,
     lib,
@@ -68,6 +84,7 @@
       dunst
       hyprshot
     ];
+
     programs.walker = {
       enable = true;
       runAsService = true;
@@ -82,6 +99,7 @@
       };
       themes.${user.username}.style = theme.apply (builtins.readFile ./walker-style.css);
     };
+
     programs.wezterm = {
       enable = true;
       extraConfig = ''
