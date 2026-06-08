@@ -12,8 +12,7 @@
   flake.nixosModules.g14-disk = {imports, ...}: {
     imports = [inputs.disko.nixosModules.disko];
 
-
-	disko.enableConfig = false;
+    disko.enableConfig = false;
     disko.devices.disk.nvme0n1 = {
       type = "disk";
       device = "/dev/nvme0n1";

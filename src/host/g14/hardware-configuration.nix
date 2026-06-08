@@ -36,10 +36,10 @@ else {
   fileSystems."/boot" = {
     device = lib.mkForce "/dev/disk/by-uuid/304C-E099";
     fsType = "vfat";
-    options = [ "fmask=0077" "dmask=0077" ];
+    options = ["fmask=0077" "dmask=0077"];
   };
 
   swapDevices = [
-    { device = lib.mkForce "/dev/disk/by-uuid/d01aedbc-7a48-4d06-9fec-33d515696bc4"; }
+    {device = lib.mkForce "/dev/disk/by-uuid/d01aedbc-7a48-4d06-9fec-33d515696bc4";}
   ];
 }

@@ -73,6 +73,7 @@
       with pkgs; [
         ttyper
         wev
+        dua # disk usage
         unimatrix
         bluetui
         impala

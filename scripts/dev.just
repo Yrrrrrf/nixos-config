@@ -7,7 +7,7 @@ dir := justfile_directory()
 [doc("Format all files")]
 [group("CI")]
 fmt:
-    alejandra . o+e>| head -n 1
+    alejandra . o+e | head -n 1
 
 [doc("Check the configuration for errors")]
 [group("CI")]
