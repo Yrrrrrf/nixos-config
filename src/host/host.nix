@@ -69,6 +69,7 @@
     users.users.${user.username} = {
       isNormalUser = true;
       description = user.username;
+      hashedPassword = user.hashedPassword;
       extraGroups = [
         "wheel"
         "input"

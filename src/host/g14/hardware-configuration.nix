@@ -29,17 +29,17 @@ else {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   fileSystems."/" = {
-    device = lib.mkForce "/dev/disk/by-uuid/7b178d85-e28e-422a-88e1-2418381deb12";
+    device = lib.mkForce "/dev/disk/by-uuid/73f1561d-8f25-4fc1-84e6-ef582962c609";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = lib.mkForce "/dev/disk/by-uuid/0A29-E24B";
+    device = lib.mkForce "/dev/disk/by-uuid/304C-E099";
     fsType = "vfat";
     options = [ "fmask=0077" "dmask=0077" ];
   };
 
   swapDevices = [
-    { device = lib.mkForce "/dev/disk/by-uuid/a7543bdf-d509-4685-9ab1-2d83c3e5fca9"; }
+    { device = lib.mkForce "/dev/disk/by-uuid/d01aedbc-7a48-4d06-9fec-33d515696bc4"; }
   ];
 }
