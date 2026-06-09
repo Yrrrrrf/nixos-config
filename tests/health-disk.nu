@@ -59,12 +59,16 @@ def partition-layout []: nothing -> any {
 }
 def main [] {
     if (which smartctl | is-empty) {
-        audit "SSD Health" "cyan_bold" { [(skip "SSD health" "smartctl not found")] }
+        audit "SSD Health" "cyan_bold" { [
+            (skip "SSD health" "smartctl not found")
+        ] }
         return
     }
     let h = (drive-health)
     if ($h | get -o error | is-not-empty) {
-        audit "SSD Health" "cyan_bold" { [(fail "SSD data" $h.error)] }
+        audit "SSD Health" "cyan_bold" { [
+            (fail "SSD data" $h.error)
+        ] }
         return
     }
     print ""
@@ -84,10 +88,10 @@ def main [] {
     let media_ok = ($h.media_errors == 0)
     let warn_ok = ($h.critical_warning == 0)
     let wear_ok = (($h.percent_used | default 0) < 90)
-    audit "SSD Health" "cyan_bold" {[
-        (check "no critical warnings"           $warn_ok  $"critical_warning = ($h.critical_warning)")
-        (check "no media errors"                $media_ok $"media_errors = ($h.media_errors)")
+    audit "SSD Health" "cyan_bold" { [
+        (check "no critical warnings" $warn_ok $"critical_warning = ($h.critical_warning)")
+        (check "no media errors" $media_ok $"media_errors = ($h.media_errors)")
         (check "spare headroom above threshold" $spare_ok $"spare ($h.available_spare_pct)% ≤ threshold ($h.spare_threshold_pct)%")
-        (check "wear level < 90%"               $wear_ok  $"percent_used = ($h.percent_used)%")
-    ]}
+        (check "wear level < 90%" $wear_ok $"percent_used = ($h.percent_used)%")
+    ] }
 }
