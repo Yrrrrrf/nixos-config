@@ -40,6 +40,7 @@
           services.asusd = {
             enable = true;
           };
+          systemd.tmpfiles.rules = ["d /etc/asusd 0755 root root - -"];
           boot.kernelPackages = pkgs.linuxPackages_latest;
         }
       )

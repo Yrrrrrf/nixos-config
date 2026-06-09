@@ -178,74 +178,82 @@ hl.device({
 ---------------------
 
 local mainMod = "SUPER"
+local exec    = hl.dsp.exec_cmd
 
--- Core
-hl.bind(mainMod .. " + M",           hl.dsp.exec_cmd("uwsm stop"))
-hl.bind(mainMod .. " + return",      hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + SHIFT + return", hl.dsp.exec_cmd("wezterm start --class floating-term --cwd $HOME/Downloads"))
-hl.bind(mainMod .. " + E",           hl.dsp.exec_cmd("wezterm start --class floating-term -- yazi $HOME/Downloads"))
-hl.bind(mainMod .. " + SHIFT + E",   hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + space",       hl.dsp.exec_cmd("uwsm app -- " .. menu))
-hl.bind(mainMod .. " + W",           hl.dsp.window.close())
-hl.bind(mainMod .. " + V",           hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SHIFT + J",   hl.dsp.layout("togglesplit"))
-hl.bind(mainMod .. " + P",           hl.dsp.window.pseudo())
+-- Prepend the mod key to a chord; hardware keys call hl.bind directly.
+local function chord(keys) return mainMod .. " + " .. keys end
 
--- Focus (vim-style)
-hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left"  }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up"    }))
-hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down"  }))
+-- "Press chord -> run shell command" binds.
+local app_binds = {
+  ["M"]               = "uwsm stop",
+  ["return"]          = terminal,
+  ["SHIFT + return"]  = "wezterm start --class floating-term --cwd $HOME/Downloads",
+  ["E"]               = "wezterm start --class floating-term -- yazi $HOME/Downloads",
+  ["SHIFT + E"]       = fileManager,
+  ["space"]           = "uwsm app -- " .. menu,
+  ["escape"]          = "layout --change",
+  ["ALT + S"]         = "screenshot --region",
+  ["ALT + SHIFT + S"] = "screenshot --screen",
+  ["ALT + V"]         = "clipboard --pick",
+}
+for keys, cmd in pairs(app_binds) do hl.bind(chord(keys), exec(cmd)) end
 
--- Resize (arrow keys)
-hl.bind(mainMod .. " + left",  hl.dsp.window.resize({ x = -16, y =   0, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x =  16, y =   0, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + up",    hl.dsp.window.resize({ x =   0, y = -16, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + down",  hl.dsp.window.resize({ x =   0, y =  16, relative = true }), { repeating = true })
+-- Window / layout actions (dispatchers, not shell commands).
+local window_binds = {
+  ["W"]         = hl.dsp.window.close(),
+  ["V"]         = hl.dsp.window.float({ action = "toggle" }),
+  ["SHIFT + J"] = hl.dsp.layout("togglesplit"),
+  ["P"]         = hl.dsp.window.pseudo(),
+}
+for keys, action in pairs(window_binds) do hl.bind(chord(keys), action) end
 
--- Workspaces 1-10
-for i = 1, 10 do
-    local key = i % 10
-    hl.bind(mainMod .. " + " .. key,           hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key,   hl.dsp.window.move({ workspace = i }))
+-- Vim-style focus.
+for key, dir in pairs({ h = "left", l = "right", k = "up", j = "down" }) do
+  hl.bind(chord(key), hl.dsp.focus({ direction = dir }))
 end
 
--- Special workspaces (scratchpads)
-hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.bind(mainMod .. " + X",         hl.dsp.workspace.toggle_special("scratch"))
-hl.bind(mainMod .. " + SHIFT + X", hl.dsp.window.move({ workspace = "special:scratch" }))
+-- Arrow-key resize.
+local resize = {
+  left  = { x = -16, y =   0, relative = true },
+  right = { x =  16, y =   0, relative = true },
+  up    = { x =   0, y = -16, relative = true },
+  down  = { x =   0, y =  16, relative = true },
+}
+for key, step in pairs(resize) do
+  hl.bind(chord(key), hl.dsp.window.resize(step), { repeating = true })
+end
 
--- Mouse workspace scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+-- Workspaces 1-10 (focus + move).
+for i = 1, 10 do
+  local key = i % 10
+  hl.bind(chord(key),               hl.dsp.focus({ workspace = i }))
+  hl.bind(chord("SHIFT + " .. key), hl.dsp.window.move({ workspace = i }))
+end
 
--- Mouse move/resize
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
--- hl.bind(mainMod .. " + mouse:273", hl.dsp.window.move_resize(), { mouse = true })
+-- Special workspaces (scratchpads): toggle + move.
+for key, name in pairs({ S = "magic", X = "scratch" }) do
+  hl.bind(chord(key),               hl.dsp.workspace.toggle_special(name))
+  hl.bind(chord("SHIFT + " .. key), hl.dsp.window.move({ workspace = "special:" .. name }))
+end
 
--- Hardware: audio
-hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("volume --up"),     { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("volume --down"),   { locked = true, repeating = true })
-hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("volume --mute"),   { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("mic --toggle"),    { locked = true, repeating = true })
+-- Mouse: workspace scroll + drag.
+hl.bind(chord("mouse_down"), hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(chord("mouse_up"),   hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(chord("mouse:272"),  hl.dsp.window.drag(), { mouse = true })
+-- hl.bind(chord("mouse:273"), hl.dsp.window.move_resize(), { mouse = true })
 
--- Hardware: brightness
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightness --up"),   { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightness --down"), { locked = true, repeating = true })
-
--- Layout / screenshot / clipboard
-hl.bind(mainMod .. " + escape",         hl.dsp.exec_cmd("layout --change"))
-hl.bind(mainMod .. " + ALT + S",        hl.dsp.exec_cmd("screenshot --region"))
-hl.bind(mainMod .. " + ALT + SHIFT + S",hl.dsp.exec_cmd("screenshot --screen"))
-hl.bind(mainMod .. " + ALT + V",        hl.dsp.exec_cmd("clipboard --pick"))
-
--- Media
-hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),        { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
-hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
-hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),    { locked = true })
-
+-- Hardware keys: locked + repeating, no mod prefix.
+local hw_flags = { locked = true, repeating = true }
+for key, cmd in pairs({
+  XF86AudioRaiseVolume  = "volume --up",
+  XF86AudioLowerVolume  = "volume --down",
+  XF86AudioMute         = "volume --mute",
+  XF86AudioMicMute      = "mic --toggle",
+  XF86MonBrightnessUp   = "brightness --up",
+  XF86MonBrightnessDown = "brightness --down",
+}) do
+  hl.bind(key, exec(cmd), hw_flags)
+end
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
