@@ -2,7 +2,8 @@
   flake.nixosModules.llms = {pkgs, ...}: {
     services.ollama = {
       enable = true;
-      acceleration = "cuda";
+      package = pkgs.ollama-cuda;
+      # acceleration = "cuda";
     };
 
     services.open-webui.enable = true;

@@ -7,10 +7,10 @@
       ];
     };
 
-    hardware.graphics.enable = true;
+    hardware = {
+      graphics.enable = true;
 
-    hardware.nvidia = {
-      open = true;
+      nvidia.open = true;
     };
 
     programs.nix-ld.libraries = with pkgs; [
