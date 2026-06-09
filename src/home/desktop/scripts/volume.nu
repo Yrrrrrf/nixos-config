@@ -18,23 +18,13 @@ def meta [pct: int, muted: bool]: nothing -> record {
     if $muted {
         {icon: "󰝟", desc: "Muted — click to unmute", class: "muted"}
     } else {
-        let icon = if $pct > 66 { "󰕾" } else if $pct > 33 { "󰖀" } else { "󰕿" }
-        let class = if $pct > 66 { "high" } else if $pct > 33 { "medium" } else { "low" }
-        {
-            icon: $icon
-            desc: "Scroll to adjust, click to mute"
-            class: $class
-        }
+        level3 $pct "󰕾" "󰖀" "󰕿" | merge {desc: "Scroll to adjust, click to mute"}
     }
 }
 def get_waybar [] {
     let s = (state)
     let m = (meta $s.pct $s.muted)
-    as_json {
-        text:    $"($m.icon) ($s.pct)%"
-        tooltip: $m.desc
-        class:   $m.class
-    }
+    status $"($m.icon) ($s.pct)%" $m.desc $m.class
 }
 def main [
     --get
@@ -42,7 +32,7 @@ def main [
     --down
     --mute
     --set: int
-] {
+]: nothing -> nothing {
     if $up {
         run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ }
         run_silent { swayosd-client --output-volume raise }

@@ -20,7 +20,7 @@ def run-memtester [size_mb: int, loops: int] {
     pass "memtester clean"
 }
 def main [--quick] {
-    print $"(ansi cyan_bold)━━ RAM Userspace Bench \(memtester\) ━━(ansi reset)"
+    section "RAM Userspace Bench (memtester)"
     let auto_size = ((free-ram-mib) * $DEFAULT_FRACTION | math floor | into int)
     let size = if $quick {
         [$auto_size, $QUICK_CAP_MIB] | math min

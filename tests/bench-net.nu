@@ -21,11 +21,12 @@ def ping-stats [target: string, count: int]: nothing -> record {
 }
 def main [--iperf: string, --quick] {
     let iface = (first-wifi-iface)
-    print $"(ansi cyan_bold)━━ Network Performance \(ping\) ━━(ansi reset)"
+    section "Network Performance (ping)"
     let p = (ping-stats "1.1.1.1" 20)
     $p | print
     if not ($iperf | is-empty) {
-        print $"\n(ansi cyan_bold)━━ iperf3 Throughput vs \($iperf\) ━━(ansi reset)"
+        print $"\n"
+        section $"iperf3 Throughput vs \(($iperf)\)"
         let r = (^iperf3 -c $iperf -t 5 -J | from json)
         {
             upload_mbps: (($r.end.sum_sent.bits_per_second / 1e6) | math round)

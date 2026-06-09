@@ -16,9 +16,9 @@ def wifi-device []: nothing -> string {
 }
 def main [] { audit "Network Stack" "cyan_bold" {
         let services = [
-            (check "iwd.service active" (is-active "iwd"))
-            (check "systemd-resolved active" (is-active "systemd-resolved"))
-            (check "NM inactive" (not (is-active "NetworkManager")))
+            (check "iwd.service active" (is-active "iwd") "iwd not active")
+            (check "systemd-resolved active" (is-active "systemd-resolved") "systemd-resolved not active")
+            (check "NM inactive" (not (is-active "NetworkManager")) "NetworkManager is running")
         ]
         
         let dev = (wifi-device)

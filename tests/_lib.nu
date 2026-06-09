@@ -165,3 +165,17 @@ export def orchestrate [
         exit 1
     }
 }
+# First NVMe block device path. Empty string if none.
+export def first-nvme []: nothing -> string {
+    let devs = (ls /dev | get name | where ($it =~ 'nvme\dn\d$'))
+    if ($devs | is-empty) { "" } else { $devs | first }
+}
+# Print a highlighted section header.
+export def section [title: string, --color: string = "cyan_bold"] {
+    print $"(ansi ($color))━━ ($title) ━━(ansi reset)"
+}
+# Guard a test behind a command existence check. Skip if missing, else run body.
+export def run_or_skip [name: string, cmd: string, body: closure]: nothing -> any {
+    if (which $cmd | is-empty) { return (skip $name $"($cmd) not found") }
+    do $body
+}

@@ -33,7 +33,7 @@ def meta [level: int]: nothing -> record { match $level {
     3 => {icon: "󱨉", desc: "Backlight high"}
     _ => {icon: "󰋖", desc: "Backlight unknown"}
 } }
-def main [--get, --up, --down] {
+def main [--get, --up, --down]: nothing -> nothing {
     let dir = if $up { "up" } else if $down { "down" } else { null }
     if $dir != null {
         let cmd = if $dir == "up" { "next" } else { "prev" }
@@ -41,14 +41,10 @@ def main [--get, --up, --down] {
         let now = (current)
         let m = (meta $now)
         let pct = ($now / 3.0)
-        run_silent { swayosd-client --custom-message $"($m.icon) Keyboard: ($LEVELS | get $now | str capitalize)" --custom-icon $m.icon --custom-progress $pct }
+        osd $"($m.icon) Keyboard: ($LEVELS | get $now | str capitalize)" $m.icon --progress $pct
     } else {
         let lvl = (current)
         let m = (meta $lvl)
-        as_json {
-            text:    $m.icon
-            tooltip: $m.desc
-            class:   ($LEVELS | get $lvl)
-        }
+        status $m.icon $m.desc ($LEVELS | get $lvl)
     }
 }

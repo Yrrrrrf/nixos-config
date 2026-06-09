@@ -5,44 +5,45 @@
 	"margin-top": 4,
 	"margin-left": 8,
 	"margin-right": 8,
-	"modules-left": ["custom/profile", "clock", "hyprland/workspaces"],
-	"modules-center": ["hyprland/window"],
+	"modules-left": [
+		"custom/profile",
+		"clock",
+		"hyprland/workspaces"
+	],
+	"modules-center": [
+		"hyprland/window"
+	],
 	"modules-right": [
 		"cpu",
 		"network",
 		"bluetooth",
+		"custom/mic",
 		"battery",
 		"custom/asus-profile",
 		"custom/keyboard-layout",
 		"custom/power"
 	],
-
 	"custom/profile": {
 		"format": " ",
 		"tooltip-format": "@user@"
 	},
-
 	"clock": {
 		"format": "{:%H:%M}",
 		"tooltip-format": "<big>{:%D}</big>\n<tt><small>{calendar}</small></tt>"
 	},
-
 	"hyprland/workspaces": {
 		"format": "{id}",
 		"on-click": "activate"
 	},
-
 	"hyprland/window": {
 		"format": "{title}",
 		"max-length": 50
 	},
-
 	"cpu": {
 		"format": " {usage}%",
 		"tooltip-format": "CPU: {usage}%",
 		"on-click": "wezterm -e btop"
 	},
-
 	"network": {
 		"format-wifi": " {essid}",
 		"format-ethernet": "󰈀 Connected",
@@ -50,7 +51,6 @@
 		"tooltip-format-wifi": "Signal: {signalStrength}% @ {frequency}GHz\nIP: {ipaddr}\nDown: {bandwidthDownBytes}\nUp: {bandwidthUpBytes}",
 		"on-click": "wezterm -e impala"
 	},
-
 	"bluetooth": {
 		"format": " {status}",
 		"format-off": "",
@@ -58,15 +58,29 @@
 		"format-connected": " {device_alias}",
 		"on-click": "wezterm -e bluetui"
 	},
-
 	"battery": {
-		"states": { "warning": 30, "critical": 15 },
+		"states": {
+			"warning": 30,
+			"critical": 15
+		},
 		"format": "{icon} {capacity}%",
 		"format-charging": " {capacity}%",
 		"format-plugged": "🔌 {capacity}%",
-		"format-icons": ["", "", "", "", ""]
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		]
 	},
-
+	"custom/mic": {
+		"format": "{}",
+		"return-type": "json",
+		"interval": 2,
+		"exec": "mic --get",
+		"on-click": "mic --toggle"
+	},
 	"custom/asus-profile": {
 		"format": "{}",
 		"return-type": "json",
@@ -74,7 +88,6 @@
 		"exec": "gpu-mode --get",
 		"on-click": "gpu-mode --change"
 	},
-
 	"custom/keyboard-layout": {
 		"format": "{}",
 		"return-type": "json",
@@ -82,7 +95,6 @@
 		"exec": "layout --get",
 		"on-click": "layout --change"
 	},
-
 	"custom/power": {
 		"format": "",
 		"on-click": "powermenu",

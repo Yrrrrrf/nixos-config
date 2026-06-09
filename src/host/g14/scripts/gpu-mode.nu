@@ -18,19 +18,15 @@ def meta [profile: string]: nothing -> record { match $profile {
     "Performance" => {icon: "󱐌", desc: "Maximum — fans engaged, plugged in recommended"}
     _ => {icon: "󰋖", desc: "Unknown profile state"}
 } }
-def main [--get, --change] {
+def main [--get, --change]: nothing -> nothing {
     if $change {
         run_silent { asusctl profile next }
         let now = (current)
         let m = (meta $now)
-        run_silent { swayosd-client --custom-message $"GPU Mode: ($m.icon)" --custom-icon $m.icon }
+        osd $"GPU Mode: ($m.icon)" $m.icon
     } else {
         let now = (current)
         let m = (meta $now)
-        as_json {
-            text:    $"($m.icon) ($now)"
-            tooltip: $m.desc
-            class:   ($now | str downcase)
-        }
+        status $"($m.icon) ($now)" $m.desc ($now | str downcase)
     }
 }

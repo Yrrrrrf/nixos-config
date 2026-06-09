@@ -59,10 +59,10 @@ def main [feature?: string, --quick] {
 
             let cleanup = (act $script "--set" $original_pct)
             [
-                (check "Hardware sweep 0% -> 100% -> 0%" true)
+                (check "Hardware sweep 0% -> 100% -> 0%" true "")
                 (check $"Mute toggle: ($start_mute) -> ($toggled)" ($toggled != $start_mute) "state did not flip")
                 (check $"Restore state: ($restored)" ($restored == $start_mute) $"got ($restored), want ($start_mute)")
-                (check $"Reset to original volume ($original_pct)%" ($cleanup == 0))
+                (check $"Reset to original volume ($original_pct)%" ($cleanup == 0) "reset failed")
             ]
         }
     }
@@ -80,8 +80,8 @@ def main [feature?: string, --quick] {
             
             let cleanup = (act $script "--set" $original_pct)
             [
-                (check "Hardware sweep 0% -> 100% -> 0%" true)
-                (check $"Reset to original brightness ($original_pct)%" ($cleanup == 0))
+                (check "Hardware sweep 0% -> 100% -> 0%" true "")
+                (check $"Reset to original brightness ($original_pct)%" ($cleanup == 0) "reset failed")
             ]
         }
     }
@@ -131,7 +131,7 @@ def main [feature?: string, --quick] {
             let script = $scripts.clipboard
             let ex = (act $script "--pick")
             [
-                (check "Invoke interactive history picker (Walker)" ($ex == 0))
+                (check "Invoke interactive history picker (Walker)" ($ex == 0) "picker failed")
             ]
         }
     }

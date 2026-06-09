@@ -10,7 +10,7 @@ def cases [] { [
     {
         name: "mic"
         cmd: "mic"
-        args: ["--get-status"]
+        args: ["--get"]
     }
     {
         name: "brightness"

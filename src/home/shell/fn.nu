@@ -1,15 +1,14 @@
 # home/shell/fn.nu
 # Convert any file to .txt (same name, new extension)
-def to-txt [file: path] {
+def to-txt [file: path]: nothing -> nothing {
     let out = (
         $file | path parse | update extension "txt" | path join | path expand
     )
     open --raw $file | save -f $out
     print $"📄 ($file) → ($out)"
 }
-
 # Load a .env file into the current environment
-def --env dotenv [file: path = .env] {
+def --env dotenv [file: path = .env]: nothing -> nothing {
     let record = (
         open --raw $file | lines | where {|l|
             let t = ($l | str trim)
@@ -22,7 +21,6 @@ def --env dotenv [file: path = .env] {
     $keys | each {|k| print $"   • ($k)"}
     null
 }
-
 # Open in hx the result of fd
 def fhx [pattern: string]: nothing -> nothing {
     let matches = fd $pattern | lines

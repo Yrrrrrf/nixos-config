@@ -19,20 +19,16 @@ def country [name: string]: nothing -> string {
         "US"
     }
 }
-def main [--get, --change] {
+def main [--get, --change]: nothing -> nothing {
     let kb = (keyboard_name)
     if $change {
         run_silent { hyprctl switchxkblayout $kb next }
         let now = (keymap)
         let code = (country $now)
-        run_silent { swayosd-client --custom-message $"Kbd set: ($code)" --custom-icon "input-keyboard" }
+        osd $"Kbd set: ($code)" "input-keyboard"
     } else {
         let now = (keymap)
         let code = (country $now)
-        as_json {
-            text:    $"⌨ ($code)"
-            tooltip: $now
-            class:   ($code | str downcase)
-        }
+        status $"⌨ ($code)" $now ($code | str downcase)
     }
 }

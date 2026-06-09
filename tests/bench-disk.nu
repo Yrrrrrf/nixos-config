@@ -1,13 +1,11 @@
 #!/usr/bin/env nu
 # tests/bench-disk.nu — SSD benchmarking
+use _lib.nu *
 const TEST_SIZE = "2G"
 const RUNTIME_SEC = 10
 def is-tmpfs [dir: string]: nothing -> bool { (
     ^df --output=fstype $dir | lines | last | str trim
 ) == "tmpfs" }
-def first-nvme []: nothing -> string {
-    ls /dev | get name | where ($it =~ 'nvme\dn\d$') | first
-}
 def fio-run [
     name: string
     rw: string
@@ -41,18 +39,20 @@ def main [
         print $"(ansi red)($test_dir) is tmpfs. Use a path on the SSD.(ansi reset)"
         exit 1
     }
-    print $"(ansi cyan_bold)━━ Sequential \(1MB, QD32\) ━━(ansi reset)"
+    section "Sequential (1MB, QD32)"
     [
         (fio-run "seq_read" "read" "1M" 32 $test_file)
         (fio-run "seq_write" "write" "1M" 32 $test_file)
     ] | table | print
-    print $"\n(ansi cyan_bold)━━ Random 4K — QD1 ━━(ansi reset)"
+    print $"\n"
+    section "Random 4K — QD1"
     [
         (fio-run "rand_read_qd1" "randread" "4k" 1 $test_file)
         (fio-run "rand_write_qd1" "randwrite" "4k" 1 $test_file)
     ] | table | print
     if not $quick {
-        print $"\n(ansi cyan_bold)━━ Random 4K — QD32 x 4 ━━(ansi reset)"
+        print $"\n"
+        section "Random 4K — QD32 x 4"
         [
             (fio-run "rand_read_qd32" "randread" "4k" 32 $test_file --numjobs 4)
             (fio-run "rand_write_qd32" "randwrite" "4k" 32 $test_file --numjobs 4)

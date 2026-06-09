@@ -40,7 +40,6 @@
           services.asusd = {
             enable = true;
           };
-          # Linux 7! :D
           boot.kernelPackages = pkgs.linuxPackages_latest;
         }
       )

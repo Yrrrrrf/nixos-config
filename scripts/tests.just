@@ -27,6 +27,6 @@ all: health bench ui
 bench-ui feature="":
     @ {{test-cmd}} -c "nu tests/bench-ui.nu {{feature}}"
 
-# Internal test runner
+# Internal test runner — runs one suite, or all matching suites when feature is "all"
 _run type feature flags="":
-    @ {{test-cmd}} -c "let file = (ls tests/{{type}}-{{feature}}.nu | get 0.name); print $'(ansi cyan)→ ($file)(ansi reset)'; nu $file {{flags}}"
+    @ {{test-cmd}} -c "let files = (if '{{feature}}' == 'all' { glob 'tests/{{type}}-*.nu' | sort } else { ['tests/{{type}}-{{feature}}.nu'] }); for f in $files { print $'(ansi cyan)→ ($f)(ansi reset)'; nu $f {{flags}} }"

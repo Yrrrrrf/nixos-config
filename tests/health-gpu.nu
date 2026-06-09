@@ -2,34 +2,37 @@
 # tests/health-gpu.nu — GPU health scan based on check_gpu.py
 use _lib.nu *
 def test-nvidia-smi [] {
-    if (which nvidia-smi | is-empty) { return (skip "NVIDIA SMI" "nvidia-smi not found") }
-    let out = (^nvidia-smi | complete)
-    check "nvidia-smi executes" ($out.exit_code == 0) ($out.stderr | str trim)
+    run_or_skip "NVIDIA SMI" "nvidia-smi" {
+        let out = (^nvidia-smi | complete)
+        check "nvidia-smi executes" ($out.exit_code == 0) ($out.stderr | str trim)
+    }
 }
-def test-power [] {
-    if (which nvidia-smi | is-empty) { return [] }
-    let out = (^nvidia-smi --query-gpu=power.draw,power.limit,utilization.gpu --format=csv,noheader,nounits | complete)
-    if $out.exit_code != 0 {
-        return [
-            (fail "GPU power query failed" ($out.stderr | str trim))
+def test-power []: nothing -> list {
+    let result = (run_or_skip "GPU power" "nvidia-smi" {
+        let out = (^nvidia-smi --query-gpu=power.draw,power.limit,utilization.gpu --format=csv,noheader,nounits | complete)
+        if $out.exit_code != 0 {
+            return [
+                (fail "GPU power query failed" ($out.stderr | str trim))
+            ]
+        }
+        let data = ($out.stdout | str trim | split row ",")
+        if ($data | length) < 3 {
+            return [
+                (fail "GPU power query returned unexpected format" $out.stdout)
+            ]
+        }
+        let draw = (
+            $data | get 0 | str trim | into float
+        )
+        let util = (
+            $data | get 2 | str trim | into float
+        )
+        [
+            (check $"Power draw: ($draw)W" ($draw <= 25.0) $"High idle power draw: ($draw)W")
+            (check $"Utilization: ($util)%" ($util <= 15.0) $"High idle utilization: ($util)%")
         ]
-    }
-    let data = ($out.stdout | str trim | split row ",")
-    if ($data | length) < 3 {
-        return [
-            (fail "GPU power query returned unexpected format" $out.stdout)
-        ]
-    }
-    let draw = (
-        $data | get 0 | str trim | into float
-    )
-    let util = (
-        $data | get 2 | str trim | into float
-    )
-    [
-        (check $"Power draw: ($draw)W" ($draw <= 25.0) $"High idle power draw: ($draw)W")
-        (check $"Utilization: ($util)%" ($util <= 15.0) $"High idle utilization: ($util)%")
-    ]
+    })
+    if ($result | describe | str starts-with "list") { $result } else { [$result] }
 }
 def test-pytorch [] {
     let ai_dir = ("~/docs/lab/ai" | path expand)
@@ -53,34 +56,34 @@ def test-pytorch [] {
         ]
     }
 }
-def test-offload [] {
-    let glxinfo = (which glxinfo)
-    if ($glxinfo | is-empty) {
-        return [
-            (skip "Offload check" "glxinfo missing")
-        ]
-    }
-    let igpu_out = (^glxinfo -B | complete)
-    let dgpu_avail = (which nvidia-offload | is-not-empty)
-    mut results = []
-    if $igpu_out.exit_code == 0 {
-        let renderer = ($igpu_out.stdout | lines | find "OpenGL renderer string" | first | str replace "OpenGL renderer string: " "" | str trim)
-        $results = ($results | append (check $"iGPU Renderer: ($renderer)" (not ($renderer | str downcase | str contains "nvidia")) $"Renderer is NVIDIA: ($renderer)"))
-    } else {
-        $results = ($results | append (fail "glxinfo failed" ($igpu_out.stderr | str trim)))
-    }
-    if $dgpu_avail {
-        let dgpu_out = (^nvidia-offload glxinfo -B | complete)
-        if $dgpu_out.exit_code == 0 {
-            let renderer = ($dgpu_out.stdout | lines | find "OpenGL renderer string" | first | str replace "OpenGL renderer string: " "" | str trim)
-            $results = ($results | append (check $"dGPU offload works: ($renderer)" ($renderer | str downcase | str contains "nvidia") $"Renderer is NOT NVIDIA: ($renderer)"))
+def renderer [out: record]: nothing -> string {
+    $out.stdout | lines | find "OpenGL renderer string" | first
+        | str replace "OpenGL renderer string: " "" | str trim
+}
+def test-offload []: nothing -> list {
+    let result = (run_or_skip "Offload check" "glxinfo" {
+        let igpu_out = (^glxinfo -B | complete)
+        let dgpu_avail = (which nvidia-offload | is-not-empty)
+        let igpu_results = if $igpu_out.exit_code == 0 {
+            let r = (renderer $igpu_out)
+            [(check $"iGPU Renderer: ($r)" (not ($r | str downcase | str contains "nvidia")) $"Renderer is NVIDIA: ($r)")]
         } else {
-            $results = ($results | append (fail "nvidia-offload glxinfo failed" ($dgpu_out.stderr | str trim)))
+            [(fail "glxinfo failed" ($igpu_out.stderr | str trim))]
         }
-    } else {
-        $results = ($results | append (skip "dGPU offload" "nvidia-offload command not found"))
-    }
-    $results
+        let dgpu_results = if $dgpu_avail {
+            let dgpu_out = (^nvidia-offload glxinfo -B | complete)
+            if $dgpu_out.exit_code == 0 {
+                let r = (renderer $dgpu_out)
+                [(check $"dGPU offload works: ($r)" ($r | str downcase | str contains "nvidia") $"Renderer is NOT NVIDIA: ($r)")]
+            } else {
+                [(fail "nvidia-offload glxinfo failed" ($dgpu_out.stderr | str trim))]
+            }
+        } else {
+            [(skip "dGPU offload" "nvidia-offload command not found")]
+        }
+        $igpu_results | append $dgpu_results
+    })
+    if ($result | describe | str starts-with "list") { $result } else { [$result] }
 }
 def test-env-clean [] {
     let bad_vars = ["__GLX_VENDOR_LIBRARY_NAME", "__EGL_VENDOR_LIBRARY_JSON_FILE"]
@@ -89,10 +92,12 @@ def test-env-clean [] {
     } | compact)
     check "Environment clean" ($issues | is-empty) ($issues | str join ", ")
 }
-def main [] { audit "GPU Health" "cyan_bold" { [
-        (test-nvidia-smi)
-        ...(test-pytorch)
-        ...(test-power)
-        ...(test-offload)
-        (test-env-clean)
-    ] } }
+def main [] { audit "GPU Health" "cyan_bold" {
+        [
+            (test-nvidia-smi)
+            ...(test-pytorch)
+            ...(test-power)
+            ...(test-offload)
+            (test-env-clean)
+        ]
+    } }

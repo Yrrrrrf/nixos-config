@@ -8,29 +8,19 @@ def percent []: nothing -> int {
     (($cur * 100) / $max | math round | into int)
 }
 def meta [pct: int]: nothing -> record {
-    let icon = if $pct > 66 { "󰃠" } else if $pct > 33 { "󰃟" } else { "󰃞" }
-    let class = if $pct > 66 { "high" } else if $pct > 33 { "medium" } else { "low" }
-    {
-        icon: $icon
-        desc: "Scroll to adjust"
-        class: $class
-    }
+    level3 $pct "󰃠" "󰃟" "󰃞" | merge {desc: "Scroll to adjust"}
 }
 def get_waybar [] {
     let p = (percent)
     let m = (meta $p)
-    as_json {
-        text:    $"($m.icon) ($p)%"
-        tooltip: $m.desc
-        class:   $m.class
-    }
+    status $"($m.icon) ($p)%" $m.desc $m.class
 }
 def main [
     --get
     --up
     --down
     --set: int
-] {
+]: nothing -> nothing {
     if $up {
         run_silent { swayosd-client --brightness raise }
     } else if $down {
