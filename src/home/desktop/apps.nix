@@ -10,6 +10,7 @@
         brave
         firefox
         obsidian
+        siyuan
         discord
         rnote
         cheese
