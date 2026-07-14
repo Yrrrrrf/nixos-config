@@ -247,8 +247,8 @@ local hw_flags = { locked = true, repeating = true }
 for key, cmd in pairs({
   XF86AudioRaiseVolume  = "volume --up",
   XF86AudioLowerVolume  = "volume --down",
-  XF86AudioMute         = "volume --mute",
-  XF86AudioMicMute      = "mic --toggle",
+  -- XF86AudioMute         = "volume --mute",
+  -- XF86AudioMicMute      = "mic --toggle",
   XF86MonBrightnessUp   = "brightness --up",
   XF86MonBrightnessDown = "brightness --down",
 }) do
