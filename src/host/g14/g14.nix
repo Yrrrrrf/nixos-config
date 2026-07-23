@@ -36,11 +36,6 @@
       # G14-specific extras: asusctl userland package + asusd service.
       (
         {pkgs, ...}: {
-          # environment.systemPackages = [pkgs.asusctl];
-          # services.asusd = {
-          # enable = true;
-          # };
-          # systemd.tmpfiles.rules = ["d /etc/asusd 0755 root root - -"];
           boot.kernelPackages = pkgs.linuxPackages_latest;
         }
       )
@@ -54,8 +49,8 @@
       "nvidia"
       # "llms"
       "g14-disk"
-      "specialisations-dev"
-      "specialisations-minimal"
+      # "specialisations-dev"
+      # "specialisations-minimal"
     ];
 
     # Host-specific home-manager content. Imported by flake.nixosModules.host
@@ -71,12 +66,6 @@
           source = ./scripts/gpu-mode.nu;
           executable = true;
         };
-        ".config/hypr/host-extras.conf".text = ''
-          # G14-specific hyprland binds (legacy .conf — kept for 0.52 compat).
-          bindel = ,XF86KbdBrightnessUp, exec, kbd-backlight --up
-          bindel = ,XF86KbdBrightnessDown, exec, kbd-backlight --down
-          bind = ,XF86Launch4, exec, gpu-mode --change
-        '';
         # Lua version — loaded by hyprland.lua via pcall(require, "host-extras")
         ".config/hypr/host-extras.lua".text = ''
           -- G14-specific Hyprland 0.55+ binds
