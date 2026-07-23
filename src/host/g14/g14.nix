@@ -36,11 +36,11 @@
       # G14-specific extras: asusctl userland package + asusd service.
       (
         {pkgs, ...}: {
-          environment.systemPackages = [pkgs.asusctl];
-          services.asusd = {
-            enable = true;
-          };
-          systemd.tmpfiles.rules = ["d /etc/asusd 0755 root root - -"];
+          # environment.systemPackages = [pkgs.asusctl];
+          # services.asusd = {
+          # enable = true;
+          # };
+          # systemd.tmpfiles.rules = ["d /etc/asusd 0755 root root - -"];
           boot.kernelPackages = pkgs.linuxPackages_latest;
         }
       )
