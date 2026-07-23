@@ -36,5 +36,7 @@
     # External config files
     xdg.configFile."fastfetch/config.jsonc".source = ./fastfetch.jsonc;
     xdg.configFile."yazi/yazi.toml".source = ./yazi.toml;
+
+    services.gnome-keyring.enable = true;
   };
 }
