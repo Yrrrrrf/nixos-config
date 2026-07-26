@@ -1,6 +1,6 @@
 {
   deno = null;
   bun = null;
-  antigravity = null;
+  antigravity-ide = null;
   antigravity-cli = null;
 }

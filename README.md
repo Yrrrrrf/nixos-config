@@ -24,6 +24,7 @@ aspects.
 
 ## Key Features
 
+- **Machine-Wide Secrets:** [SECRETS.md](file:///etc/nixos/SECRETS.md) documents the machine-wide secret management, `shared` provider alias, and the `secrets` & `commit` commands.
 - **Specialisations:** Toggle between `dev` and `minimal` environments at boot
   or runtime.
 - **Dendritic Registry:** All aspects are exposed via `inputs.self.homeModules`

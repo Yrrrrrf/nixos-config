@@ -4,6 +4,7 @@
       # inputs.agenix.homeManagerModules.default
       # Add nu shell module as default shell
       inputs.self.homeModules.nushell
+      inputs.self.homeModules.scripts
     ];
 
     programs = {
