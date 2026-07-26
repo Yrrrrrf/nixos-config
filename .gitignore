@@ -6,7 +6,7 @@
 *.lock
 
 assets
-docs
+# docs
 # scripts
 # tests
 result
