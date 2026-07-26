@@ -1,4 +1,4 @@
-# _shared.nu — helper functions for keyring reads, manifest scanning, and secret masking
+# _secrets.nu — helper functions for keyring reads, manifest scanning, and secret masking
 
 # Password prompt for viewing unmasked secret values
 export def require-auth []: nothing -> nothing {
@@ -28,15 +28,15 @@ export def fetch-keyring-entries []: nothing -> list<record> {
 
     $blocks | each {|block|
         let lines = ($block | lines | where {|l| $l != '' })
-        let label_line = ($lines | where {|l| $l starts-with 'label ='} | get -i 0)
-        let secret_line = ($lines | where {|l| $l starts-with 'secret ='} | get -i 0)
+        let label_line = ($lines | where {|l| $l starts-with 'label ='} | get -o 0)
+        let secret_line = ($lines | where {|l| $l starts-with 'secret ='} | get -o 0)
         if $label_line == null or not ($label_line =~ 'secretspec/') {
             return null
         }
         let m = (
             $label_line
             | parse -r 'secretspec/(?<store>[^/]+)/(?<profile>[^/]+)/(?<key>[^:]+):'
-            | get -i 0
+            | get -o 0
         )
         if $m == null {
             return null
@@ -46,7 +46,7 @@ export def fetch-keyring-entries []: nothing -> list<record> {
             store: $m.store,
             profile: $m.profile,
             key: $m.key,
-            value: raw_val
+            value: $raw_val
         }
     } | where {|row| $row != null }
 }
@@ -68,8 +68,8 @@ export def scan-manifests []: nothing -> list<record> {
 
     $manifest_files | each {|file|
         let toml = (open $file)
-        let proj_name = ($toml | get -i project.name | default "unknown")
-        let default_keys = ($toml | get -i profiles.default | default {} | columns)
+        let proj_name = ($toml | get -o project.name | default "unknown")
+        let default_keys = ($toml | get -o profiles.default | default {} | columns)
         $default_keys | each {|k|
             { project: $proj_name, key: $k }
         }

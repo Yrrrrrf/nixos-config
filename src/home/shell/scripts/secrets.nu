@@ -21,24 +21,29 @@ export def main [
     let keyring = (fetch-keyring-entries)
     let manifests = (scan-manifests)
 
-    # Gather all unique (key, value, store) combinations from keyring
-    # plus keys declared in manifests that are missing from keyring.
-    let keyring_keys = ($keyring | select key value store | uniq)
+    # Group keyring entries by key and value to deduplicate identical values across stores,
+    # while preserving separate rows if a key has divergent values.
+    let keyring_groups = ($keyring | select key value | uniq)
 
     mut combined = []
 
-    for k in $keyring_keys {
-        let matching_projs = ($manifests | where key == $k.key | get project | uniq | sort)
+    for g in $keyring_groups {
+        let matching_entries = ($keyring | where key == $g.key and value == $g.value)
+        let stores = ($matching_entries | get store | uniq | sort)
+        let stored_str = ($stores | str join ", ")
+        
+        let matching_projs = ($manifests | where key == $g.key | get project | uniq | sort)
+
         $combined = ($combined | append {
-            key: $k.key,
-            value: (mask-value $k.value $level),
-            stored: $k.store,
+            key: $g.key,
+            value: (mask-value $g.value $level),
+            stored: $stored_str,
             projects: $matching_projs
         })
     }
 
     # Find keys in manifests not present in keyring
-    let missing_keys = ($manifests | where {|m| not ($keyring_keys | any {|k| $k.key == $m.key }) } | select key | uniq)
+    let missing_keys = ($manifests | where {|m| not ($keyring_groups | any {|g| $g.key == $m.key }) } | select key | uniq)
     for m in $missing_keys {
         let matching_projs = ($manifests | where key == $m.key | get project | uniq | sort)
         $combined = ($combined | append {
@@ -49,5 +54,11 @@ export def main [
         })
     }
 
-    $combined | sort-by key
+    let sorted = ($combined | sort-by key)
+
+    if $level != "none" {
+        $sorted | select key value
+    } else {
+        $sorted
+    }
 }
