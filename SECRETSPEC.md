@@ -14,7 +14,25 @@ This guide provides a comprehensive reference for using `secretspec` (v0.10+) on
 
 ---
 
-## 2. Configuration & Manifest Specification
+## 2. Generating a `.env` File (If a tool hard-requires one)
+
+If a legacy tool requires an actual `.env` file on disk, generate it directly in **Nushell** or **Bash**:
+
+### In Nushell:
+```nushell
+open secretspec.toml | get profiles.default | columns | each {|k| $"($k)=(secretspec get $k)" } | str join "\n" | save -f .env
+```
+
+### In Bash:
+```bash
+bash -c 'for k in $(secretspec check | grep "✓" | awk "{print \$2}"); do echo "$k=$(secretspec get $k)"; done > .env'
+```
+
+*(Make sure `.env` is listed in your `.gitignore` so raw secrets are never committed to git!)*
+
+---
+
+## 3. Configuration & Manifest Specification
 
 ### Global User Config (`~/.config/secretspec/config.toml`)
 
@@ -54,14 +72,9 @@ PYPI_TOKEN = { description = "PyPI deployment token", required = true }
 [profiles.development]
 ```
 
-#### Field Specifications:
-* `description` *(string)*: Human-readable explanation of the secret.
-* `required` *(bool)*: If `true`, `secretspec run` or `secretspec check` fails if the secret is missing from the provider. If `false`, missing secrets are skipped without blocking execution.
-* `providers` *(list of strings)*: List of provider alias names or URIs to resolve the secret from.
-
 ---
 
-## 3. CLI Command Reference
+## 4. CLI Command Reference
 
 ### `secretspec run` — Inject Secrets into a Command
 
@@ -123,16 +136,6 @@ secretspec check
 secretspec check --file ~/Documents/lab/ai/secretspec.toml
 ```
 
-Example Output:
-```
-Checking secrets in azathoth (profile: development)...
-
-✓ GEMINI_API_KEY - Gemini API key
-✓ PYPI_TOKEN - PyPI deployment token
-
-Summary: 2 found, 0 missing
-```
-
 ---
 
 ### `secretspec config` — Manage Configuration & Aliases
@@ -149,32 +152,3 @@ secretspec config provider add shared "keyring://secretspec/shared/{profile}/{ke
 # Remove a provider alias
 secretspec config provider remove shared
 ```
-
----
-
-## 4. Machine Workflows & Best Practices
-
-1. **Use Process-Scoped Injection (`secretspec run`):**
-   * Never export API keys in `env.nu` or `.bashrc`.
-   * Use wrappers like `commit` or `secretspec run` to keep the shell environment clean.
-
-2. **Cross-Cutting vs Project-Scoped Secrets:**
-   * **Shared Secrets:** Add `providers = ["shared"]` in manifest declarations so one keyring entry handles all consumers.
-   * **Project-Scoped Secrets:** Omit `providers` so keys remain scoped to `secretspec/{project}/{profile}/{key}`.
-
-3. **Keep Manifests Self-Contained:**
-   * Avoid `extends`. Explicitly declare all keys in each `secretspec.toml` to ensure every repository works in isolation.
-
----
-
-## 5. Quick Command Cheat Sheet
-
-| Action | Command |
-| ------ | ------- |
-| **Run command with secrets** | `secretspec run -- <cmd>` |
-| **Run with explicit manifest** | `secretspec run --file <path> -- <cmd>` |
-| **Set secret value** | `secretspec set <KEY> [<VALUE>]` |
-| **Get secret value** | `secretspec get <KEY>` |
-| **Validate manifest secrets** | `secretspec check` |
-| **List provider aliases** | `secretspec config provider list` |
-| **Add provider alias** | `secretspec config provider add <alias> <URI>` |

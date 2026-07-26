@@ -5,7 +5,24 @@ use _secrets.nu *
 export def main [
     --show (-s)           # Show 16-character secret prefixes (requires auth)
     --show-full (-f)      # Show full secret values (requires auth)
-]: nothing -> table {
+    --export (-e)         # Export declared secrets from local secretspec.toml to .env file
+]: nothing -> any {
+    if $export {
+        if not ("secretspec.toml" | path exists) {
+            error make {msg: "No secretspec.toml found in current directory"}
+        }
+        let toml = (open secretspec.toml)
+        let keys = ($toml | get -o profiles.default | default {} | columns)
+        if ($keys | is-empty) {
+            print "No secrets declared in profiles.default"
+            return
+        }
+        let env_content = ($keys | each {|k| $"($k)=(secretspec get $k)" } | str join "\n")
+        $"($env_content)\n" | save -f .env
+        print $"✓ Exported ($keys | length) secrets to .env"
+        return
+    }
+
     let level = if $show_full {
         "full"
     } else if $show {
