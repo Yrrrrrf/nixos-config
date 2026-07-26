@@ -24,7 +24,11 @@ aspects.
 
 ## Key Features
 
-- **Machine-Wide Secrets:** [SECRETS.md](file:///etc/nixos/SECRETS.md) documents the machine-wide secret management, `shared` provider alias, and the `secrets` & `commit` commands.
+- **Machine-Wide Secrets:** [SECRETS.md](file:///etc/nixos/SECRETS.md) documents
+  the machine-wide secret management, `shared` provider alias, and the `secrets`
+  & `commit` commands.
+- **Secretspec Reference:** [SECRETSPEC.md](file:///etc/nixos/SECRETSPEC.md)
+  provides a comprehensive CLI and manifest usage guide for `secretspec`.
 - **Specialisations:** Toggle between `dev` and `minimal` environments at boot
   or runtime.
 - **Dendritic Registry:** All aspects are exposed via `inputs.self.homeModules`
@@ -44,11 +48,3 @@ Use the provided `justfile` for common tasks:
 - `just fmt`: Format all Nix files using `alejandra`.
 - `just build`: Build the system configuration.
 - `just switch`: Build and switch to the new configuration.
-
-## Specialisations
-
-To switch to a specialisation at runtime:
-
-```bash
-sudo /run/current-system/specialisation/dev/bin/switch-to-configuration switch
-```
