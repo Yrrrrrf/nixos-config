@@ -16,15 +16,25 @@ This guide provides a comprehensive reference for using `secretspec` (v0.10+) on
 
 ## 2. Generating a `.env` File (If a tool hard-requires one)
 
-If a legacy tool requires an actual `.env` file on disk, generate it directly in **Nushell** or **Bash**:
+If a legacy tool requires an actual `.env` file on disk, you can generate it using the built-in `secrets --export` command or raw one-liners:
 
-### In Nushell:
+### Primary Method (`secrets --export`):
+Run `secrets --export` (or short flag `secrets -e`) in any directory containing a `secretspec.toml`:
+```bash
+secrets --export        # or secrets -e
+```
+* Reads declared keys from `profiles.default`.
+* Queries secretspec resolution for each key.
+* Formats and writes `KEY=VALUE` pairs into `.env` (`✓ Exported N secrets to .env`).
+
+### Alternative One-liners:
 ```nushell
+# In Nushell:
 open secretspec.toml | get profiles.default | columns | each {|k| $"($k)=(secretspec get $k)" } | str join "\n" | save -f .env
 ```
 
-### In Bash:
 ```bash
+# In Bash:
 bash -c 'for k in $(secretspec check | grep "✓" | awk "{print \$2}"); do echo "$k=$(secretspec get $k)"; done > .env'
 ```
 
@@ -151,4 +161,24 @@ secretspec config provider add shared "keyring://secretspec/shared/{profile}/{ke
 
 # Remove a provider alias
 secretspec config provider remove shared
+```
+
+---
+
+## 5. System Inventory & Inspection (`secrets`)
+
+The custom `secrets` tool in `~/.local/bin/secrets` provides safe, read-only inspection and export:
+
+```bash
+# Default table view (shows key, masked value, stored backend, declared projects)
+secrets
+
+# Show 16-character secret prefixes (filters to key + value columns only, requires PAM auth)
+secrets --show          # or -s
+
+# Show full secret values (filters to key + value columns only, requires PAM auth)
+secrets --show-full     # or -f
+
+# Export local project secrets to .env file
+secrets --export        # or -e
 ```
