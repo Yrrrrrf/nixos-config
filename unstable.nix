@@ -3,4 +3,5 @@
   bun = null;
   antigravity-ide = null;
   antigravity-cli = null;
+  lazyrsync = null;
 }

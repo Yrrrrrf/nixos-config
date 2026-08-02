@@ -13,6 +13,7 @@
       with pkgs; [
         bat
         hexyl
+        glow
       ];
     text = pkgs:
       with pkgs; [
@@ -29,6 +30,7 @@
         delta
         git-cliff # CI tool (release notes generator)
         jujutsu # kaisen :3
+        onefetch
       ];
     system = pkgs:
       with pkgs; [
@@ -45,6 +47,8 @@
         bandwhich
         killport
         lazyrsync
+        doggo
+        trippy
         # iroh
       ];
     archive = pkgs:
