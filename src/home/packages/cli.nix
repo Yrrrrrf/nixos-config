@@ -28,7 +28,7 @@
         lazygit
         delta
         git-cliff # CI tool (release notes generator)
-        jujutsu
+        jujutsu # kaisen :3
       ];
     system = pkgs:
       with pkgs; [
@@ -44,6 +44,7 @@
         gping
         bandwhich
         killport
+        lazyrsync
         # iroh
       ];
     archive = pkgs:
@@ -59,6 +60,7 @@
       with pkgs; [
         skim
         tealdeer
+        gum
       ];
     rust-dev = pkgs:
       with pkgs; [
