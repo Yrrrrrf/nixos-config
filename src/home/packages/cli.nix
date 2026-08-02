@@ -27,6 +27,7 @@
         gh
         gitui
         lazygit
+        lazyjj
         delta
         git-cliff # CI tool (release notes generator)
         jujutsu # kaisen :3
