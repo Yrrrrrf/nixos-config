@@ -17,11 +17,9 @@
     dev = inputs.self.lib.pkgsets.dev;
     langs = builtins.attrValues inputs.self.lib.dev.langs;
   in {
-    imports =
-      [
-        inputs.self.homeModules.common
-      ]
-      ++ (lib.attrValues (lib.filterAttrs (n: _: lib.hasPrefix "dev-lang-" n) inputs.self.homeModules));
+    imports = [
+      inputs.self.homeModules.common
+    ];
 
     programs.helix.languages = {
       language = lib.concatMap (l: l.helix.language or []) langs;

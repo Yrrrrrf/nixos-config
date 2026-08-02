@@ -31,8 +31,10 @@
 
       firewall = {
         enable = true;
-        allowedTCPPorts = [53];
-        allowedUDPPorts = [53 67];
+        interfaces."wlp2s0" = {
+          allowedTCPPorts = [53];
+          allowedUDPPorts = [53 67];
+        };
       };
 
       # NAT sharing USB-ethernet uplink → wifi clients.

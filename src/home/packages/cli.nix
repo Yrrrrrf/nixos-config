@@ -40,6 +40,8 @@
         procs
         dust
         fastfetch
+        impala # iwd TUI — needed in every profile for wifi recovery
+        bluetui
       ];
     net = pkgs:
       with pkgs; [
@@ -82,8 +84,6 @@
         wev
         dua # disk usage
         unimatrix
-        bluetui
-        impala
         openssl
       ];
   in {
