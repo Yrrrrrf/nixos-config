@@ -6,19 +6,18 @@ def muted []: nothing -> bool {
 }
 def meta [is_muted: bool]: nothing -> record {
     if $is_muted {
-        {icon: "󰍭", desc: "Microphone muted", class: "muted"}
+        {icon: "󰍭", desc: "Muted"}
     } else {
-        {icon: "󰍬", desc: "Microphone active", class: "active"}
+        {icon: "󰍬", desc: "Active"}
     }
 }
 def main [--get, --toggle]: nothing -> nothing {
     if $toggle {
         run_silent { wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle }
-        run_silent { swayosd-client --input-volume mute-toggle }
         let m = (meta (muted))
-        notify "Microphone" $m.desc
+        osd $m.desc $m.icon
     } else {
         let m = (meta (muted))
-        status $m.icon $m.desc $m.class
+        status $m.icon $m.desc
     }
 }

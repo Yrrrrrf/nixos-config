@@ -13,7 +13,7 @@ def meta [pct: int]: nothing -> record {
 def get_waybar [] {
     let p = (percent)
     let m = (meta $p)
-    status $"($m.icon) ($p)%" $m.desc $m.class
+    status $"($m.icon) ($p)%" $m.desc
 }
 def main [
     --get

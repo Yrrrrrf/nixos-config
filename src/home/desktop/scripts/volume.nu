@@ -16,7 +16,7 @@ def state []: nothing -> record {
 # (pct, muted) → presentation. tooltip = action hint, not a number restated.
 def meta [pct: int, muted: bool]: nothing -> record {
     if $muted {
-        {icon: "󰝟", desc: "Muted — click to unmute", class: "muted"}
+        {icon: "󰝟", desc: "Muted — click to unmute"}
     } else {
         level3 $pct "󰕾" "󰖀" "󰕿" | merge {desc: "Scroll to adjust, click to mute"}
     }
@@ -24,7 +24,7 @@ def meta [pct: int, muted: bool]: nothing -> record {
 def get_waybar [] {
     let s = (state)
     let m = (meta $s.pct $s.muted)
-    status $"($m.icon) ($s.pct)%" $m.desc $m.class
+    status $"($m.icon) ($s.pct)%" $m.desc
 }
 def main [
     --get
@@ -35,16 +35,12 @@ def main [
     --set: int
 ]: nothing -> nothing {
     if $up {
-        run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ }
         run_silent { swayosd-client --output-volume raise }
     } else if $down {
-        run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- }
         run_silent { swayosd-client --output-volume lower }
     } else if $mute or $toggle {
-        run_silent { wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle }
         run_silent { swayosd-client --output-volume mute-toggle }
     } else if $set != null {
-        run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ ($"($set)%") }
         run_silent { swayosd-client --output-volume ($set) }
     } else {
         get_waybar

@@ -250,6 +250,7 @@ for key, cmd in pairs({
   XF86AudioMute         = "volume --mute",
   XF86MonBrightnessUp   = "brightness --up",
   XF86MonBrightnessDown = "brightness --down",
+  XF86AudioMicMute      = "mic --toggle",
 }) do
   hl.bind(key, exec(cmd), hw_flags)
 end

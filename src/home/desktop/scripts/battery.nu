@@ -60,21 +60,11 @@ def meta [pct: int, charging: bool, power_w: float]: nothing -> record {
     } else {
         "Critical"
     }
-    let class = if $charging {
-        "charging"
-    } else if $pct > 30 {
-        "green"
-    } else if $pct > 10 {
-        "yellow"
-    } else {
-        "red"
-    }
     let p_info = if $power_w > 0.0 { $" (($power_w)W)" } else { "" }
     let desc = $"Battery ($pct)% — ($level_name)($p_info)"
     {
         icon: $icon
         level_name: $level_name
-        class: $class
         desc: $desc
     }
 }
@@ -93,9 +83,9 @@ def main [
     if $show {
         show_osd $info.pct $m.icon $m.level_name
     } else if $get {
-        status $"($m.icon) ($info.pct)%" $m.desc $m.class
+        status $"($m.icon) ($info.pct)%" $m.desc
     } else {
         show_osd $info.pct $m.icon $m.level_name
-        status $"($m.icon) ($info.pct)%" $m.desc $m.class
+        status $"($m.icon) ($info.pct)%" $m.desc
     }
 }
