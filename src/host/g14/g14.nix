@@ -37,6 +37,10 @@
       (
         {pkgs, ...}: {
           boot.kernelPackages = pkgs.linuxPackages_latest;
+          systemd.services.asus-shutdown = {
+            overrideStrategy = "asDropin";
+            serviceConfig.SendSIGKILL = true;
+          };
         }
       )
 

@@ -31,6 +31,7 @@ def main [
     --up
     --down
     --mute
+    --toggle
     --set: int
 ]: nothing -> nothing {
     if $up {
@@ -39,7 +40,7 @@ def main [
     } else if $down {
         run_silent { wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- }
         run_silent { swayosd-client --output-volume lower }
-    } else if $mute {
+    } else if $mute or $toggle {
         run_silent { wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle }
         run_silent { swayosd-client --output-volume mute-toggle }
     } else if $set != null {

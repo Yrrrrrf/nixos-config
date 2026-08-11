@@ -32,6 +32,11 @@ def cases [] { [
         cmd: "kbd-backlight"
         args: ["--get"]
     }
+    {
+        name: "battery"
+        cmd: "battery"
+        args: ["--get"]
+    }
 ] }
 def check_case [c: record]: nothing -> record {
     let required = ["text", "tooltip", "class"]

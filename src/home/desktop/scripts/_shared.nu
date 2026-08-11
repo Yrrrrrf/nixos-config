@@ -33,9 +33,13 @@ export def run_silent [code: closure] {
 }
 # pct + three icons -> {icon, class}. Buckets: >66 high, >33 medium, else low.
 export def level3 [pct: int, high: string, med: string, low: string]: nothing -> record {
-    if $pct > 66 { {icon: $high, class: "high"} }
-    else if $pct > 33 { {icon: $med, class: "medium"} }
-    else { {icon: $low, class: "low"} }
+    if $pct > 66 {
+        {icon: $high, class: "high"}
+    } else if $pct > 33 {
+        {icon: $med, class: "medium"}
+    } else {
+        {icon: $low, class: "low"}
+    }
 }
 # Emit a waybar-JSON status line.
 export def status [text: string, tooltip: string, class: string]: nothing -> string {
@@ -44,6 +48,6 @@ export def status [text: string, tooltip: string, class: string]: nothing -> str
 # Custom OSD message + icon, optional progress bar (0.0..1.0). Fire-and-forget.
 export def osd [message: string, icon: string, --progress: float] {
     let args = ([--custom-message $message --custom-icon $icon]
-        | append (if $progress != null { [--custom-progress $progress] } else { [] }))
+        | append (if $progress != null { [--custom-progress $progress --custom-progress-text $message] } else { [] }))
     run_silent { swayosd-client ...$args }
 }
