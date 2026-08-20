@@ -5,7 +5,7 @@
   };
   config.flake.lib.pkgsets.dev = {
     build = pkgs: with pkgs; [pkg-config gcc openssl.dev devenv secretspec libsecret];
-    ides = pkgs: with pkgs; [vscode jetbrains-toolbox antigravity-ide antigravity-cli zed-editor];
+    ides = pkgs: with pkgs; [vscode jetbrains-toolbox antigravity-ide zed-editor];
   };
 
   options.flake.lib.dev.langs = lib.mkOption {

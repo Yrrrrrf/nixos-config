@@ -36,7 +36,7 @@
       # G14-specific extras: asusctl userland package + asusd service.
       (
         {pkgs, ...}: {
-          boot.kernelPackages = pkgs.linuxPackages_latest;
+          boot.kernelPackages = pkgs.linuxPackages_7_1;
           systemd.services.asus-shutdown = {
             overrideStrategy = "asDropin";
             serviceConfig.SendSIGKILL = true;
