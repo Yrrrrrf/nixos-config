@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  inputs,
+  ...
+}: {
   options.flake.lib.pkgsets.desktop = lib.mkOption {
     type = lib.types.lazyAttrsOf lib.types.raw;
     default = {};
@@ -9,6 +13,7 @@
       with pkgs; [
         brave
         firefox
+        inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
         obsidian
         siyuan
         discord
