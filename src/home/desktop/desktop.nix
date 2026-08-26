@@ -9,6 +9,7 @@
     security.pam.services.hyprlock = {};
     security.pam.services.login.enableGnomeKeyring = true;
     services.gnome.gnome-keyring.enable = true;
+    services.dbus.packages = [pkgs.gcr];
 
     xdg.portal = {
       enable = true;
@@ -85,6 +86,8 @@
       hyprlock
       dunst
       hyprshot
+      seahorse
+      gcr
     ];
 
     programs.walker = {
