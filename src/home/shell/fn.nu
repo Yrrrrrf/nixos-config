@@ -43,6 +43,8 @@ def fhx [pattern: string = ""]: nothing -> nothing {
 }
 
 # Open in antigravity-ide the result of fd for .code-workspace files
-def agy-ide [pattern: string = ""]: nothing -> nothing {
-    fd -e code-workspace $pattern $env.HOME | lines | _pick-exec {|w| antigravity-ide $w }
+def fws [pattern: string = ""]: nothing -> nothing {
+    fd --base-directory $env.HOME -I -e code-workspace $pattern | lines | _pick-exec {|w|
+        antigravity-ide ([$env.HOME $w] | path join)
+    }
 }
