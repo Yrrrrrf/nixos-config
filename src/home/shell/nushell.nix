@@ -12,6 +12,8 @@
       '';
       shellAliases = {
         lg = "lazygit";
+        lj = "lazyjj";
+        lr = "lazyrsync";
       };
     };
 

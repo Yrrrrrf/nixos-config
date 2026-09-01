@@ -25,12 +25,31 @@ def --env dotenv [file: path = .env]: nothing -> nothing {
 def fhx [pattern: string]: nothing -> nothing {
     let matches = fd $pattern | lines
     match ($matches | length) {
-        0 => null                      # nothing found → no-op
-        1 => { hx ($matches | first) } # single hit → open it
+        0 => null
+        1 => { 
+        # nothing found → no-op
+        hx ($matches | first # single hit → open it) }
         _ => {
             # multiple → fuzzy-pick one
             let pick = $matches | str join (char newline) | sk | str trim
             if ($pick | is-not-empty) { hx $pick }
+        }
+    }
+}
+# Open in antigravity-ide the result of fd for .code-workspace files
+def agy-ide [pattern: string = ]: nothing -> nothing {
+    let matches = fd -e code-workspace $pattern $env.HOME | lines
+    match ($matches | length) {
+        0 => {
+            print $"No workspace found matching '($pattern)'. Available workspaces:"
+            fd -e code-workspace "" $env.HOME | lines | each {|w| print $"   • ($w)"}
+            null
+        }
+        1 => { antigravity-ide ($matches | first # single hit → open it) }
+        _ => {
+            # multiple → fuzzy-pick one
+            let pick = $matches | str join (char newline) | sk | str trim
+            if ($pick | is-not-empty) { antigravity-ide $pick }
         }
     }
 }
