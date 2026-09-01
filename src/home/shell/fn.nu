@@ -21,35 +21,28 @@ def --env dotenv [file: path = .env]: nothing -> nothing {
     $keys | each {|k| print $"   • ($k)"}
     null
 }
-# Open in hx the result of fd
-def fhx [pattern: string]: nothing -> nothing {
-    let matches = fd $pattern | lines
+# Fuzzy-pick a candidate from a list and execute an action closure:
+# - 0 items  → no-op
+# - 1 item   → run action directly
+# - 2+ items → fuzzy-pick via sk, then run action
+def _pick-exec [action: closure]: list<string> -> nothing {
+    let matches = $in
     match ($matches | length) {
         0 => null
-        1 => { 
-        # nothing found → no-op
-        hx ($matches | first # single hit → open it) }
+        1 => { do $action ($matches | first) }
         _ => {
-            # multiple → fuzzy-pick one
-            let pick = $matches | str join (char newline) | sk | str trim
-            if ($pick | is-not-empty) { hx $pick }
+            let pick = ($matches | str join (char newline) | sk | str trim)
+            if ($pick | is-not-empty) { do $action $pick }
         }
     }
 }
+
+# Open in hx the result of fd
+def fhx [pattern: string = ""]: nothing -> nothing {
+    fd $pattern | lines | _pick-exec {|f| hx $f }
+}
+
 # Open in antigravity-ide the result of fd for .code-workspace files
-def agy-ide [pattern: string = ]: nothing -> nothing {
-    let matches = fd -e code-workspace $pattern $env.HOME | lines
-    match ($matches | length) {
-        0 => {
-            print $"No workspace found matching '($pattern)'. Available workspaces:"
-            fd -e code-workspace "" $env.HOME | lines | each {|w| print $"   • ($w)"}
-            null
-        }
-        1 => { antigravity-ide ($matches | first # single hit → open it) }
-        _ => {
-            # multiple → fuzzy-pick one
-            let pick = $matches | str join (char newline) | sk | str trim
-            if ($pick | is-not-empty) { antigravity-ide $pick }
-        }
-    }
+def agy-ide [pattern: string = ""]: nothing -> nothing {
+    fd -e code-workspace $pattern $env.HOME | lines | _pick-exec {|w| antigravity-ide $w }
 }
