@@ -130,6 +130,7 @@
         nodejs
         bun
         deno
+        typescript-go
       ];
   };
 }

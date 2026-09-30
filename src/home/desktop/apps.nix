@@ -20,6 +20,7 @@
         rnote
         cheese
         steam
+        tetro-tui
       ];
     creative = pkgs:
       with pkgs; [
