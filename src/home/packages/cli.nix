@@ -46,6 +46,7 @@
     net = pkgs:
       with pkgs; [
         xh
+        hurl
         gping
         bandwhich
         killport
