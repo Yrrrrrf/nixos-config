@@ -32,10 +32,22 @@
         extraConfig = builtins.readFile ./helix.toml;
       };
       yazi.enable = true;
+      bat = {
+        enable = true;
+        config = {
+          theme = "Catppuccin Mocha";
+          map-syntax = [
+            "*.surql:SQL"
+            "*.surrealql:SQL"
+            "*.hurl:HTTP Request and Response"
+          ];
+        };
+      };
     };
 
     # External config files
     xdg.configFile."fastfetch/config.jsonc".source = ./fastfetch.jsonc;
     xdg.configFile."yazi/yazi.toml".source = ./yazi.toml;
+    xdg.configFile."yazi/plugins/bat.yazi".source = ./plugins/bat.yazi;
   };
 }

@@ -10,3 +10,10 @@ rules = [
   { mime = "inode/x-empty", use = "edit" },
   { url  = "*",             use = "edit" },
 ]
+
+[plugin]
+prepend_previewers = [
+  { url = "*.surql",     run = "bat" },
+  { url = "*.surrealql", run = "bat" },
+  { url = "*.hurl",      run = "bat" },
+]

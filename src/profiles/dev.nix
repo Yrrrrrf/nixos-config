@@ -26,6 +26,8 @@
       language-server = lib.foldl' (a: l: a // (l.helix.language-server or {})) {} langs;
     };
 
+    xdg.configFile = lib.foldl' (a: l: a // (l.helix.queries or {})) {} langs;
+
     home.sessionVariables = {
       AQ_DRM_DEVICES = "/dev/dri/igpu:/dev/dri/dgpu";
       LD_LIBRARY_PATH = lib.makeLibraryPath (libs.build pkgs);

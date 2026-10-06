@@ -55,6 +55,10 @@
         "comment-token"
         "lsp"
         "formatter"
+        "highlights"
+        "textobjects"
+        "indents"
+        "queries"
       ];
     in
       {
@@ -69,6 +73,21 @@
 
     items = toList specs;
     allLsps = lib.concatMap (s: map normLsp (toList (s.lsp or []))) items;
+    allQueries =
+      lib.foldl' (
+        a: item:
+          a
+          // (item.queries or {})
+          // (lib.optionalAttrs (item ? grammar && item.grammar != item.name) {
+            "helix/runtime/queries/${item.name}/highlights.scm".text =
+              item.highlights or "; inherits: ${item.grammar}\n";
+            "helix/runtime/queries/${item.name}/textobjects.scm".text =
+              item.textobjects or "; inherits: ${item.grammar}\n";
+            "helix/runtime/queries/${item.name}/indents.scm".text =
+              item.indents or "; inherits: ${item.grammar}\n";
+          })
+      ) {}
+      items;
   in {
     language = map mkOne items;
     language-server = lib.listToAttrs (
@@ -78,5 +97,6 @@
       })
       allLsps
     );
+    queries = allQueries;
   };
 }
