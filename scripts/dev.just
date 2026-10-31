@@ -27,7 +27,7 @@ quality: fmt check lint
 [doc("Check GPU status")]
 [group("AI")]
 check-gpu:
-    cd ~/docs/lab/ai; uv run scripts/check_gpu.py
+    cd ~/Documents/lab/ai; uv run src/scripts/check_gpu.py
 
 [doc("Unlock: take ownership so you can edit without sudo")]
 [group("Permissions")]

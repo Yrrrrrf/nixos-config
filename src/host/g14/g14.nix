@@ -51,7 +51,7 @@
       "desktop"
       "podman"
       "nvidia"
-      # "llms"
+      "llms"
       "g14-disk"
       # "specialisations-dev"
       # "specialisations-minimal"

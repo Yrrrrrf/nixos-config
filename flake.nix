@@ -25,7 +25,7 @@
     walker = {
       url = "github:abenz1267/walker";
       inputs.elephant.follows = "elephant";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Keep walker's own nixpkgs input so prebuilt binaries hit walker-git.cachix.org
     };
 
     zen-browser = {
