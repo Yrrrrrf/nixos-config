@@ -88,6 +88,7 @@
       hyprshot
       seahorse
       gcr
+      herdr
     ];
 
     programs.walker = {
