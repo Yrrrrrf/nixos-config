@@ -83,9 +83,9 @@ def main [
     if $show {
         show_osd $info.pct $m.icon $m.level_name
     } else if $get {
-        status $"($m.icon) ($info.pct)%" $m.desc
+        status $"($m.icon) ($info.pct)%" $m.desc ($m.level_name | str downcase)
     } else {
         show_osd $info.pct $m.icon $m.level_name
-        status $"($m.icon) ($info.pct)%" $m.desc
+        status $"($m.icon) ($info.pct)%" $m.desc ($m.level_name | str downcase)
     }
 }

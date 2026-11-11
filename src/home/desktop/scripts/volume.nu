@@ -16,7 +16,7 @@ def state []: nothing -> record {
 # (pct, muted) → presentation. tooltip = action hint, not a number restated.
 def meta [pct: int, muted: bool]: nothing -> record {
     if $muted {
-        {icon: "󰝟", desc: "Muted — click to unmute"}
+        {icon: "󰝟", desc: "Muted — click to unmute", class: "muted"}
     } else {
         level3 $pct "󰕾" "󰖀" "󰕿" | merge {desc: "Scroll to adjust, click to mute"}
     }
@@ -24,7 +24,7 @@ def meta [pct: int, muted: bool]: nothing -> record {
 def get_waybar [] {
     let s = (state)
     let m = (meta $s.pct $s.muted)
-    status $"($m.icon) ($s.pct)%" $m.desc
+    status $"($m.icon) ($s.pct)%" $m.desc $m.class
 }
 def main [
     --get

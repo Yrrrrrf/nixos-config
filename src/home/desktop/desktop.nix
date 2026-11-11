@@ -98,11 +98,31 @@
       runAsService = true;
       config = {
         theme = user.username;
-        builtins = {
-          applications.weight = 5;
-          runner.weight = 1;
-          symbols.weight = 1;
-          calc.weight = 1;
+        close_when_open = true;
+        click_to_close = true;
+        single_click_activation = true;
+        selection_wrap = true;
+        placeholders = {
+          default = {
+            input = "Search...";
+            list = "No Results";
+          };
+          clipboard = {
+            input = "Clipboard:";
+            list = "Clipboard is empty";
+          };
+        };
+        providers = {
+          default = [
+            "desktopapplications"
+            "calc"
+            "runner"
+            "symbols"
+            "websearch"
+          ];
+          empty = ["desktopapplications"];
+          max_results = 50;
+          clipboard.time_format = "relative";
         };
       };
       themes.${user.username}.style = theme.apply (builtins.readFile ./walker-style.css);

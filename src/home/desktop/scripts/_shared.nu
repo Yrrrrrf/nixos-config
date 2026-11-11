@@ -31,14 +31,14 @@ export def capture [code: closure]: nothing -> string {
 export def run_silent [code: closure] {
     do $code | complete | ignore
 }
-# pct + three icons -> {icon}. Buckets: >66 high, >33 medium, else low.
+# pct + three icons -> {icon, class}. Buckets: >66 high, >33 medium, else low.
 export def level3 [pct: int, high: string, med: string, low: string]: nothing -> record {
     if $pct > 66 {
-        {icon: $high}
+        {icon: $high, class: "high"}
     } else if $pct > 33 {
-        {icon: $med}
+        {icon: $med, class: "medium"}
     } else {
-        {icon: $low}
+        {icon: $low, class: "low"}
     }
 }
 # Emit a waybar-JSON status line.

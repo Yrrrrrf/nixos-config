@@ -6,9 +6,9 @@ def muted []: nothing -> bool {
 }
 def meta [is_muted: bool]: nothing -> record {
     if $is_muted {
-        {icon: "󰍭", desc: "Muted"}
+        {icon: "󰍭", desc: "Muted", class: "muted"}
     } else {
-        {icon: "󰍬", desc: "Active"}
+        {icon: "󰍬", desc: "Active", class: "active"}
     }
 }
 def main [--get, --toggle]: nothing -> nothing {
@@ -18,6 +18,6 @@ def main [--get, --toggle]: nothing -> nothing {
         osd $m.desc $m.icon
     } else {
         let m = (meta (muted))
-        status $m.icon $m.desc
+        status $m.icon $m.desc $m.class
     }
 }

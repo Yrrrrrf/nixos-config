@@ -3,14 +3,23 @@
 * {
   border: none;
   border-radius: 0;
-   font-family: "@monospace@";
-
-  font-size: 16px;
+  font-family: "@monospace@";
+  font-size: 15px;
   min-height: 0;
 }
 
 window#waybar {
   background: transparent;
+  color: @text@;
+}
+
+tooltip {
+  background: alpha(@bg@, @opacity@);
+  border: @borderWidth@px solid alpha(@accent@, 0.35);
+  border-radius: @borderRadius_island@px;
+}
+
+tooltip label {
   color: @text@;
 }
 
@@ -26,17 +35,18 @@ window#waybar {
 #workspaces,
 #hyprland-window,
 #cpu,
-
+#custom-volume,
+#custom-mic,
 #network,
 #bluetooth,
 #battery,
 #custom-asus-profile,
 #custom-keyboard-layout {
-  background-color: @surface@;
+  background-color: alpha(@bg@, @opacity@);
   padding: 4px 14px;
   margin: 4px;
   border-radius: @borderRadius_pill@px;
-  border: @borderWidth@px solid @border@;
+  border: @borderWidth@px solid alpha(@border@, 0.45);
 }
 
 #custom-profile {
@@ -56,26 +66,29 @@ window#waybar {
   padding: 0 4px;
   border-radius: @borderRadius_pill@px;
   min-width: 24px;
-  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.68);
+  transition: all 0.25s ease;
 }
 
 #workspaces button:hover {
-  background-color: @bg@;
+  background-color: alpha(@surface@, 0.65);
+  color: @text@;
 }
 
 #workspaces button.active {
-  background-color: @ok@;
-  color: @bg@;
+  background-color: alpha(@accent@, 0.25);
+  color: @accent@;
+  font-weight: bold;
 }
 
 @keyframes glow {
-  0% { box-shadow: 0 0 3px @accent@; }
-  50% { box-shadow: 0 0 10px @accent@; }
-  100% { box-shadow: 0 0 3px @accent@; }
+  0% { box-shadow: 0 0 3px alpha(@accent@, 0.45); }
+  50% { box-shadow: 0 0 10px alpha(@accent@, 0.75); }
+  100% { box-shadow: 0 0 3px alpha(@accent@, 0.45); }
 }
 
 #hyprland-window {
   font-weight: bold;
+  border-color: alpha(@accent@, 0.40);
   animation-name: glow;
   animation-duration: 2s;
   animation-timing-function: linear;
@@ -83,6 +96,10 @@ window#waybar {
 }
 
 #cpu { color: @extra@; }
+#custom-volume { color: @accent@; }
+#custom-volume.muted { color: @subtext@; }
+#custom-mic { color: @ok@; }
+#custom-mic.muted { color: @err@; }
 #network { color: @info@; }
 #network.disconnected { color: @err@; }
 #bluetooth { color: @accent-alt@; }
@@ -91,10 +108,14 @@ window#waybar {
 #battery.critical { color: @err@; }
 
 #custom-power {
-  color: @bg@;
-  background-color: @err@;
+  color: @err@;
+  background-color: alpha(@err@, 0.20);
   padding: 4px 14px;
   margin: 4px 8px 4px 4px;
   border-radius: @borderRadius_pill@px;
-  border: @borderWidth@px solid @border@;
+  border: @borderWidth@px solid alpha(@err@, 0.55);
+}
+
+#custom-power:hover {
+  background-color: alpha(@err@, 0.35);
 }

@@ -1,16 +1,17 @@
 /* /etc/nixos/src/home/desktop/swayosd-style.css */
 window {
     font-family: "@monospace@";
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: @text@;
-    background: @bg@;
-    border: @borderWidth@px solid @accent@;
+    background: alpha(@bg@, @opacity@);
+    border: @borderWidth@px solid alpha(@accent@, 0.45);
     border-radius: @borderRadius_island@px;
     padding: 10px 20px;
 }
 trough {
-    background-color: @surface@;
+    background-color: alpha(@surface@, 0.65);
+    border: @borderWidth@px solid alpha(@border@, 0.35);
     border-radius: @borderRadius_pill@px;
     min-height: 10px;
     min-width: 250px;

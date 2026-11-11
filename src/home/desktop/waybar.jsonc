@@ -9,6 +9,8 @@
 	"modules-center": ["hyprland/window"],
 	"modules-right": [
 		"cpu",
+		"custom/volume",
+		"custom/mic",
 		"network",
 		"bluetooth",
 		"battery",
@@ -36,6 +38,23 @@
 		"format": " {usage}%",
 		"tooltip-format": "CPU: {usage}%",
 		"on-click": "wezterm -e btop"
+	},
+	"custom/volume": {
+		"format": "{}",
+		"return-type": "json",
+		"interval": 2,
+		"exec": "volume --get",
+		"on-click": "volume --mute",
+		"on-click-right": "pavucontrol",
+		"on-scroll-up": "volume --up",
+		"on-scroll-down": "volume --down"
+	},
+	"custom/mic": {
+		"format": "{}",
+		"return-type": "json",
+		"interval": 2,
+		"exec": "mic --get",
+		"on-click": "mic --toggle"
 	},
 	"network": {
 		"format-wifi": " {essid}",
