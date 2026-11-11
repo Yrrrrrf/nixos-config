@@ -1,97 +1,235 @@
 /* src/home/desktop/walker-style.css
  *
- * Walker GTK4 theme — base16. Templated through `theme.apply`
- * (see flake.homeModules.stylix) so colour rotation stays a single-source change.
+ * Walker v2 GTK4 theme — base16 (Catppuccin Mocha) with translucent glass cards.
+ * Templated through `theme.apply` (see flake.homeModules.stylix) so colour
+ * rotation stays a single-source change.
  *
- * Selectors mirror walker's default theme widget tree:
- *   #window       — the layer-shell window itself
- *   #box          — outer container (#window > #box)
- *   #input        — search entry
- *   #list         — results ScrolledWindow > ListView
- *   child         — each list row (GTK4 ListView uses `child`, not `.item`)
- *   child:selected — current selection
- *
- * Provider-class scoping (e.g. #window.runner, #window.dmenu) is intentionally
- * omitted — keep this file under ~80 lines until a real need shows up.
+ * Walker v2 uses CSS classes (defined in resources/themes/default/*.xml) rather
+ * than GTK widget IDs, and requires `* { all: unset; }` so Adwaita Light defaults
+ * do not bleed into GtkGridView, GtkEntry, or GtkButton widgets:
+ *   .window           — transparent layer-shell window
+ *   .box-wrapper      — outer floating island card
+ *   .search-container — search bar pill container (.input inside)
+ *   .list / child     — results GtkGridView and row containers
+ *   .item-box         — per-row container (.item-text, .item-subtext, .item-image)
+ *   .preview          — side preview pane for clipboard images/text and files
+ *   .keybinds         — bottom action bar (.keybind-button, .keybind-label, .keybind-bind)
  */
 
-#window {
-  background-color: transparent;
+* {
+  all: unset;
+}
+
+scrollbar {
+  opacity: 0;
+}
+
+.window {
+  background: transparent;
   color: @text@;
   font-family: "@monospace@";
   font-size: 12pt;
 }
 
-#box {
-  background-color: alpha(@bg@, @opacity@);
-  border: @borderWidth@px solid @border@;
+.box-wrapper {
+  background: alpha(@bg@, @opacity@);
+  border: @borderWidth@px solid alpha(@accent@, 0.35);
   border-radius: @borderRadius_island@px;
-  padding: 12px;
-  margin: 0;
-  min-width: 560px;
+  padding: 16px;
 }
 
-#input {
-  background-color: @bg-alt@;
+.box,
+.content-container,
+.scroll,
+.list,
+child {
+  background: transparent;
   color: @text@;
-  border: @borderWidth@px solid @surface@;
+}
+
+.search-container {
+  background: alpha(@bg-alt@, 0.72);
+  border: @borderWidth@px solid alpha(@border@, 0.45);
+  border-radius: @borderRadius_pill@px;
+  margin-bottom: 6px;
+}
+
+.input {
+  background: transparent;
+  color: @text@;
+  caret-color: @accent@;
+  padding: 10px 14px;
+}
+
+.input placeholder {
+  color: @subtext@;
+  opacity: 0.7;
+}
+
+.input selection {
+  background: alpha(@accent@, 0.35);
+  color: @text@;
+}
+
+.item-box {
+  background: transparent;
+  border: @borderWidth@px solid transparent;
   border-radius: @borderRadius_pill@px;
   padding: 8px 12px;
-  margin-bottom: 10px;
-  caret-color: @accent@;
+  margin: 2px 0;
 }
 
-#input:focus {
-  border-color: @accent@;
-  outline: none;
+child:hover .item-box {
+  background: alpha(@surface@, 0.50);
+  border-color: alpha(@border@, 0.35);
 }
 
-#list {
-  background-color: transparent;
-  border: none;
-  min-height: 320px;
+child:selected .item-box,
+row:selected .item-box {
+  background: alpha(@accent@, 0.22);
+  border-color: alpha(@accent@, 0.65);
 }
 
-child {
-  background-color: transparent;
-  color: @text@;
-  border-radius: @borderRadius_pill@px;
-  padding: 6px 10px;
-  margin: 1px 0;
+.normal-icons {
+  -gtk-icon-size: 18px;
 }
 
-child:hover {
-  background-color: @surface@;
-}
-
-child:selected,
-child:selected:hover {
-  background-color: @accent@;
-  color: @bg@;
-}
-
-/* Per-item internals (icon + label rendered by item.xml layouts).
- * Walker uses standard GTK4 widget names; these cover the common ones. */
-child image {
-  -gtk-icon-size: 22px;
+.large-icons,
+.item-image {
+  -gtk-icon-size: 28px;
   margin-right: 10px;
 }
 
-child label.name {
+.item-image-text,
+.symbols .item-image {
+  font-size: 22px;
+  margin-right: 10px;
+  color: @accent@;
+}
+
+.item-text {
+  color: @text@;
   font-weight: 500;
 }
 
-child label.description {
+child:selected .item-text,
+row:selected .item-text {
+  color: @accent@;
+  font-weight: 600;
+}
+
+.item-subtext {
   color: @subtext@;
+  font-size: 9.5pt;
+  opacity: 0.85;
+}
+
+.providerlist .item-subtext {
+  font-size: 10.5pt;
+  opacity: 0.85;
+}
+
+.calc .item-text {
+  font-size: 20px;
+  color: @accent@;
+  font-weight: bold;
+}
+
+.item-quick-activation {
+  background: alpha(@surface@, 0.65);
+  color: @subtext@;
+  border: @borderWidth@px solid alpha(@border@, 0.40);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 9pt;
+}
+
+child:selected .item-quick-activation,
+row:selected .item-quick-activation {
+  background: alpha(@accent@, 0.30);
+  color: @text@;
+  border-color: alpha(@accent@, 0.65);
+}
+
+/* Preview pane (clipboard images & text, files, packages) */
+.preview {
+  background: alpha(@bg-alt@, 0.65);
+  border: @borderWidth@px solid alpha(@border@, 0.45);
+  border-radius: @borderRadius_pill@px;
+  padding: 12px;
+  color: @text@;
+}
+
+.preview-box,
+.preview-stack,
+.preview label,
+.preview textview,
+.preview text {
+  background: transparent;
+  color: @text@;
+  font-family: "@monospace@";
   font-size: 10pt;
 }
 
-child:selected label.description {
-  color: @bg@;
+.preview .large-icons {
+  -gtk-icon-size: 64px;
 }
 
-/* Empty-state placeholder text (config.toml: placeholders.default.list) */
-#list placeholder {
+/* Keybind hints footer */
+.keybinds {
+  padding-top: 10px;
+  margin-top: 4px;
+  border-top: @borderWidth@px solid alpha(@border@, 0.35);
+  font-size: 9.5pt;
+  color: @subtext@;
+}
+
+.keybind-button {
+  background: alpha(@surface@, 0.55);
+  border: @borderWidth@px solid alpha(@border@, 0.40);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+.keybind-button:hover {
+  background: alpha(@accent@, 0.25);
+  border-color: alpha(@accent@, 0.60);
+}
+
+.keybind-label {
+  color: @text@;
+  font-size: 9.5pt;
+}
+
+.keybind-bind {
+  color: @subtext@;
+  font-size: 8.5pt;
+  text-transform: lowercase;
+  opacity: 0.75;
+}
+
+.placeholder,
+.elephant-hint {
   color: @subtext@;
   font-style: italic;
+}
+
+.error {
+  padding: 8px 12px;
+  background: alpha(@err@, 0.20);
+  border: @borderWidth@px solid @err@;
+  border-radius: @borderRadius_pill@px;
+  color: @err@;
+}
+
+:not(.calc).current {
+  font-style: italic;
+}
+
+popover {
+  background: alpha(@bg-alt@, 0.92);
+  border: @borderWidth@px solid alpha(@border@, 0.55);
+  border-radius: @borderRadius_island@px;
+  padding: 10px;
+  color: @text@;
 }
