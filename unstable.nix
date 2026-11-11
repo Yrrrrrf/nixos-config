@@ -9,6 +9,5 @@
       dontCargoUseSystemLibs = true;
       doCheck = false;
     };
-  brave = null;
   vscode = null;
 }
