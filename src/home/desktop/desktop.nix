@@ -75,7 +75,6 @@
 
     home.packages = with pkgs; [
       playerctl
-      cliphist
       wl-clipboard
       awww
       pavucontrol
