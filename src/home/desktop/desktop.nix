@@ -10,12 +10,6 @@
     security.pam.services.login.enableGnomeKeyring = true;
     services.gnome.gnome-keyring.enable = true;
     services.dbus.packages = [pkgs.gcr];
-
-    xdg.portal = {
-      enable = true;
-      config.common.default = "*";
-      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
-    };
   };
 
   flake.homeModules.desktop = {
@@ -54,6 +48,15 @@
 
     services.swayosd.enable = true;
 
+    xdg.portal = {
+      enable = true;
+      config.common.default = [
+        "hyprland"
+        "gtk"
+      ];
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = theme.apply (builtins.readFile ./hyprland.lua);
@@ -88,7 +91,7 @@
       hyprshot
       seahorse
       gcr
-      herdr
+      herdr-desktop
     ];
 
     programs.walker = {
