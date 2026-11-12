@@ -11,6 +11,7 @@
         ${builtins.readFile ./fn.nu}
       '';
       shellAliases = {
+        ld = "lazydocker";
         lg = "lazygit";
         lj = "lazyjj";
         lr = "lazyrsync";
