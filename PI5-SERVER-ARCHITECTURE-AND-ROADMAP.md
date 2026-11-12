@@ -26,6 +26,7 @@
    - Authenticated `cloudflared` against the `yrrrrrf.dev` zone via `nix run nixpkgs#cloudflared -- tunnel login`.
 4. **Named Tunnel (`rpi5`) & Subdomain CNAME Routes — ✅ DONE**:
    - Created tunnel **`rpi5`** with UUID **`9d4882e5-7305-49f1-a186-5f4ecc31b99a`**.
+| `git.yrrrrrf.dev` | `127.0.0.1:3001` | ✅ Running; Gitea server, admin user `yrrrrrf` created |
    - Routed `yrrrrrf.dev`, `page.yrrrrrf.dev`, `api.yrrrrrf.dev`, `n8n.yrrrrrf.dev`, `open-webui.yrrrrrf.dev`, and `ssh.yrrrrrf.dev` to the `rpi5` tunnel.
 
 ### B. Where Your Keys & Credentials Live — 🔐 IMPORTANT
@@ -89,6 +90,7 @@
 | **`api.yrrrrrf.dev`** | `http://127.0.0.1:3000` | Custom backend services / microservices (Rust, Bun, Deno) | **Public** (Bearer token / API key auth in app) |
 | **`n8n.yrrrrrf.dev`** | `http://127.0.0.1:5678` | **`n8n`** workflow automation & incoming webhooks | **UI behind Cloudflare Access**; `/webhook/*` paths bypass Access for external triggers |
 | **`open-webui.yrrrrrf.dev`** | `http://127.0.0.1:7777` | **`open-webui`** chat interface | **Cloudflare Zero Trust Access** (Email OTP / GitHub login) |
+| `git.yrrrrrf.dev` | `127.0.0.1:3001` | ✅ Running; Gitea server, admin user `yrrrrrf` created |
 | **`ssh.yrrrrrf.dev`** | `ssh://127.0.0.1:22` | Emergency remote SSH into `rpi5` from anywhere | **Cloudflare Zero Trust Access** + Ed25519 SSH key |
 
 ---
@@ -169,6 +171,7 @@ Renamed `ai` → `open-webui` and `flow` → `n8n` (old `ai`/`flow` CNAMEs shoul
 | :--- | :--- | :--- |
 | `open-webui.yrrrrrf.dev` | `127.0.0.1:7777` | ✅ Running; uses `g14` Ollama over LAN (works only while `g14` is awake) |
 | `n8n.yrrrrrf.dev` | `127.0.0.1:5678` | ✅ Running (`WEBHOOK_URL` set; pnpm hash is **aarch64-specific**: `sha256-yL95w+Jd5I5R6r/qNihvAJ4MX2LMyS9ICZzJnLxHR4s=`) |
+| `git.yrrrrrf.dev` | `127.0.0.1:3001` | ✅ Running; Gitea server, admin user `yrrrrrf` created |
 | `ssh.yrrrrrf.dev` | `ssh://127.0.0.1:22` | ✅ Running; protected by Cloudflare Access app `rpi5-ssh` (policy `only-me`) |
 | `yrrrrrf.dev`, `page.`, `api.` | `:8080`, `:8080`, `:3000` | ⏳ Routed but nothing listening yet (Cloudflare 502) |
 
