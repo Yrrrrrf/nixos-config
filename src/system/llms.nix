@@ -1,7 +1,12 @@
 {...}: {
-  flake.nixosModules.llms = {pkgs, ...}: {
+  flake.nixosModules.llms = {
+    pkgs,
+    ...
+  }: {
     services.ollama = {
       enable = true;
+      host = "0.0.0.0";
+      port = 11434;
       # Build CUDA kernels only for RTX 4060 Laptop GPU (Ada Lovelace, sm_89)
       # instead of all 10 default architectures.
       package = pkgs.ollama-cuda.override {
@@ -9,21 +14,14 @@
       };
     };
 
-    services.open-webui = {
-      enable = true;
-      # Skip fpdf2's 6-min pytest suite: test_image_with_explicit_dimensions
-      # fails with a PDF MD5 mismatch in nixpkgs, and cache.nixos.org already
-      # serves the prebuilt binary when doCheck = false.
-      package = pkgs.open-webui.overridePythonAttrs (old: {
-        dependencies =
-          map (
-            dep:
-              if (dep.pname or "") == "fpdf2"
-              then dep.overridePythonAttrs {doCheck = false;}
-              else dep
-          )
-          old.dependencies;
-      });
+    # Allow rpi5 (192.168.100.167) to query Ollama over LAN on TCP 11434.
+    networking.firewall = {
+      extraCommands = ''
+        iptables -A nixos-fw -p tcp -s 192.168.100.167 --dport 11434 -j nixos-fw-accept
+      '';
+      extraStopCommands = ''
+        iptables -D nixos-fw -p tcp -s 192.168.100.167 --dport 11434 -j nixos-fw-accept || true
+      '';
     };
 
     environment.systemPackages = [

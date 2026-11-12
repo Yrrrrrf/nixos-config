@@ -53,6 +53,7 @@
         lazyrsync
         doggo
         trippy
+        cloudflared
         # iroh
       ];
     archive = pkgs:
